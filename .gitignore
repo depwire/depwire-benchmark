@@ -1,0 +1,9 @@
+# Benchmark repo exclusions
+repo/                    # the cloned test repo (too large)
+results/                 # local results (personal data)
+*.jsonl                  # Claude Code session logs
+.claude/                 # Claude Code project files
+repo/.mcp.json           # may contain tokens
+node_modules/
+*.log
+.DS_Store
