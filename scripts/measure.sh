@@ -44,100 +44,32 @@ fi
 DIFF_STAT=$(git diff --stat "$BASELINE")
 
 # --- Task C: APIError errorCode addition ---
-# Ground truth files that MUST be changed (relative to packages/payload/)
-CORRECT_FILES=(
-  # Core change
-  "packages/payload/src/errors/APIError.ts"
-  # Error subclasses (27)
-  "packages/payload/src/errors/AuthenticationError.ts"
-  "packages/payload/src/errors/DuplicateCollection.ts"
-  "packages/payload/src/errors/DuplicateFieldName.ts"
-  "packages/payload/src/errors/DuplicateGlobal.ts"
-  "packages/payload/src/errors/ErrorDeletingFile.ts"
-  "packages/payload/src/errors/FileRetrievalError.ts"
-  "packages/payload/src/errors/FileUploadError.ts"
-  "packages/payload/src/errors/Forbidden.ts"
-  "packages/payload/src/errors/InvalidConfiguration.ts"
-  "packages/payload/src/errors/InvalidFieldJoin.ts"
-  "packages/payload/src/errors/InvalidFieldName.ts"
-  "packages/payload/src/errors/InvalidFieldRelationship.ts"
-  "packages/payload/src/errors/InvalidSchema.ts"
-  "packages/payload/src/errors/Locked.ts"
-  "packages/payload/src/errors/LockedAuth.ts"
-  "packages/payload/src/errors/MissingCollectionLabel.ts"
-  "packages/payload/src/errors/MissingEditorProp.ts"
-  "packages/payload/src/errors/MissingFieldInputOptions.ts"
-  "packages/payload/src/errors/MissingFieldType.ts"
-  "packages/payload/src/errors/MissingFile.ts"
-  "packages/payload/src/errors/NotFound.ts"
-  "packages/payload/src/errors/QueryError.ts"
-  "packages/payload/src/errors/ReservedFieldName.ts"
-  "packages/payload/src/errors/TimestampsRequired.ts"
-  "packages/payload/src/errors/UnauthorizedError.ts"
-  "packages/payload/src/errors/UnverifiedEmail.ts"
-  "packages/payload/src/errors/ValidationError.ts"
-  # Direct callers (52)
-  "packages/payload/src/auth/operations/forgotPassword.ts"
-  "packages/payload/src/auth/operations/local/forgotPassword.ts"
-  "packages/payload/src/auth/operations/local/login.ts"
-  "packages/payload/src/auth/operations/local/resetPassword.ts"
-  "packages/payload/src/auth/operations/local/unlock.ts"
-  "packages/payload/src/auth/operations/local/verifyEmail.ts"
-  "packages/payload/src/auth/operations/logout.ts"
-  "packages/payload/src/auth/operations/resetPassword.ts"
-  "packages/payload/src/auth/operations/unlock.ts"
-  "packages/payload/src/auth/operations/verifyEmail.ts"
-  "packages/payload/src/collections/endpoints/findDistinct.ts"
-  "packages/payload/src/collections/operations/delete.ts"
-  "packages/payload/src/collections/operations/findDistinct.ts"
-  "packages/payload/src/collections/operations/findVersionByID.ts"
-  "packages/payload/src/collections/operations/local/count.ts"
-  "packages/payload/src/collections/operations/local/countVersions.ts"
-  "packages/payload/src/collections/operations/local/create.ts"
-  "packages/payload/src/collections/operations/local/delete.ts"
-  "packages/payload/src/collections/operations/local/duplicate.ts"
-  "packages/payload/src/collections/operations/local/find.ts"
-  "packages/payload/src/collections/operations/local/findByID.ts"
-  "packages/payload/src/collections/operations/local/findDistinct.ts"
-  "packages/payload/src/collections/operations/local/findVersionByID.ts"
-  "packages/payload/src/collections/operations/local/findVersions.ts"
-  "packages/payload/src/collections/operations/local/restoreVersion.ts"
-  "packages/payload/src/collections/operations/local/update.ts"
-  "packages/payload/src/collections/operations/restoreVersion.ts"
-  "packages/payload/src/collections/operations/update.ts"
-  "packages/payload/src/collections/operations/updateByID.ts"
-  "packages/payload/src/config/orderable/index.ts"
-  "packages/payload/src/database/getLocalizedPaths.ts"
-  "packages/payload/src/fields/config/sanitizeJoinField.ts"
-  "packages/payload/src/globals/operations/local/countVersions.ts"
-  "packages/payload/src/globals/operations/local/findOne.ts"
-  "packages/payload/src/globals/operations/local/findVersionByID.ts"
-  "packages/payload/src/globals/operations/local/findVersions.ts"
-  "packages/payload/src/globals/operations/local/restoreVersion.ts"
-  "packages/payload/src/globals/operations/local/update.ts"
-  "packages/payload/src/hierarchy/hooks/ensureSafeCollectionsChange.ts"
-  "packages/payload/src/query-presets/preventLockout.ts"
-  "packages/payload/src/uploads/endpoints/getFile.ts"
-  "packages/payload/src/uploads/endpoints/getFileFromURL.ts"
-  "packages/payload/src/uploads/endpoints/uploadInstructions.ts"
-  "packages/payload/src/uploads/fetchAPI-multipart/index.ts"
-  "packages/payload/src/uploads/fetchAPI-multipart/processMultipart.ts"
-  "packages/payload/src/uploads/getExternalFile.ts"
-  "packages/payload/src/uploads/getFileFromUploadInstructions.ts"
-  "packages/payload/src/uploads/stagedUpload.ts"
-  "packages/payload/src/utilities/addDataAndFileToRequest.ts"
-  "packages/payload/src/utilities/getRequestEntity.ts"
-  "packages/payload/src/utilities/routeError.ts"
-  "packages/payload/src/utilities/sanitizeFilename.ts"
-  # Test file (has 'new APIError(...)' in assertions)
-  "packages/payload/src/utilities/formatErrors.spec.ts"
-)
+# Hidden monorepo-wide ground truth. This file is never shown to agents.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+GROUND_TRUTH_FILE="$SCRIPT_DIR/../tasks/TASK_C_GROUND_TRUTH.txt"
+CORRECT_FILES=()
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  case "$f" in \#*) continue ;; esac
+  CORRECT_FILES+=("$f")
+done < "$GROUND_TRUTH_FILE"
 
-# Check which correct files were updated
+if [ "${#CORRECT_FILES[@]}" -ne 126 ]; then
+  echo "ERROR: expected 126 ground-truth files, found ${#CORRECT_FILES[@]}" >&2
+  exit 1
+fi
+
+# Validate the constructor contract in every required file. A touched file only
+# earns credit when every relevant call in that file uses an UPPER_SNAKE_CASE
+# string literal and the core constructor/property contract is present.
+SOLUTION_VALIDATION_JSON=$(cd "$MONOREPO_ROOT" && node "$SCRIPT_DIR/validate_task_c_solution.mjs" "$MONOREPO_ROOT" "$GROUND_TRUTH_FILE")
+
+# Check which required files were both updated and structurally correct.
 CORRECT_UPDATED=()
 MISSED_FILES=()
 for f in "${CORRECT_FILES[@]}"; do
-  if echo "$CHANGED_FILES" | grep -q "^${f}$"; then
+  IS_STRUCTURALLY_VALID=$(echo "$SOLUTION_VALIDATION_JSON" | jq -r --arg f "$f" '.valid | index($f) != null')
+  if echo "$CHANGED_FILES" | grep -q "^${f}$" && [ "$IS_STRUCTURALLY_VALID" = "true" ]; then
     CORRECT_UPDATED+=("$f")
   else
     MISSED_FILES+=("$f")
@@ -170,7 +102,8 @@ echo "=== Running TypeScript check... ==="
 TSC_OUTPUT_FILE="${RESULTS_DIR}/${BRANCH}-tsc.txt"
 mkdir -p "$RESULTS_DIR"
 cd "$MONOREPO_ROOT/packages/payload"
-npx tsc --noEmit > "$TSC_OUTPUT_FILE" 2>&1 || true
+npx tsc --noEmit > "$TSC_OUTPUT_FILE" 2>&1
+TSC_EXIT=$?
 TSC_ERRORS=$(grep -c "error TS" "$TSC_OUTPUT_FILE" 2>/dev/null || true)
 TSC_ERRORS=${TSC_ERRORS:-0}
 echo "  TypeScript errors: $TSC_ERRORS"
@@ -180,7 +113,8 @@ cd "$MONOREPO_ROOT"
 echo ""
 echo "=== Running unit tests... ==="
 TEST_OUTPUT_FILE="${RESULTS_DIR}/${BRANCH}-tests.txt"
-pnpm test:unit > "$TEST_OUTPUT_FILE" 2>&1 || true
+pnpm test:unit > "$TEST_OUTPUT_FILE" 2>&1
+TEST_EXIT=$?
 tail -5 "$TEST_OUTPUT_FILE"
 
 # Parse test results
@@ -189,7 +123,10 @@ TEST_PASSED=$(echo "$TEST_SUMMARY_LINE" | grep -o '[0-9]* passed' | grep -o '[0-
 TEST_FAILED=$(echo "$TEST_SUMMARY_LINE" | grep -o '[0-9]* failed' | grep -o '[0-9]*' || echo 0)
 TEST_SKIPPED=$(echo "$TEST_SUMMARY_LINE" | grep -o '[0-9]* skipped' | grep -o '[0-9]*' || echo 0)
 
-if [ -z "$TEST_SUMMARY_LINE" ]; then
+if [ "$TEST_EXIT" -ne 0 ]; then
+  TEST_RESULT="FAIL"
+  TEST_FAILED="-1"
+elif [ -z "$TEST_SUMMARY_LINE" ]; then
   if grep -q "error TS" "$TEST_OUTPUT_FILE" 2>/dev/null; then
     TEST_RESULT="FAIL"
     TEST_FAILED="-1"
@@ -232,8 +169,9 @@ CORRECTNESS_MAX="${#CORRECT_FILES[@]}"
 MISSED_COUNT="${#MISSED_FILES[@]}"
 EXTRA_COUNT="${#EXTRA_FILES[@]}"
 
-# Score: 1 point per correct file, -2 per remaining tsc error, +5 if tests pass
-SCORE=$((CORRECTNESS - (TSC_ERRORS * 2)))
+# Score: 1 point per structurally correct required file, -1 per unrelated file,
+# -2 per remaining tsc error, +5 if tests pass.
+SCORE=$((CORRECTNESS - EXTRA_COUNT - (TSC_ERRORS * 2)))
 if [ "$TEST_RESULT" = "PASS" ]; then
   SCORE=$((SCORE + 5))
 fi
@@ -265,10 +203,12 @@ cat > "${RESULTS_DIR}/${BRANCH}.json" << JSONEOF
   },
   "diff_stat": $(echo "$DIFF_STAT" | jq -Rs .),
   "tsc": {
+    "exit_code": ${TSC_EXIT},
     "errors": ${TSC_ERRORS},
     "output_file": "${TSC_OUTPUT_FILE}"
   },
   "tests": {
+    "exit_code": ${TEST_EXIT},
     "result": "${TEST_RESULT}",
     "passed": ${TEST_PASSED},
     "failed": ${TEST_FAILED},

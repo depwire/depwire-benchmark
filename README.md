@@ -86,7 +86,8 @@ After each run, fill in agent/cost/quality:
 depwire-benchmark/
 ├── tasks/
 │   ├── TASK_C_PROMPT.md   # Agent-visible task; no answer key
-│   └── TASK_C.md          # Archived flawed July prompt; never shown by runners
+│   ├── TASK_C_GROUND_TRUTH.txt # Hidden 126-file scoring oracle
+│   └── DEPWIRE_GUIDED_WORKFLOW.md # Guidance injected only in the guided arm
 ├── scripts/
 │   ├── measure.sh          # Automated measurement (tsc + tests + scoring)
 │   ├── run_task_c_*.sh     # 3 runner scripts (one per mode)

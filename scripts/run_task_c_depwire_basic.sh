@@ -1,13 +1,11 @@
 #!/bin/bash
 set -e
 
-REPO="/Users/atefataya/Developer/depwire-benchmark-v2/repo/packages/payload"
 TASK="C"
 MODE="depwire_basic"
-RESULTS_DIR="/Users/atefataya/Developer/depwire-benchmark-v2/results"
 BRANCH="benchmark-task-c-depwire-basic-$(date +%Y%m%d-%H%M%S)"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-MONOREPO_ROOT="/Users/atefataya/Developer/depwire-benchmark-v2/repo"
+source "$SCRIPT_DIR/task_c_common.sh"
 
 echo "========================================"
 echo "BENCHMARK: Task $TASK | Mode: $MODE"
@@ -15,22 +13,12 @@ echo "Branch: $BRANCH"
 echo "Started: $(date)"
 echo "========================================"
 
-cd "$MONOREPO_ROOT"
-git stash -u 2>/dev/null || true
-git checkout benchmark-baseline
-git checkout -b "$BRANCH"
-
-# Build required dependency
-echo "Building translations package..."
-cd "$MONOREPO_ROOT/packages/translations" && pnpm build > /dev/null 2>&1
-cd "$MONOREPO_ROOT"
+prepare_task_c_branch
+confirm_agent_working_directory
 
 START_TIME=$(date +%s)
 
-echo ""
-echo "=== TASK PROMPT (paste this to agent) ==="
-echo ""
-cat /Users/atefataya/Developer/depwire-benchmark-v2/tasks/TASK_C.md
+print_task_prompt
 
 echo ""
 echo "=== DEPWIRE BASIC MODE ==="
@@ -39,8 +27,8 @@ echo '{
   "mcpServers": {
     "depwire": {
       "command": "npx",
-      "args": ["-y", "depwire-cli@latest", "mcp", "."],
-      "cwd": "'"$MONOREPO_ROOT"'"
+      "args": ["-y", "depwire-cli@'"$DEPWIRE_VERSION"'", "mcp", "."],
+      "cwd": "'"$REPO"'"
     }
   }
 }'
@@ -56,4 +44,4 @@ echo ""
 echo "=== Press ENTER when agent has completed the task ==="
 read -r
 
-"$SCRIPT_DIR/measure.sh" "$REPO" "benchmark-baseline" "$TASK" "$MODE" "$BRANCH" "$START_TIME" "$RESULTS_DIR"
+"$SCRIPT_DIR/measure.sh" "$REPO" "$BASELINE" "$TASK" "$MODE" "$BRANCH" "$START_TIME" "$RESULTS_DIR"
