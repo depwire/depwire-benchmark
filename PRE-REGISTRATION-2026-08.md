@@ -168,3 +168,21 @@ reason to discard or rerun a session.
 No session under this corrected harness has been run as of this amendment. The
 next execution sequence is No Depwire, Depwire Basic, then Depwire Guided; all
 three start from `benchmark-baseline` and pass the harness guard first.
+
+## 10. Post-run scorer correction
+
+**Recorded:** 2026-08-17, after all three sessions completed and before results
+publication.
+
+The first scoring pass reported the same core-file miss in every arm. Audit
+showed that all three implementations took `errorCode: string` as the first
+`APIError` constructor parameter, passed it to `ExtendableError`, stored it
+there as `readonly errorCode`, compiled cleanly, and exposed the property on
+every `APIError` instance through inheritance. The validator incorrectly
+required the property declaration to be physically inside the `APIError` class.
+
+The AST validator was corrected to accept either direct readonly storage in
+`APIError` or readonly storage in its base class when `APIError` passes the
+first parameter through. Each frozen result-branch commit was then rescored;
+no agent code, transcript, timing, tool count, test result, or branch commit was
+changed. This is a scorer-bug correction, not a session rerun or exclusion.

@@ -12,8 +12,9 @@ have been withdrawn. An audit found three material harness defects:
 3. The no-Depwire arm started in a different working directory.
 
 The raw records remain in `results/` for auditability, but they are not valid
-evidence of a Depwire effect. All three arms will be rerun after the prompt,
-scope, scoring, and launch conditions are made identical.
+evidence of a Depwire effect. Three corrected sessions have now been run with
+an answer-key-free prompt, a 126-file monorepo oracle, and identical launch
+conditions. See `results/REPORT.md` for the exploratory results and limitations.
 
 ## Task
 

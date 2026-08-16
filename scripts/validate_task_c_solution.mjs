@@ -31,9 +31,15 @@ function isErrorCodeLiteral(node) {
 function validateCore(sourceFile) {
   let propertyIsReadonly = false
   let constructorIsValid = false
+  let apiErrorStoresCode = false
+  let apiErrorPassesCodeToBase = false
+  let baseStoresCode = false
 
   function visit(node) {
-    if (ts.isClassDeclaration(node) && node.name?.text === 'APIError') {
+    if (
+      ts.isClassDeclaration(node) &&
+      (node.name?.text === 'APIError' || node.name?.text === 'ExtendableError')
+    ) {
       for (const member of node.members) {
         if (
           ts.isPropertyDeclaration(member) &&
@@ -44,11 +50,46 @@ function validateCore(sourceFile) {
         }
         if (ts.isConstructorDeclaration(member)) {
           const first = member.parameters[0]
-          if (first?.name.getText(sourceFile) === 'errorCode' && isStringType(first)) {
+          const hasErrorCodeFirst =
+            first?.name.getText(sourceFile) === 'errorCode' && isStringType(first)
+
+          if (node.name.text === 'APIError' && hasErrorCodeFirst) {
             constructorIsValid = true
             if (first.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ReadonlyKeyword)) {
               propertyIsReadonly = true
+              apiErrorStoresCode = true
             }
+            member.body?.statements.forEach((statement) => {
+              if (
+                ts.isExpressionStatement(statement) &&
+                ts.isBinaryExpression(statement.expression) &&
+                statement.expression.left.getText(sourceFile) === 'this.errorCode' &&
+                statement.expression.right.getText(sourceFile) === 'errorCode'
+              ) {
+                apiErrorStoresCode = true
+              }
+              if (
+                ts.isExpressionStatement(statement) &&
+                ts.isCallExpression(statement.expression) &&
+                statement.expression.expression.kind === ts.SyntaxKind.SuperKeyword &&
+                statement.expression.arguments[0]?.getText(sourceFile) === 'errorCode'
+              ) {
+                apiErrorPassesCodeToBase = true
+              }
+            })
+          }
+
+          if (node.name.text === 'ExtendableError' && hasErrorCodeFirst) {
+            member.body?.statements.forEach((statement) => {
+              if (
+                ts.isExpressionStatement(statement) &&
+                ts.isBinaryExpression(statement.expression) &&
+                statement.expression.left.getText(sourceFile) === 'this.errorCode' &&
+                statement.expression.right.getText(sourceFile) === 'errorCode'
+              ) {
+                baseStoresCode = true
+              }
+            })
           }
         }
       }
@@ -57,7 +98,11 @@ function validateCore(sourceFile) {
   }
 
   visit(sourceFile)
-  return propertyIsReadonly && constructorIsValid
+  return (
+    propertyIsReadonly &&
+    constructorIsValid &&
+    (apiErrorStoresCode || (apiErrorPassesCodeToBase && baseStoresCode))
+  )
 }
 
 function validateConsumers(sourceFile) {

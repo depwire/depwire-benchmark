@@ -1,0 +1,2627 @@
+From 0a17ccf799b72d6d108e32436a72a1293402b7ba Mon Sep 17 00:00:00 2001
+From: Atef Ataya <atef.ataya@gmail.com>
+Date: Mon, 17 Aug 2026 00:31:12 +0400
+Subject: [PATCH] benchmark: Task C no_depwire result
+
+---
+ .../Users/endpoints/externalUsersLogin.ts     | 18 +++++++++++--
+ .../migrate-aliased-exports/merge.input.ts    |  2 +-
+ .../migrate-aliased-exports/merge.output.ts   |  2 +-
+ packages/db-mongodb/src/deleteVersions.ts     |  2 +-
+ .../src/queries/buildSearchParams.ts          |  7 +++--
+ .../src/queries/getBuildQueryPlugin.ts        |  6 ++---
+ .../src/transactions/beginTransaction.ts      |  5 +++-
+ .../src/utilities/buildJoinAggregation.ts     | 18 ++++++++++---
+ .../db-mongodb/src/utilities/getDBName.ts     |  2 +-
+ .../db-mongodb/src/utilities/getEntity.ts     |  5 ++++
+ packages/drizzle/src/createTableName.ts       |  3 ++-
+ packages/drizzle/src/deleteVersions.ts        |  2 +-
+ .../src/postgres/createJSONQuery/index.ts     |  2 +-
+ .../src/queries/getTableColumnFromPath.ts     |  8 +++---
+ packages/drizzle/src/queries/parseParams.ts   |  5 +++-
+ .../drizzle/src/queries/sanitizeQueryValue.ts |  1 +
+ .../src/transform/write/traverseFields.ts     |  1 +
+ .../src/utilities/blocksToJsonMigrator.ts     |  5 +++-
+ .../drizzle/src/utilities/escapeSQLValue.ts   |  2 +-
+ .../src/utilities/extendDrizzleTable.ts       |  2 +-
+ packages/drizzle/src/utilities/json.ts        |  1 +
+ .../src/utilities/sanitizePathSegment.ts      |  1 +
+ packages/email-resend/src/index.ts            |  8 +++---
+ .../src/auth/operations/forgotPassword.ts     |  2 ++
+ .../auth/operations/local/forgotPassword.ts   |  1 +
+ .../src/auth/operations/local/login.ts        |  1 +
+ .../auth/operations/local/resetPassword.ts    |  1 +
+ .../src/auth/operations/local/unlock.ts       |  1 +
+ .../src/auth/operations/local/verifyEmail.ts  |  1 +
+ .../payload/src/auth/operations/logout.ts     |  6 ++---
+ .../src/auth/operations/resetPassword.ts      |  8 ++++--
+ .../payload/src/auth/operations/unlock.ts     |  1 +
+ .../src/auth/operations/verifyEmail.ts        |  4 +--
+ .../src/collections/endpoints/findDistinct.ts |  2 +-
+ .../src/collections/operations/delete.ts      | 12 +++++++--
+ .../collections/operations/findDistinct.ts    |  2 ++
+ .../collections/operations/findVersionByID.ts |  2 +-
+ .../src/collections/operations/local/count.ts |  1 +
+ .../operations/local/countVersions.ts         |  1 +
+ .../collections/operations/local/create.ts    |  1 +
+ .../collections/operations/local/delete.ts    |  1 +
+ .../collections/operations/local/duplicate.ts |  9 ++++++-
+ .../src/collections/operations/local/find.ts  |  1 +
+ .../collections/operations/local/findByID.ts  |  1 +
+ .../operations/local/findDistinct.ts          |  1 +
+ .../operations/local/findVersionByID.ts       |  1 +
+ .../operations/local/findVersions.ts          |  1 +
+ .../operations/local/restoreVersion.ts        |  1 +
+ .../collections/operations/local/update.ts    |  1 +
+ .../collections/operations/restoreVersion.ts  |  3 ++-
+ .../src/collections/operations/update.ts      | 12 +++++++--
+ .../src/collections/operations/updateByID.ts  |  2 +-
+ .../payload/src/config/orderable/index.ts     |  2 +-
+ .../payload/src/database/getLocalizedPaths.ts |  2 +-
+ packages/payload/src/errors/APIError.ts       |  8 +++++-
+ .../payload/src/errors/AuthenticationError.ts |  1 +
+ .../payload/src/errors/DuplicateCollection.ts |  2 +-
+ .../payload/src/errors/DuplicateFieldName.ts  |  1 +
+ .../payload/src/errors/DuplicateGlobal.ts     |  2 +-
+ .../payload/src/errors/ErrorDeletingFile.ts   |  1 +
+ .../payload/src/errors/FileRetrievalError.ts  |  2 +-
+ .../payload/src/errors/FileUploadError.ts     |  1 +
+ packages/payload/src/errors/Forbidden.ts      |  1 +
+ .../src/errors/InvalidConfiguration.ts        |  2 +-
+ .../payload/src/errors/InvalidFieldJoin.ts    |  1 +
+ .../payload/src/errors/InvalidFieldName.ts    |  1 +
+ .../src/errors/InvalidFieldRelationship.ts    |  5 +++-
+ packages/payload/src/errors/InvalidSchema.ts  |  2 +-
+ packages/payload/src/errors/Locked.ts         |  2 +-
+ packages/payload/src/errors/LockedAuth.ts     |  6 ++++-
+ .../src/errors/MissingCollectionLabel.ts      |  2 +-
+ .../payload/src/errors/MissingEditorProp.ts   |  1 +
+ .../src/errors/MissingFieldInputOptions.ts    |  2 +-
+ .../payload/src/errors/MissingFieldType.ts    |  1 +
+ packages/payload/src/errors/MissingFile.ts    |  1 +
+ packages/payload/src/errors/NotFound.ts       |  6 ++++-
+ packages/payload/src/errors/QueryError.ts     |  1 +
+ .../payload/src/errors/ReservedFieldName.ts   |  2 +-
+ .../payload/src/errors/TimestampsRequired.ts  |  1 +
+ .../payload/src/errors/UnauthorizedError.ts   |  6 ++++-
+ .../payload/src/errors/UnverifiedEmail.ts     |  1 +
+ .../payload/src/errors/ValidationError.ts     |  1 +
+ .../src/fields/config/sanitizeJoinField.ts    |  7 +++--
+ .../globals/operations/local/countVersions.ts |  1 +
+ .../src/globals/operations/local/findOne.ts   |  2 +-
+ .../operations/local/findVersionByID.ts       |  2 +-
+ .../globals/operations/local/findVersions.ts  |  2 +-
+ .../operations/local/restoreVersion.ts        |  2 +-
+ .../src/globals/operations/local/update.ts    |  2 +-
+ .../hooks/ensureSafeCollectionsChange.ts      |  2 ++
+ .../src/query-presets/preventLockout.ts       |  8 +++++-
+ .../payload/src/uploads/endpoints/getFile.ts  |  3 ++-
+ .../src/uploads/endpoints/getFileFromURL.ts   | 20 ++++++++------
+ .../uploads/endpoints/uploadInstructions.ts   | 11 +++++---
+ .../src/uploads/fetchAPI-multipart/index.ts   |  2 +-
+ .../fetchAPI-multipart/processMultipart.ts    | 27 ++++++++++++++-----
+ .../payload/src/uploads/getExternalFile.ts    |  8 +++---
+ .../uploads/getFileFromUploadInstructions.ts  |  6 ++---
+ packages/payload/src/uploads/stagedUpload.ts  | 16 ++++++-----
+ .../src/utilities/addDataAndFileToRequest.ts  |  8 +++---
+ .../src/utilities/formatErrors.spec.ts        | 10 +++++--
+ .../payload/src/utilities/getRequestEntity.ts | 10 +++----
+ packages/payload/src/utilities/routeError.ts  |  2 +-
+ .../payload/src/utilities/sanitizeFilename.ts |  2 +-
+ .../src/export/createExport.ts                |  6 ++---
+ .../src/export/handleDownload.ts              |  3 ++-
+ .../src/import/createImport.ts                | 17 ++++++++----
+ .../src/utilities/parseJSON.ts                |  4 +--
+ packages/plugin-mcp/src/endpoint/index.ts     |  6 ++---
+ packages/plugin-mcp/src/mcp/buildMcpServer.ts |  2 +-
+ .../src/mcp/builtin/collections/fileInput.ts  | 20 +++++++++-----
+ .../src/endpoints/getTenantOptionsEndpoint.ts |  2 +-
+ .../src/hooks/resaveChildren.ts               |  1 +
+ .../src/hooks/createNewInStripe.ts            |  1 +
+ .../src/hooks/deleteFromStripe.ts             |  5 +++-
+ .../src/hooks/syncExistingWithStripe.ts       |  5 +++-
+ .../storage-r2/src/handleMultiPartUpload.ts   |  7 +++--
+ packages/ui/src/utilities/buildTableState.ts  |  5 +++-
+ test/collections-rest/config.ts               |  2 +-
+ test/hooks/collections/BeforeDelete/index.ts  |  2 +-
+ test/hooks/config.ts                          |  2 +-
+ .../collections/MediaWithThrowingHook.ts      |  2 +-
+ test/plugin-sentry/config.ts                  |  2 +-
+ .../webhooks/subscriptionCreatedOrUpdated.ts  |  1 +
+ .../webhooks/subscriptionDeleted.ts           |  1 +
+ .../collections/BulkUploadsHookError/index.ts |  8 +++++-
+ .../collections/DraftsWithChangeHook.ts       |  6 ++++-
+ test/versions/collections/ErrorOnUnpublish.ts |  2 +-
+ 128 files changed, 369 insertions(+), 152 deletions(-)
+
+diff --git a/examples/multi-tenant/src/collections/Users/endpoints/externalUsersLogin.ts b/examples/multi-tenant/src/collections/Users/endpoints/externalUsersLogin.ts
+index 96c9319d1f..e0c1d3172b 100644
+--- a/examples/multi-tenant/src/collections/Users/endpoints/externalUsersLogin.ts
++++ b/examples/multi-tenant/src/collections/Users/endpoints/externalUsersLogin.ts
+@@ -18,7 +18,13 @@ export const externalUsersLogin: Endpoint = {
+     const { password, tenantSlug, tenantDomain, username } = data
+ 
+     if (!username || !password) {
+-      throw new APIError('Username and Password are required for login.', 400, null, true)
++      throw new APIError(
++        'BAD_REQUEST',
++        'Username and Password are required for login.',
++        400,
++        null,
++        true,
++      )
+     }
+ 
+     const fullTenant = (
+@@ -107,6 +113,7 @@ export const externalUsersLogin: Endpoint = {
+         }
+ 
+         throw new APIError(
++          'BAD_REQUEST',
+           'Unable to login with the provided username and password.',
+           400,
+           null,
+@@ -114,6 +121,7 @@ export const externalUsersLogin: Endpoint = {
+         )
+       } catch (e) {
+         throw new APIError(
++          'BAD_REQUEST',
+           'Unable to login with the provided username and password.',
+           400,
+           null,
+@@ -122,7 +130,13 @@ export const externalUsersLogin: Endpoint = {
+       }
+     }
+ 
+-    throw new APIError('Unable to login with the provided username and password.', 400, null, true)
++    throw new APIError(
++      'BAD_REQUEST',
++      'Unable to login with the provided username and password.',
++      400,
++      null,
++      true,
++    )
+   },
+   method: 'post',
+   path: '/external-users/login',
+diff --git a/packages/codemod/src/transforms/migrate-aliased-exports/merge.input.ts b/packages/codemod/src/transforms/migrate-aliased-exports/merge.input.ts
+index 785e1bc713..162c113407 100644
+--- a/packages/codemod/src/transforms/migrate-aliased-exports/merge.input.ts
++++ b/packages/codemod/src/transforms/migrate-aliased-exports/merge.input.ts
+@@ -3,6 +3,6 @@ import { APIError } from 'payload'
+ 
+ import { headersWithCors } from '@payloadcms/next/utilities'
+ 
+-export const fail = () => new APIError('boom', 500)
++export const fail = () => new APIError('INTERNAL_ERROR', 'boom', 500)
+ export const cors = headersWithCors
+ export type Col = Column
+diff --git a/packages/codemod/src/transforms/migrate-aliased-exports/merge.output.ts b/packages/codemod/src/transforms/migrate-aliased-exports/merge.output.ts
+index 7edc8b7aea..4ce85c32c3 100644
+--- a/packages/codemod/src/transforms/migrate-aliased-exports/merge.output.ts
++++ b/packages/codemod/src/transforms/migrate-aliased-exports/merge.output.ts
+@@ -3,6 +3,6 @@ import { APIError } from 'payload'
+ 
+ import { headersWithCors } from 'payload'
+ 
+-export const fail = () => new APIError('boom', 500)
++export const fail = () => new APIError('INTERNAL_ERROR', 'boom', 500)
+ export const cors = headersWithCors
+ export type Col = Column
+diff --git a/packages/db-mongodb/src/deleteVersions.ts b/packages/db-mongodb/src/deleteVersions.ts
+index 97436494d7..44b639cb3b 100644
+--- a/packages/db-mongodb/src/deleteVersions.ts
++++ b/packages/db-mongodb/src/deleteVersions.ts
+@@ -33,7 +33,7 @@ export const deleteVersions: DeleteVersions = async function deleteVersions(
+     fields = buildVersionCollectionFields(this.payload.config, collectionConfig, true)
+     VersionsModel = Model
+   } else {
+-    throw new APIError('Either collection or globalSlug must be passed.')
++    throw new APIError('INTERNAL_ERROR', 'Either collection or globalSlug must be passed.')
+   }
+ 
+   const query = await buildQuery({
+diff --git a/packages/db-mongodb/src/queries/buildSearchParams.ts b/packages/db-mongodb/src/queries/buildSearchParams.ts
+index 43f2a5751d..f32f741543 100644
+--- a/packages/db-mongodb/src/queries/buildSearchParams.ts
++++ b/packages/db-mongodb/src/queries/buildSearchParams.ts
+@@ -135,7 +135,10 @@ export async function buildSearchParam({
+ 
+       for (const [i, { collectionSlug, path: subPath }] of pathsToQuery.entries()) {
+         if (!collectionSlug) {
+-          throw new APIError(`Collection with the slug ${collectionSlug} was not found.`)
++          throw new APIError(
++            'NOT_FOUND',
++            `Collection with the slug ${collectionSlug} was not found.`,
++          )
+         }
+ 
+         const { collectionConfig, Model: SubModel } = getCollection({
+@@ -168,7 +171,7 @@ export async function buildSearchParam({
+               path: field.on,
+             })
+             if (!relationshipField) {
+-              throw new APIError('Relationship field was not found')
++              throw new APIError('NOT_FOUND', 'Relationship field was not found')
+             }
+ 
+             let path = relationshipField.localizedPath
+diff --git a/packages/db-mongodb/src/queries/getBuildQueryPlugin.ts b/packages/db-mongodb/src/queries/getBuildQueryPlugin.ts
+index 494d4a49be..526783a3c9 100644
+--- a/packages/db-mongodb/src/queries/getBuildQueryPlugin.ts
++++ b/packages/db-mongodb/src/queries/getBuildQueryPlugin.ts
+@@ -40,7 +40,7 @@ export const getBuildQueryPlugin = ({
+           const globalConfig = payload.globals.config.find(({ slug }) => slug === globalSlug)
+ 
+           if (!globalConfig) {
+-            throw new APIError(`Global with the slug ${globalSlug} was not found`)
++            throw new APIError('NOT_FOUND', `Global with the slug ${globalSlug} was not found`)
+           }
+ 
+           fields = globalConfig.flattenedFields
+@@ -49,7 +49,7 @@ export const getBuildQueryPlugin = ({
+           const collectionConfig = payload.collections[collectionSlug]?.config
+ 
+           if (!collectionConfig) {
+-            throw new APIError(`Collection with the slug ${globalSlug} was not found`)
++            throw new APIError('NOT_FOUND', `Collection with the slug ${globalSlug} was not found`)
+           }
+ 
+           fields = collectionConfig.flattenedFields
+@@ -57,7 +57,7 @@ export const getBuildQueryPlugin = ({
+       }
+ 
+       if (fields === null) {
+-        throw new APIError('Fields are not initialized.')
++        throw new APIError('INTERNAL_ERROR', 'Fields are not initialized.')
+       }
+ 
+       const result = await parseParams({
+diff --git a/packages/db-mongodb/src/transactions/beginTransaction.ts b/packages/db-mongodb/src/transactions/beginTransaction.ts
+index 46194100bb..96f9747d07 100644
+--- a/packages/db-mongodb/src/transactions/beginTransaction.ts
++++ b/packages/db-mongodb/src/transactions/beginTransaction.ts
+@@ -14,7 +14,10 @@ export const beginTransaction: BeginTransaction = async function beginTransactio
+   options: TransactionOptions,
+ ) {
+   if (!this.connection) {
+-    throw new APIError('beginTransaction called while no connection to the database exists')
++    throw new APIError(
++      'INTERNAL_ERROR',
++      'beginTransaction called while no connection to the database exists',
++    )
+   }
+ 
+   const client = this.connection.getClient()
+diff --git a/packages/db-mongodb/src/utilities/buildJoinAggregation.ts b/packages/db-mongodb/src/utilities/buildJoinAggregation.ts
+index e9f8f084de..c232eceb25 100644
+--- a/packages/db-mongodb/src/utilities/buildJoinAggregation.ts
++++ b/packages/db-mongodb/src/utilities/buildJoinAggregation.ts
+@@ -58,14 +58,20 @@ export const buildJoinAggregation = async ({
+   const joinConfig = adapter.payload.collections[collection]?.config?.joins
+ 
+   if (!joinConfig) {
+-    throw new APIError(`Could not retrieve sanitized join config for ${collection}.`)
++    throw new APIError(
++      'INTERNAL_ERROR',
++      `Could not retrieve sanitized join config for ${collection}.`,
++    )
+   }
+ 
+   const aggregate: PipelineStage[] = []
+   const polymorphicJoinsConfig = adapter.payload.collections[collection]?.config?.polymorphicJoins
+ 
+   if (!polymorphicJoinsConfig) {
+-    throw new APIError(`Could not retrieve sanitized polymorphic joins config for ${collection}.`)
++    throw new APIError(
++      'INTERNAL_ERROR',
++      `Could not retrieve sanitized polymorphic joins config for ${collection}.`,
++    )
+   }
+ 
+   for (const join of polymorphicJoinsConfig) {
+@@ -260,7 +266,10 @@ export const buildJoinAggregation = async ({
+     const joinsList = joinConfig[slug]
+ 
+     if (!joinsList) {
+-      throw new APIError(`Failed to retrieve array of joins for ${slug} in collectio ${collection}`)
++      throw new APIError(
++        'INTERNAL_ERROR',
++        `Failed to retrieve array of joins for ${slug} in collectio ${collection}`,
++      )
+     }
+ 
+     for (const join of joinsList) {
+@@ -277,6 +286,7 @@ export const buildJoinAggregation = async ({
+ 
+       if (!collectionConfig) {
+         throw new APIError(
++          'NOT_FOUND',
+           `Collection config for ${join.field.collection.toString()} was not found`,
+         )
+       }
+@@ -292,7 +302,7 @@ export const buildJoinAggregation = async ({
+       }
+ 
+       if (!JoinModel) {
+-        throw new APIError(`Join Model was not found for ${collectionConfig.slug}`)
++        throw new APIError('NOT_FOUND', `Join Model was not found for ${collectionConfig.slug}`)
+       }
+ 
+       const {
+diff --git a/packages/db-mongodb/src/utilities/getDBName.ts b/packages/db-mongodb/src/utilities/getDBName.ts
+index b79e0e94b6..e5ecef8b96 100644
+--- a/packages/db-mongodb/src/utilities/getDBName.ts
++++ b/packages/db-mongodb/src/utilities/getDBName.ts
+@@ -40,7 +40,7 @@ export const getDBName = ({
+   }
+ 
+   if (!result) {
+-    throw new APIError(`Assertion for DB name of ${name} ${slug} was failed.`)
++    throw new APIError('INTERNAL_ERROR', `Assertion for DB name of ${name} ${slug} was failed.`)
+   }
+ 
+   return result
+diff --git a/packages/db-mongodb/src/utilities/getEntity.ts b/packages/db-mongodb/src/utilities/getEntity.ts
+index 75eeb7eeb7..4e353be3ff 100644
+--- a/packages/db-mongodb/src/utilities/getEntity.ts
++++ b/packages/db-mongodb/src/utilities/getEntity.ts
+@@ -23,6 +23,7 @@ export const getCollection = ({
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `ERROR: Failed to retrieve collection with the slug "${collectionSlug}". Does not exist.`,
+     )
+   }
+@@ -32,6 +33,7 @@ export const getCollection = ({
+ 
+     if (!Model) {
+       throw new APIError(
++        'NOT_FOUND',
+         `ERROR: Failed to retrieve collection version model with the slug "${collectionSlug}". Does not exist.`,
+       )
+     }
+@@ -43,6 +45,7 @@ export const getCollection = ({
+ 
+   if (!Model) {
+     throw new APIError(
++      'NOT_FOUND',
+       `ERROR: Failed to retrieve collection model with the slug "${collectionSlug}". Does not exist.`,
+     )
+   }
+@@ -71,6 +74,7 @@ export const getGlobal: GetGlobal = ({ adapter, globalSlug, versions = false })
+ 
+   if (!globalConfig) {
+     throw new APIError(
++      'NOT_FOUND',
+       `ERROR: Failed to retrieve global with the slug "${globalSlug}". Does not exist.`,
+     )
+   }
+@@ -80,6 +84,7 @@ export const getGlobal: GetGlobal = ({ adapter, globalSlug, versions = false })
+ 
+     if (!Model) {
+       throw new APIError(
++        'NOT_FOUND',
+         `ERROR: Failed to retrieve global version model with the slug "${globalSlug}". Does not exist.`,
+       )
+     }
+diff --git a/packages/drizzle/src/createTableName.ts b/packages/drizzle/src/createTableName.ts
+index c52f5daa94..9480ad1699 100644
+--- a/packages/drizzle/src/createTableName.ts
++++ b/packages/drizzle/src/createTableName.ts
+@@ -78,8 +78,9 @@ export const createTableName = ({
+ 
+   if (result.length > 63) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `Exceeded max identifier length for table or enum name of 63 characters. Invalid name: ${result}.
+-Tip: You can use the dbName property to reduce the table name length.
++      Tip: You can use the dbName property to reduce the table name length.
+       `,
+     )
+   }
+diff --git a/packages/drizzle/src/deleteVersions.ts b/packages/drizzle/src/deleteVersions.ts
+index 6140373272..48b65e889d 100644
+--- a/packages/drizzle/src/deleteVersions.ts
++++ b/packages/drizzle/src/deleteVersions.ts
+@@ -29,7 +29,7 @@ export const deleteVersions: DeleteVersions = async function deleteVersion(
+     )
+     fields = buildVersionCollectionFields(this.payload.config, collectionConfig, true)
+   } else {
+-    throw new APIError('Either collection or globalSlug must be passed.')
++    throw new APIError('INTERNAL_ERROR', 'Either collection or globalSlug must be passed.')
+   }
+ 
+   const { docs } = await findMany({
+diff --git a/packages/drizzle/src/postgres/createJSONQuery/index.ts b/packages/drizzle/src/postgres/createJSONQuery/index.ts
+index b9db2971a8..a61136f504 100644
+--- a/packages/drizzle/src/postgres/createJSONQuery/index.ts
++++ b/packages/drizzle/src/postgres/createJSONQuery/index.ts
+@@ -29,7 +29,7 @@ const sanitizeValue = (value: unknown, operator?: string): string => {
+   }
+ 
+   if (!SAFE_STRING_REGEX.test(value)) {
+-    throw new APIError(`${value} is not allowed as a JSON query value`, 400)
++    throw new APIError('BAD_REQUEST', `${value} is not allowed as a JSON query value`, 400)
+   }
+ 
+   const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+diff --git a/packages/drizzle/src/queries/getTableColumnFromPath.ts b/packages/drizzle/src/queries/getTableColumnFromPath.ts
+index 6be74fe350..a170378d36 100644
+--- a/packages/drizzle/src/queries/getTableColumnFromPath.ts
++++ b/packages/drizzle/src/queries/getTableColumnFromPath.ts
+@@ -366,7 +366,7 @@ export const getTableColumnFromPath = ({
+ 
+       case 'join': {
+         if (Array.isArray(field.collection)) {
+-          throw new APIError('Not supported')
++          throw new APIError('NOT_SUPPORTED', 'Not supported')
+         }
+ 
+         const newCollectionPath = pathSegments.slice(1).join('.')
+@@ -389,7 +389,7 @@ export const getTableColumnFromPath = ({
+             path: field.on,
+           })
+           if (!relationshipField) {
+-            throw new APIError('Relationship was not found')
++            throw new APIError('NOT_FOUND', 'Relationship was not found')
+           }
+ 
+           if (!existingTable) {
+@@ -826,7 +826,7 @@ export const getTableColumnFromPath = ({
+               table: aliasRelationshipTable,
+             }
+           } else {
+-            throw new APIError('Not supported')
++            throw new APIError('NOT_SUPPORTED', 'Not supported')
+           }
+ 
+           return getTableColumnFromPath({
+@@ -1053,5 +1053,5 @@ export const getTableColumnFromPath = ({
+     }
+   }
+ 
+-  throw new APIError(`Cannot find field for path at ${fieldPath}`)
++  throw new APIError('INTERNAL_ERROR', `Cannot find field for path at ${fieldPath}`)
+ }
+diff --git a/packages/drizzle/src/queries/parseParams.ts b/packages/drizzle/src/queries/parseParams.ts
+index 856b09499f..3d1e346ca1 100644
+--- a/packages/drizzle/src/queries/parseParams.ts
++++ b/packages/drizzle/src/queries/parseParams.ts
+@@ -444,7 +444,10 @@ export function parseParams({
+                   }
+ 
+                   if (isInvalid) {
+-                    throw new APIError(`Invalid ID value in ${JSON.stringify(queryValue)}`)
++                    throw new APIError(
++                      'BAD_REQUEST',
++                      `Invalid ID value in ${JSON.stringify(queryValue)}`,
++                    )
+                   }
+ 
+                   constraints.push(
+diff --git a/packages/drizzle/src/queries/sanitizeQueryValue.ts b/packages/drizzle/src/queries/sanitizeQueryValue.ts
+index 5959a02722..9d2d3bc4f3 100644
+--- a/packages/drizzle/src/queries/sanitizeQueryValue.ts
++++ b/packages/drizzle/src/queries/sanitizeQueryValue.ts
+@@ -155,6 +155,7 @@ export const sanitizeQueryValue = ({
+         if (isPolymorphicRelationship(val)) {
+           if (operator !== 'equals') {
+             throw new APIError(
++              'INTERNAL_ERROR',
+               `Only 'equals' operator is supported for polymorphic relationship object notation. Given - ${operator}`,
+             )
+           }
+diff --git a/packages/drizzle/src/transform/write/traverseFields.ts b/packages/drizzle/src/transform/write/traverseFields.ts
+index 9a0753e83b..c6fb56219e 100644
+--- a/packages/drizzle/src/transform/write/traverseFields.ts
++++ b/packages/drizzle/src/transform/write/traverseFields.ts
+@@ -795,6 +795,7 @@ export const traverseFields = ({
+         ) {
+           if (!enableAtomicWrites) {
+             throw new APIError(
++              'INTERNAL_ERROR',
+               'The passed data must not contain any nested fields for atomic writes',
+             )
+           }
+diff --git a/packages/drizzle/src/utilities/blocksToJsonMigrator.ts b/packages/drizzle/src/utilities/blocksToJsonMigrator.ts
+index 2d728dc756..321788d01c 100644
+--- a/packages/drizzle/src/utilities/blocksToJsonMigrator.ts
++++ b/packages/drizzle/src/utilities/blocksToJsonMigrator.ts
+@@ -741,7 +741,10 @@ export const getBlocksToJsonMigrator = (payload: Payload): BlocksToJsonMigrator
+   const migrator = (payload.db as DrizzleAdapter).blocksToJsonMigrator
+ 
+   if (!migrator) {
+-    throw new APIError(`blocksToJsonMigrator is not defined for ${payload.db.packageName}`)
++    throw new APIError(
++      'INTERNAL_ERROR',
++      `blocksToJsonMigrator is not defined for ${payload.db.packageName}`,
++    )
+   }
+ 
+   return migrator
+diff --git a/packages/drizzle/src/utilities/escapeSQLValue.ts b/packages/drizzle/src/utilities/escapeSQLValue.ts
+index 631c560326..7a002a7ce5 100644
+--- a/packages/drizzle/src/utilities/escapeSQLValue.ts
++++ b/packages/drizzle/src/utilities/escapeSQLValue.ts
+@@ -16,7 +16,7 @@ export const escapeSQLValue = (value: unknown): boolean | null | number | string
+   }
+ 
+   if (!SAFE_STRING_REGEX.test(value)) {
+-    throw new APIError(`${value} is not allowed as a JSON query value`, 400)
++    throw new APIError('BAD_REQUEST', `${value} is not allowed as a JSON query value`, 400)
+   }
+ 
+   const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+diff --git a/packages/drizzle/src/utilities/extendDrizzleTable.ts b/packages/drizzle/src/utilities/extendDrizzleTable.ts
+index dc0ac59978..5cd2feaef7 100644
+--- a/packages/drizzle/src/utilities/extendDrizzleTable.ts
++++ b/packages/drizzle/src/utilities/extendDrizzleTable.ts
+@@ -32,7 +32,7 @@ export const extendDrizzleTable = ({ columns, extraConfig, table }: Args): void
+   })
+ 
+   if (!InlineForeignKeys) {
+-    throw new APIError(`Error when finding InlineForeignKeys Symbol`, 500)
++    throw new APIError('INTERNAL_ERROR', `Error when finding InlineForeignKeys Symbol`, 500)
+   }
+ 
+   if (columns) {
+diff --git a/packages/drizzle/src/utilities/json.ts b/packages/drizzle/src/utilities/json.ts
+index fe0e193104..5fac9ca959 100644
+--- a/packages/drizzle/src/utilities/json.ts
++++ b/packages/drizzle/src/utilities/json.ts
+@@ -27,6 +27,7 @@ export function jsonBuildObject<T extends Record<string, Column | SQL>>(
+   Object.entries(shape).forEach(([key, value]) => {
+     if (!SAFE_KEY_REGEX.test(key)) {
+       throw new APIError(
++        'INTERNAL_ERROR',
+         'Unsafe key passed to jsonBuildObject. Only alphanumeric characters and underscores are allowed.',
+         500,
+       )
+diff --git a/packages/drizzle/src/utilities/sanitizePathSegment.ts b/packages/drizzle/src/utilities/sanitizePathSegment.ts
+index 94940e1c0c..b9c8f74d96 100644
+--- a/packages/drizzle/src/utilities/sanitizePathSegment.ts
++++ b/packages/drizzle/src/utilities/sanitizePathSegment.ts
+@@ -10,6 +10,7 @@ const SAFE_PATH_SEGMENT_REGEX = /^\w+$/
+ export const sanitizePathSegment = (segment: string): string => {
+   if (!SAFE_PATH_SEGMENT_REGEX.test(segment)) {
+     throw new APIError(
++      'BAD_REQUEST',
+       'Invalid path segment. Only alphanumeric characters and underscores are permitted.',
+       400,
+     )
+diff --git a/packages/email-resend/src/index.ts b/packages/email-resend/src/index.ts
+index dd7bd9699e..b45397a405 100644
+--- a/packages/email-resend/src/index.ts
++++ b/packages/email-resend/src/index.ts
+@@ -66,7 +66,7 @@ export const resendAdapter = (args: ResendAdapterArgs): ResendAdapter => {
+           formattedError += ` ${data.name} - ${data.message}`
+         }
+ 
+-        throw new APIError(formattedError, statusCode)
++        throw new APIError('INTERNAL_ERROR', formattedError, statusCode)
+       }
+     },
+   })
+@@ -149,11 +149,11 @@ function mapAttachments(
+ 
+   return attachments.map((attachment): Attachment => {
+     if (!attachment.filename) {
+-      throw new APIError('Attachment is missing filename', 400)
++      throw new APIError('BAD_REQUEST', 'Attachment is missing filename', 400)
+     }
+ 
+     if (!attachment.content && !attachment.path) {
+-      throw new APIError('Attachment is missing both content and path', 400)
++      throw new APIError('BAD_REQUEST', 'Attachment is missing both content and path', 400)
+     }
+ 
+     // When both content and path are provided, content takes priority; path is ignored.
+@@ -179,7 +179,7 @@ function mapAttachments(
+       }
+     }
+ 
+-    throw new APIError('Attachment content must be a string or a buffer', 400)
++    throw new APIError('BAD_REQUEST', 'Attachment content must be a string or a buffer', 400)
+   })
+ }
+ 
+diff --git a/packages/payload/src/auth/operations/forgotPassword.ts b/packages/payload/src/auth/operations/forgotPassword.ts
+index ba53cfd1e3..479b5cca57 100644
+--- a/packages/payload/src/auth/operations/forgotPassword.ts
++++ b/packages/payload/src/auth/operations/forgotPassword.ts
+@@ -55,6 +55,7 @@ export const forgotPasswordOperation = async <TSlug extends AuthCollectionSlug>(
+   }
+   if (!sanitizedEmail && !sanitizedUsername) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `Missing ${loginWithUsername ? 'username' : 'email'}.`,
+       httpStatus.BAD_REQUEST,
+     )
+@@ -98,6 +99,7 @@ export const forgotPasswordOperation = async <TSlug extends AuthCollectionSlug>(
+ 
+     if (!sanitizedEmail && !sanitizedUsername) {
+       throw new APIError(
++        'BAD_REQUEST',
+         `Missing ${loginWithUsername ? 'username' : 'email'}.`,
+         httpStatus.BAD_REQUEST,
+       )
+diff --git a/packages/payload/src/auth/operations/local/forgotPassword.ts b/packages/payload/src/auth/operations/local/forgotPassword.ts
+index d566936fab..e41da8182a 100644
+--- a/packages/payload/src/auth/operations/local/forgotPassword.ts
++++ b/packages/payload/src/auth/operations/local/forgotPassword.ts
+@@ -34,6 +34,7 @@ export async function forgotPasswordLocal<T extends AuthCollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(
+         collectionSlug,
+       )} can't be found. Forgot Password Operation.`,
+diff --git a/packages/payload/src/auth/operations/local/login.ts b/packages/payload/src/auth/operations/local/login.ts
+index 39279968e7..2869e0ae1c 100644
+--- a/packages/payload/src/auth/operations/local/login.ts
++++ b/packages/payload/src/auth/operations/local/login.ts
+@@ -40,6 +40,7 @@ export async function loginLocal<TSlug extends AuthCollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Login Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/auth/operations/local/resetPassword.ts b/packages/payload/src/auth/operations/local/resetPassword.ts
+index 6ca95878b5..50efdba7ef 100644
+--- a/packages/payload/src/auth/operations/local/resetPassword.ts
++++ b/packages/payload/src/auth/operations/local/resetPassword.ts
+@@ -27,6 +27,7 @@ export async function resetPasswordLocal<TSlug extends AuthCollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(
+         collectionSlug,
+       )} can't be found. Reset Password Operation.`,
+diff --git a/packages/payload/src/auth/operations/local/unlock.ts b/packages/payload/src/auth/operations/local/unlock.ts
+index 49c6b82e6b..ae510f0071 100644
+--- a/packages/payload/src/auth/operations/local/unlock.ts
++++ b/packages/payload/src/auth/operations/local/unlock.ts
+@@ -28,6 +28,7 @@ export async function unlockLocal<TSlug extends AuthCollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Unlock Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/auth/operations/local/verifyEmail.ts b/packages/payload/src/auth/operations/local/verifyEmail.ts
+index 80fa69eddc..98a2527a9a 100644
+--- a/packages/payload/src/auth/operations/local/verifyEmail.ts
++++ b/packages/payload/src/auth/operations/local/verifyEmail.ts
+@@ -22,6 +22,7 @@ export async function verifyEmailLocal<T extends AuthCollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Verify Email Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/auth/operations/logout.ts b/packages/payload/src/auth/operations/logout.ts
+index 424991f3dd..37ee845444 100644
+--- a/packages/payload/src/auth/operations/logout.ts
++++ b/packages/payload/src/auth/operations/logout.ts
+@@ -25,10 +25,10 @@ export const logoutOperation = async (incomingArgs: Arguments): Promise<boolean>
+   } = incomingArgs
+ 
+   if (!user) {
+-    throw new APIError('No User', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'No User', httpStatus.BAD_REQUEST)
+   }
+   if (user.collection !== collectionConfig.slug) {
+-    throw new APIError('Incorrect collection', httpStatus.FORBIDDEN)
++    throw new APIError('FORBIDDEN', 'Incorrect collection', httpStatus.FORBIDDEN)
+   }
+ 
+   const shouldCommit = await initTransaction(req)
+@@ -66,7 +66,7 @@ export const logoutOperation = async (incomingArgs: Arguments): Promise<boolean>
+       })
+ 
+       if (!userWithSessions) {
+-        throw new APIError('No User', httpStatus.BAD_REQUEST)
++        throw new APIError('BAD_REQUEST', 'No User', httpStatus.BAD_REQUEST)
+       }
+ 
+       if (allSessions) {
+diff --git a/packages/payload/src/auth/operations/resetPassword.ts b/packages/payload/src/auth/operations/resetPassword.ts
+index f4d2a867d8..dbb51053e6 100644
+--- a/packages/payload/src/auth/operations/resetPassword.ts
++++ b/packages/payload/src/auth/operations/resetPassword.ts
+@@ -52,7 +52,7 @@ export const resetPasswordOperation = async <TSlug extends AuthCollectionSlug>(
+     !Object.prototype.hasOwnProperty.call(data, 'token') ||
+     !Object.prototype.hasOwnProperty.call(data, 'password')
+   ) {
+-    throw new APIError('Missing required data.', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'Missing required data.', httpStatus.BAD_REQUEST)
+   }
+ 
+   if (collectionConfig.auth.disableLocalStrategy) {
+@@ -92,7 +92,11 @@ export const resetPasswordOperation = async <TSlug extends AuthCollectionSlug>(
+     })
+ 
+     if (!user) {
+-      throw new APIError('Token is either invalid or has expired.', httpStatus.FORBIDDEN)
++      throw new APIError(
++        'FORBIDDEN',
++        'Token is either invalid or has expired.',
++        httpStatus.FORBIDDEN,
++      )
+     }
+ 
+     // TODO: replace this method
+diff --git a/packages/payload/src/auth/operations/unlock.ts b/packages/payload/src/auth/operations/unlock.ts
+index e09dd4a912..a2be5f46ce 100644
+--- a/packages/payload/src/auth/operations/unlock.ts
++++ b/packages/payload/src/auth/operations/unlock.ts
+@@ -53,6 +53,7 @@ export const unlockOperation = async <TSlug extends AuthCollectionSlug>(
+   }
+   if (!sanitizedEmail && !sanitizedUsername) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `Missing ${collectionConfig.auth.loginWithUsername ? 'username' : 'email'}.`,
+       httpStatus.BAD_REQUEST,
+     )
+diff --git a/packages/payload/src/auth/operations/verifyEmail.ts b/packages/payload/src/auth/operations/verifyEmail.ts
+index 83cf848174..1a0def8672 100644
+--- a/packages/payload/src/auth/operations/verifyEmail.ts
++++ b/packages/payload/src/auth/operations/verifyEmail.ts
+@@ -22,7 +22,7 @@ export const verifyEmailOperation = async (args: Args): Promise<boolean> => {
+     throw new Forbidden(req.t)
+   }
+   if (!Object.prototype.hasOwnProperty.call(args, 'token')) {
+-    throw new APIError('Missing required data.', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'Missing required data.', httpStatus.BAD_REQUEST)
+   }
+ 
+   try {
+@@ -43,7 +43,7 @@ export const verifyEmailOperation = async (args: Args): Promise<boolean> => {
+     })
+ 
+     if (!user) {
+-      throw new APIError('Verification token is invalid.', httpStatus.FORBIDDEN)
++      throw new APIError('FORBIDDEN', 'Verification token is invalid.', httpStatus.FORBIDDEN)
+     }
+ 
+     // Ensure updatedAt date is always updated
+diff --git a/packages/payload/src/collections/endpoints/findDistinct.ts b/packages/payload/src/collections/endpoints/findDistinct.ts
+index 7c50b9b04a..5cd8c7b615 100644
+--- a/packages/payload/src/collections/endpoints/findDistinct.ts
++++ b/packages/payload/src/collections/endpoints/findDistinct.ts
+@@ -14,7 +14,7 @@ export const findDistinctHandler: PayloadHandler = async (req) => {
+   const { depth, field, limit, page, sort, trash, where } = parseParams(req.query)
+ 
+   if (!field) {
+-    throw new APIError('field must be specified', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'field must be specified', httpStatus.BAD_REQUEST)
+   }
+ 
+   const result = await findDistinctOperation({
+diff --git a/packages/payload/src/collections/operations/delete.ts b/packages/payload/src/collections/operations/delete.ts
+index 9bd2d0f7e5..dca4723cc5 100644
+--- a/packages/payload/src/collections/operations/delete.ts
++++ b/packages/payload/src/collections/operations/delete.ts
+@@ -54,7 +54,11 @@ export const deleteOperation = async <
+   let args = incomingArgs
+ 
+   if (args.collection.config.disableBulkDelete && !args.overrideAccess) {
+-    throw new APIError(`Collection ${args.collection.config.slug} has disabled bulk delete`, 403)
++    throw new APIError(
++      'FORBIDDEN',
++      `Collection ${args.collection.config.slug} has disabled bulk delete`,
++      403,
++    )
+   }
+ 
+   try {
+@@ -90,7 +94,11 @@ export const deleteOperation = async <
+     } = args
+ 
+     if (!where) {
+-      throw new APIError("Missing 'where' query of documents to delete.", httpStatus.BAD_REQUEST)
++      throw new APIError(
++        'BAD_REQUEST',
++        "Missing 'where' query of documents to delete.",
++        httpStatus.BAD_REQUEST,
++      )
+     }
+ 
+     // /////////////////////////////////////
+diff --git a/packages/payload/src/collections/operations/findDistinct.ts b/packages/payload/src/collections/operations/findDistinct.ts
+index 14549ab74a..668a69fb4f 100644
+--- a/packages/payload/src/collections/operations/findDistinct.ts
++++ b/packages/payload/src/collections/operations/findDistinct.ts
+@@ -121,6 +121,7 @@ export const findDistinctOperation = async (
+ 
+     if (!fieldResult) {
+       throw new APIError(
++        'BAD_REQUEST',
+         `Field ${args.field} was not found in the collection ${collectionConfig.slug}`,
+         httpStatus.BAD_REQUEST,
+       )
+@@ -143,6 +144,7 @@ export const findDistinctOperation = async (
+     if ('virtual' in fieldResult.field && fieldResult.field.virtual) {
+       if (typeof fieldResult.field.virtual !== 'string') {
+         throw new APIError(
++          'INTERNAL_ERROR',
+           `Cannot findDistinct by a virtual field that isn't linked to a relationship field.`,
+         )
+       }
+diff --git a/packages/payload/src/collections/operations/findVersionByID.ts b/packages/payload/src/collections/operations/findVersionByID.ts
+index 3e5cd3a3e6..be78e40fcd 100644
+--- a/packages/payload/src/collections/operations/findVersionByID.ts
++++ b/packages/payload/src/collections/operations/findVersionByID.ts
+@@ -49,7 +49,7 @@ export const findVersionByIDOperation = async <TData extends TypeWithID = any>(
+   } = args
+ 
+   if (!id) {
+-    throw new APIError('Missing ID of version.', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'Missing ID of version.', httpStatus.BAD_REQUEST)
+   }
+ 
+   try {
+diff --git a/packages/payload/src/collections/operations/local/count.ts b/packages/payload/src/collections/operations/local/count.ts
+index 2fee3ab43d..5ddae31b34 100644
+--- a/packages/payload/src/collections/operations/local/count.ts
++++ b/packages/payload/src/collections/operations/local/count.ts
+@@ -72,6 +72,7 @@ export async function countLocal<TSlug extends CollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Count Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/countVersions.ts b/packages/payload/src/collections/operations/local/countVersions.ts
+index 442c400e9e..ae7f5f3779 100644
+--- a/packages/payload/src/collections/operations/local/countVersions.ts
++++ b/packages/payload/src/collections/operations/local/countVersions.ts
+@@ -57,6 +57,7 @@ export async function countVersionsLocal<TSlug extends CollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Count Versions Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/create.ts b/packages/payload/src/collections/operations/local/create.ts
+index 1862bdfe13..b57fa14284 100644
+--- a/packages/payload/src/collections/operations/local/create.ts
++++ b/packages/payload/src/collections/operations/local/create.ts
+@@ -211,6 +211,7 @@ export async function createLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Create Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/delete.ts b/packages/payload/src/collections/operations/local/delete.ts
+index 6021ad8c5f..529c74acbf 100644
+--- a/packages/payload/src/collections/operations/local/delete.ts
++++ b/packages/payload/src/collections/operations/local/delete.ts
+@@ -168,6 +168,7 @@ async function deleteLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Delete Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/duplicate.ts b/packages/payload/src/collections/operations/local/duplicate.ts
+index a2831992eb..dcaa2973d1 100644
+--- a/packages/payload/src/collections/operations/local/duplicate.ts
++++ b/packages/payload/src/collections/operations/local/duplicate.ts
+@@ -2,7 +2,12 @@ import type { DeepPartial } from 'ts-essentials'
+ 
+ import type { CollectionSlug, TypedLocale } from '../../..//index.js'
+ import type { FindOptions, Payload, RequestContext, User } from '../../../index.js'
+-import type { PayloadRequest, PopulateType, SelectType, TransformCollectionWithSelect } from '../../../types/index.js'
++import type {
++  PayloadRequest,
++  PopulateType,
++  SelectType,
++  TransformCollectionWithSelect,
++} from '../../../types/index.js'
+ import type { CreateLocalReqOptions } from '../../../utilities/createLocalReq.js'
+ import type {
+   DraftFlagFromCollectionSlug,
+@@ -113,12 +118,14 @@ export async function duplicateLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Duplicate Operation.`,
+     )
+   }
+ 
+   if (collection.config.disableDuplicate === true) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `The collection with slug ${String(collectionSlug)} cannot be duplicated.`,
+       400,
+     )
+diff --git a/packages/payload/src/collections/operations/local/find.ts b/packages/payload/src/collections/operations/local/find.ts
+index 4405ac802b..e73b2056a8 100644
+--- a/packages/payload/src/collections/operations/local/find.ts
++++ b/packages/payload/src/collections/operations/local/find.ts
+@@ -227,6 +227,7 @@ export async function findLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Find Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/findByID.ts b/packages/payload/src/collections/operations/local/findByID.ts
+index 53723f10b7..bce16dd907 100644
+--- a/packages/payload/src/collections/operations/local/findByID.ts
++++ b/packages/payload/src/collections/operations/local/findByID.ts
+@@ -150,6 +150,7 @@ export async function findByIDLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Find By ID Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/findDistinct.ts b/packages/payload/src/collections/operations/local/findDistinct.ts
+index 3f2edbf461..a4a2639631 100644
+--- a/packages/payload/src/collections/operations/local/findDistinct.ts
++++ b/packages/payload/src/collections/operations/local/findDistinct.ts
+@@ -127,6 +127,7 @@ export async function findDistinct<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Find Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/findVersionByID.ts b/packages/payload/src/collections/operations/local/findVersionByID.ts
+index 379820eb78..28f0dcf2a8 100644
+--- a/packages/payload/src/collections/operations/local/findVersionByID.ts
++++ b/packages/payload/src/collections/operations/local/findVersionByID.ts
+@@ -106,6 +106,7 @@ export async function findVersionByIDLocal<TSlug extends CollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(
+         collectionSlug,
+       )} can't be found. Find Version By ID Operation.`,
+diff --git a/packages/payload/src/collections/operations/local/findVersions.ts b/packages/payload/src/collections/operations/local/findVersions.ts
+index e4c508cffd..6d79785bd0 100644
+--- a/packages/payload/src/collections/operations/local/findVersions.ts
++++ b/packages/payload/src/collections/operations/local/findVersions.ts
+@@ -127,6 +127,7 @@ export async function findVersionsLocal<TSlug extends CollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Find Versions Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/local/restoreVersion.ts b/packages/payload/src/collections/operations/local/restoreVersion.ts
+index c7c277813e..d5527b331f 100644
+--- a/packages/payload/src/collections/operations/local/restoreVersion.ts
++++ b/packages/payload/src/collections/operations/local/restoreVersion.ts
+@@ -89,6 +89,7 @@ export async function restoreVersionLocal<TSlug extends CollectionSlug>(
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(
+         collectionSlug,
+       )} can't be found. Restore Version Operation.`,
+diff --git a/packages/payload/src/collections/operations/local/update.ts b/packages/payload/src/collections/operations/local/update.ts
+index abfc1db555..13df7dd141 100644
+--- a/packages/payload/src/collections/operations/local/update.ts
++++ b/packages/payload/src/collections/operations/local/update.ts
+@@ -245,6 +245,7 @@ async function updateLocal<
+ 
+   if (!collection) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The collection with slug ${String(collectionSlug)} can't be found. Update Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/collections/operations/restoreVersion.ts b/packages/payload/src/collections/operations/restoreVersion.ts
+index 2d2a6c4206..adc3c22d5d 100644
+--- a/packages/payload/src/collections/operations/restoreVersion.ts
++++ b/packages/payload/src/collections/operations/restoreVersion.ts
+@@ -71,7 +71,7 @@ export const restoreVersionOperation = async <
+     })
+ 
+     if (!id) {
+-      throw new APIError('Missing ID of version to restore.', httpStatus.BAD_REQUEST)
++      throw new APIError('BAD_REQUEST', 'Missing ID of version to restore.', httpStatus.BAD_REQUEST)
+     }
+ 
+     // /////////////////////////////////////
+@@ -127,6 +127,7 @@ export const restoreVersionOperation = async <
+ 
+     if (collectionConfig.trash && doc?.deletedAt) {
+       throw new APIError(
++        'FORBIDDEN',
+         `Cannot restore a version of a trashed document (ID: ${parentDocID}). Restore the document first.`,
+         httpStatus.FORBIDDEN,
+       )
+diff --git a/packages/payload/src/collections/operations/update.ts b/packages/payload/src/collections/operations/update.ts
+index eb4248eb7b..0a25282290 100644
+--- a/packages/payload/src/collections/operations/update.ts
++++ b/packages/payload/src/collections/operations/update.ts
+@@ -73,7 +73,11 @@ export const updateOperation = async <
+   let args = incomingArgs
+ 
+   if (args.collection.config.disableBulkEdit && !args.overrideAccess) {
+-    throw new APIError(`Collection ${args.collection.config.slug} has disabled bulk edit`, 403)
++    throw new APIError(
++      'FORBIDDEN',
++      `Collection ${args.collection.config.slug} has disabled bulk edit`,
++      403,
++    )
+   }
+ 
+   try {
+@@ -118,7 +122,11 @@ export const updateOperation = async <
+     } = args
+ 
+     if (!where) {
+-      throw new APIError("Missing 'where' query of documents to update.", httpStatus.BAD_REQUEST)
++      throw new APIError(
++        'BAD_REQUEST',
++        "Missing 'where' query of documents to update.",
++        httpStatus.BAD_REQUEST,
++      )
+     }
+ 
+     const { data: bulkUpdateData } = args
+diff --git a/packages/payload/src/collections/operations/updateByID.ts b/packages/payload/src/collections/operations/updateByID.ts
+index 26dfe20cb3..9bd0869852 100644
+--- a/packages/payload/src/collections/operations/updateByID.ts
++++ b/packages/payload/src/collections/operations/updateByID.ts
+@@ -102,7 +102,7 @@ export const updateByIDOperation = async <
+     } = args
+ 
+     if (!id) {
+-      throw new APIError('Missing ID of document to update.', httpStatus.BAD_REQUEST)
++      throw new APIError('BAD_REQUEST', 'Missing ID of document to update.', httpStatus.BAD_REQUEST)
+     }
+ 
+     const { data } = args
+diff --git a/packages/payload/src/config/orderable/index.ts b/packages/payload/src/config/orderable/index.ts
+index 1d0a288773..22048a10b2 100644
+--- a/packages/payload/src/config/orderable/index.ts
++++ b/packages/payload/src/config/orderable/index.ts
+@@ -228,7 +228,7 @@ export const addOrderableEndpoint = (
+       } catch (e) {
+         await killTransaction(req)
+         if (e instanceof Error) {
+-          throw new APIError(e.message, httpStatus.INTERNAL_SERVER_ERROR)
++          throw new APIError('INTERNAL_ERROR', e.message, httpStatus.INTERNAL_SERVER_ERROR)
+         }
+       }
+ 
+diff --git a/packages/payload/src/database/getLocalizedPaths.ts b/packages/payload/src/database/getLocalizedPaths.ts
+index 7792cd03da..9ce2dec575 100644
+--- a/packages/payload/src/database/getLocalizedPaths.ts
++++ b/packages/payload/src/database/getLocalizedPaths.ts
+@@ -179,7 +179,7 @@ export function getLocalizedPaths({
+                 let relatedCollection: SanitizedCollectionConfig
+                 if (matchedField.type === 'join') {
+                   if (Array.isArray(matchedField.collection)) {
+-                    throw new APIError('Not supported')
++                    throw new APIError('NOT_SUPPORTED', 'Not supported')
+                   }
+ 
+                   relatedCollection = payload.collections[matchedField.collection]!.config
+diff --git a/packages/payload/src/errors/APIError.ts b/packages/payload/src/errors/APIError.ts
+index 4bab024138..2fa14a5a77 100644
+--- a/packages/payload/src/errors/APIError.ts
++++ b/packages/payload/src/errors/APIError.ts
+@@ -6,18 +6,21 @@ export const APIErrorName = 'APIError'
+ class ExtendableError<TData extends object = { [key: string]: unknown }> extends Error {
+   data: TData
+ 
++  readonly errorCode: string
++
+   isOperational: boolean
+ 
+   isPublic: boolean
+ 
+   status: number
+ 
+-  constructor(message: string, status: number, data: TData, isPublic: boolean) {
++  constructor(errorCode: string, message: string, status: number, data: TData, isPublic: boolean) {
+     super(message, {
+       // show data in cause
+       cause: data,
+     })
+     this.name = this.constructor.name
++    this.errorCode = errorCode
+     this.message = message
+     this.status = status
+     this.data = data
+@@ -37,18 +40,21 @@ export class APIError<
+ > extends ExtendableError<TData> {
+   /**
+    * Creates an API error.
++   * @param {string} errorCode - UPPER_SNAKE_CASE error code identifying the error type.
+    * @param {string} message - Error message.
+    * @param {number} status - HTTP status code of error.
+    * @param {object} data - response data to be returned.
+    * @param {boolean} isPublic - Whether the message should be visible to user or not.
+    */
+   constructor(
++    errorCode: string,
+     message: string,
+     status: number = httpStatus.INTERNAL_SERVER_ERROR,
+     data: TData = null!,
+     isPublic?: boolean,
+   ) {
+     super(
++      errorCode,
+       message,
+       status,
+       data,
+diff --git a/packages/payload/src/errors/AuthenticationError.ts b/packages/payload/src/errors/AuthenticationError.ts
+index b756974ab9..57fe754dd2 100644
+--- a/packages/payload/src/errors/AuthenticationError.ts
++++ b/packages/payload/src/errors/AuthenticationError.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class AuthenticationError extends APIError {
+   constructor(t?: TFunction, loginWithUsername?: boolean) {
+     super(
++      'AUTHENTICATION_ERROR',
+       t
+         ? `${loginWithUsername ? t('error:usernameOrPasswordIncorrect') : t('error:emailOrPasswordIncorrect')}`
+         : en.translations.error.emailOrPasswordIncorrect,
+diff --git a/packages/payload/src/errors/DuplicateCollection.ts b/packages/payload/src/errors/DuplicateCollection.ts
+index e2f97b493d..988bd2fa64 100644
+--- a/packages/payload/src/errors/DuplicateCollection.ts
++++ b/packages/payload/src/errors/DuplicateCollection.ts
+@@ -2,6 +2,6 @@ import { APIError } from './APIError.js'
+ 
+ export class DuplicateCollection extends APIError {
+   constructor(propertyName: string, duplicate: string) {
+-    super(`Collection ${propertyName} already in use: "${duplicate}"`)
++    super('DUPLICATE_COLLECTION', `Collection ${propertyName} already in use: "${duplicate}"`)
+   }
+ }
+diff --git a/packages/payload/src/errors/DuplicateFieldName.ts b/packages/payload/src/errors/DuplicateFieldName.ts
+index 4760415c38..c688b5e8e2 100644
+--- a/packages/payload/src/errors/DuplicateFieldName.ts
++++ b/packages/payload/src/errors/DuplicateFieldName.ts
+@@ -3,6 +3,7 @@ import { APIError } from './APIError.js'
+ export class DuplicateFieldName extends APIError {
+   constructor(fieldName: string) {
+     super(
++      'DUPLICATE_FIELD_NAME',
+       `A field with the name '${fieldName}' was found multiple times on the same level. Field names must be unique.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/DuplicateGlobal.ts b/packages/payload/src/errors/DuplicateGlobal.ts
+index a12e66ad5a..5d676a18e2 100644
+--- a/packages/payload/src/errors/DuplicateGlobal.ts
++++ b/packages/payload/src/errors/DuplicateGlobal.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class DuplicateGlobal extends APIError {
+   constructor(config: GlobalConfig) {
+-    super(`Global label "${config.label}" is already in use`)
++    super('DUPLICATE_GLOBAL', `Global label "${config.label}" is already in use`)
+   }
+ }
+diff --git a/packages/payload/src/errors/ErrorDeletingFile.ts b/packages/payload/src/errors/ErrorDeletingFile.ts
+index 01ef0e7800..0d9c8e383d 100644
+--- a/packages/payload/src/errors/ErrorDeletingFile.ts
++++ b/packages/payload/src/errors/ErrorDeletingFile.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class ErrorDeletingFile extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'ERROR_DELETING_FILE',
+       t ? t('error:deletingFile') : en.translations.error.deletingFile,
+       httpStatus.INTERNAL_SERVER_ERROR,
+     )
+diff --git a/packages/payload/src/errors/FileRetrievalError.ts b/packages/payload/src/errors/FileRetrievalError.ts
+index 51d881fe0e..8dfedcb11c 100644
+--- a/packages/payload/src/errors/FileRetrievalError.ts
++++ b/packages/payload/src/errors/FileRetrievalError.ts
+@@ -11,6 +11,6 @@ export class FileRetrievalError extends APIError {
+     if (message) {
+       msg += ` ${message}`
+     }
+-    super(msg, httpStatus.INTERNAL_SERVER_ERROR)
++    super('FILE_RETRIEVAL_ERROR', msg, httpStatus.INTERNAL_SERVER_ERROR)
+   }
+ }
+diff --git a/packages/payload/src/errors/FileUploadError.ts b/packages/payload/src/errors/FileUploadError.ts
+index 11ada9350f..350e2fdfbb 100644
+--- a/packages/payload/src/errors/FileUploadError.ts
++++ b/packages/payload/src/errors/FileUploadError.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class FileUploadError extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'FILE_UPLOAD_ERROR',
+       t ? t('error:problemUploadingFile') : en.translations.error.problemUploadingFile,
+       httpStatus.BAD_REQUEST,
+     )
+diff --git a/packages/payload/src/errors/Forbidden.ts b/packages/payload/src/errors/Forbidden.ts
+index 35beba489f..417c86f297 100644
+--- a/packages/payload/src/errors/Forbidden.ts
++++ b/packages/payload/src/errors/Forbidden.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class Forbidden extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'FORBIDDEN',
+       t ? t('error:notAllowedToPerformAction') : en.translations.error.notAllowedToPerformAction,
+       httpStatus.FORBIDDEN,
+     )
+diff --git a/packages/payload/src/errors/InvalidConfiguration.ts b/packages/payload/src/errors/InvalidConfiguration.ts
+index 7d0b53e18f..b5633fcbbd 100644
+--- a/packages/payload/src/errors/InvalidConfiguration.ts
++++ b/packages/payload/src/errors/InvalidConfiguration.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class InvalidConfiguration extends APIError {
+   constructor(message: string) {
+-    super(message, httpStatus.INTERNAL_SERVER_ERROR)
++    super('INVALID_CONFIGURATION', message, httpStatus.INTERNAL_SERVER_ERROR)
+   }
+ }
+diff --git a/packages/payload/src/errors/InvalidFieldJoin.ts b/packages/payload/src/errors/InvalidFieldJoin.ts
+index fe29bcef8d..a4a3f2a20e 100644
+--- a/packages/payload/src/errors/InvalidFieldJoin.ts
++++ b/packages/payload/src/errors/InvalidFieldJoin.ts
+@@ -5,6 +5,7 @@ import { APIError } from './APIError.js'
+ export class InvalidFieldJoin extends APIError {
+   constructor(field: JoinField) {
+     super(
++      'INVALID_FIELD_JOIN',
+       `Invalid join field ${field.name}. The config does not have a field '${field.on}' in collection '${field.collection}'.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/InvalidFieldName.ts b/packages/payload/src/errors/InvalidFieldName.ts
+index 3c45d0c5d5..4f549f820d 100644
+--- a/packages/payload/src/errors/InvalidFieldName.ts
++++ b/packages/payload/src/errors/InvalidFieldName.ts
+@@ -5,6 +5,7 @@ import { APIError } from './APIError.js'
+ export class InvalidFieldName extends APIError {
+   constructor(field: FieldAffectingData, fieldName: string) {
+     super(
++      'INVALID_FIELD_NAME',
+       `Field ${field.label} has invalid name '${fieldName}'. Field names can not include periods (.) and must be alphanumeric.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/InvalidFieldRelationship.ts b/packages/payload/src/errors/InvalidFieldRelationship.ts
+index 65e6f0fc17..14aa0e57c0 100644
+--- a/packages/payload/src/errors/InvalidFieldRelationship.ts
++++ b/packages/payload/src/errors/InvalidFieldRelationship.ts
+@@ -4,6 +4,9 @@ import { APIError } from './APIError.js'
+ 
+ export class InvalidFieldRelationship extends APIError {
+   constructor(field: RelationshipField | UploadField, relationship: string) {
+-    super(`Field ${field.label} has invalid relationship '${relationship}'.`)
++    super(
++      'INVALID_FIELD_RELATIONSHIP',
++      `Field ${field.label} has invalid relationship '${relationship}'.`,
++    )
+   }
+ }
+diff --git a/packages/payload/src/errors/InvalidSchema.ts b/packages/payload/src/errors/InvalidSchema.ts
+index 78c5a4b449..17608b0d4e 100644
+--- a/packages/payload/src/errors/InvalidSchema.ts
++++ b/packages/payload/src/errors/InvalidSchema.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class InvalidSchema extends APIError {
+   constructor(message: string, results: any) {
+-    super(message, httpStatus.INTERNAL_SERVER_ERROR, results)
++    super('INVALID_SCHEMA', message, httpStatus.INTERNAL_SERVER_ERROR, results)
+   }
+ }
+diff --git a/packages/payload/src/errors/Locked.ts b/packages/payload/src/errors/Locked.ts
+index 536c046f49..cf3842c2c0 100644
+--- a/packages/payload/src/errors/Locked.ts
++++ b/packages/payload/src/errors/Locked.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class Locked extends APIError {
+   constructor(message: string) {
+-    super(message, httpStatus.LOCKED)
++    super('LOCKED', message, httpStatus.LOCKED)
+   }
+ }
+diff --git a/packages/payload/src/errors/LockedAuth.ts b/packages/payload/src/errors/LockedAuth.ts
+index a2fa1bc40b..05f8dd04ac 100644
+--- a/packages/payload/src/errors/LockedAuth.ts
++++ b/packages/payload/src/errors/LockedAuth.ts
+@@ -7,6 +7,10 @@ import { APIError } from './APIError.js'
+ 
+ export class LockedAuth extends APIError {
+   constructor(t?: TFunction) {
+-    super(t ? t('error:userLocked') : en.translations.error.userLocked, httpStatus.UNAUTHORIZED)
++    super(
++      'LOCKED_AUTH',
++      t ? t('error:userLocked') : en.translations.error.userLocked,
++      httpStatus.UNAUTHORIZED,
++    )
+   }
+ }
+diff --git a/packages/payload/src/errors/MissingCollectionLabel.ts b/packages/payload/src/errors/MissingCollectionLabel.ts
+index ea8206635f..18cc387c0f 100644
+--- a/packages/payload/src/errors/MissingCollectionLabel.ts
++++ b/packages/payload/src/errors/MissingCollectionLabel.ts
+@@ -2,6 +2,6 @@ import { APIError } from './APIError.js'
+ 
+ export class MissingCollectionLabel extends APIError {
+   constructor() {
+-    super('payload.config.collection object is missing label')
++    super('MISSING_COLLECTION_LABEL', 'payload.config.collection object is missing label')
+   }
+ }
+diff --git a/packages/payload/src/errors/MissingEditorProp.ts b/packages/payload/src/errors/MissingEditorProp.ts
+index 63adf9cf12..0b8ee396ba 100644
+--- a/packages/payload/src/errors/MissingEditorProp.ts
++++ b/packages/payload/src/errors/MissingEditorProp.ts
+@@ -6,6 +6,7 @@ import { APIError } from './APIError.js'
+ export class MissingEditorProp extends APIError {
+   constructor(field: Field) {
+     super(
++      'MISSING_EDITOR_PROP',
+       `RichText field${fieldAffectsData(field) ? ` "${field.name}"` : ''} is missing the editor prop. For sub-richText fields, the editor props is required, as it would otherwise create infinite recursion.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/MissingFieldInputOptions.ts b/packages/payload/src/errors/MissingFieldInputOptions.ts
+index 7907598285..ce705b32e6 100644
+--- a/packages/payload/src/errors/MissingFieldInputOptions.ts
++++ b/packages/payload/src/errors/MissingFieldInputOptions.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class MissingFieldInputOptions extends APIError {
+   constructor(field: RadioField | SelectField) {
+-    super(`Field ${field.label} is missing options.`)
++    super('MISSING_FIELD_INPUT_OPTIONS', `Field ${field.label} is missing options.`)
+   }
+ }
+diff --git a/packages/payload/src/errors/MissingFieldType.ts b/packages/payload/src/errors/MissingFieldType.ts
+index ab805c7b10..b8313df1ea 100644
+--- a/packages/payload/src/errors/MissingFieldType.ts
++++ b/packages/payload/src/errors/MissingFieldType.ts
+@@ -6,6 +6,7 @@ import { APIError } from './APIError.js'
+ export class MissingFieldType extends APIError {
+   constructor(field: Field) {
+     super(
++      'MISSING_FIELD_TYPE',
+       `Field${
+         fieldAffectsData(field) ? ` "${field.name}"` : ''
+       } is either missing a field type or it does not match an available field type`,
+diff --git a/packages/payload/src/errors/MissingFile.ts b/packages/payload/src/errors/MissingFile.ts
+index d8dcd3a9a2..c3bb14b82e 100644
+--- a/packages/payload/src/errors/MissingFile.ts
++++ b/packages/payload/src/errors/MissingFile.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class MissingFile extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'MISSING_FILE',
+       t ? t('error:noFilesUploaded') : en.translations.error.noFilesUploaded,
+       httpStatus.BAD_REQUEST,
+     )
+diff --git a/packages/payload/src/errors/NotFound.ts b/packages/payload/src/errors/NotFound.ts
+index 6f66f35ad6..8fa191060a 100644
+--- a/packages/payload/src/errors/NotFound.ts
++++ b/packages/payload/src/errors/NotFound.ts
+@@ -7,6 +7,10 @@ import { APIError } from './APIError.js'
+ 
+ export class NotFound extends APIError {
+   constructor(t?: TFunction) {
+-    super(t ? t('general:notFound') : en.translations.general.notFound, httpStatus.NOT_FOUND)
++    super(
++      'NOT_FOUND',
++      t ? t('general:notFound') : en.translations.general.notFound,
++      httpStatus.NOT_FOUND,
++    )
+   }
+ }
+diff --git a/packages/payload/src/errors/QueryError.ts b/packages/payload/src/errors/QueryError.ts
+index 2d891e6d3d..a3462da496 100644
+--- a/packages/payload/src/errors/QueryError.ts
++++ b/packages/payload/src/errors/QueryError.ts
+@@ -7,6 +7,7 @@ export class QueryError extends APIError<{ path: string }[]> {
+     const message = `The following path${results.length === 1 ? '' : 's'} cannot be queried:`
+ 
+     super(
++      'QUERY_ERROR',
+       `${message} ${results.map((err) => err.path).join(', ')}`,
+       httpStatus.BAD_REQUEST,
+       results,
+diff --git a/packages/payload/src/errors/ReservedFieldName.ts b/packages/payload/src/errors/ReservedFieldName.ts
+index d9317fa96f..e53b05ae8e 100644
+--- a/packages/payload/src/errors/ReservedFieldName.ts
++++ b/packages/payload/src/errors/ReservedFieldName.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class ReservedFieldName extends APIError {
+   constructor(field: FieldAffectingData, fieldName: string) {
+-    super(`Field ${field.label} has reserved name '${fieldName}'.`)
++    super('RESERVED_FIELD_NAME', `Field ${field.label} has reserved name '${fieldName}'.`)
+   }
+ }
+diff --git a/packages/payload/src/errors/TimestampsRequired.ts b/packages/payload/src/errors/TimestampsRequired.ts
+index 0846f9fcd9..13f5c344d5 100644
+--- a/packages/payload/src/errors/TimestampsRequired.ts
++++ b/packages/payload/src/errors/TimestampsRequired.ts
+@@ -5,6 +5,7 @@ import { APIError } from './APIError.js'
+ export class TimestampsRequired extends APIError {
+   constructor(collection: CollectionConfig) {
+     super(
++      'TIMESTAMPS_REQUIRED',
+       `Timestamps are required in the collection ${collection.slug} because you have opted in to Versions.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/UnauthorizedError.ts b/packages/payload/src/errors/UnauthorizedError.ts
+index 7baceb8167..bce9eb8489 100644
+--- a/packages/payload/src/errors/UnauthorizedError.ts
++++ b/packages/payload/src/errors/UnauthorizedError.ts
+@@ -7,6 +7,10 @@ import { APIError } from './APIError.js'
+ 
+ export class UnauthorizedError extends APIError {
+   constructor(t?: TFunction) {
+-    super(t ? t('error:unauthorized') : en.translations.error.unauthorized, httpStatus.UNAUTHORIZED)
++    super(
++      'UNAUTHORIZED',
++      t ? t('error:unauthorized') : en.translations.error.unauthorized,
++      httpStatus.UNAUTHORIZED,
++    )
+   }
+ }
+diff --git a/packages/payload/src/errors/UnverifiedEmail.ts b/packages/payload/src/errors/UnverifiedEmail.ts
+index 7a969d31e5..e5a73f489a 100644
+--- a/packages/payload/src/errors/UnverifiedEmail.ts
++++ b/packages/payload/src/errors/UnverifiedEmail.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class UnverifiedEmail extends APIError {
+   constructor({ t }: { t?: TFunction }) {
+     super(
++      'UNVERIFIED_EMAIL',
+       t ? t('error:unverifiedEmail') : en.translations.error.unverifiedEmail,
+       httpStatus.FORBIDDEN,
+     )
+diff --git a/packages/payload/src/errors/ValidationError.ts b/packages/payload/src/errors/ValidationError.ts
+index 2e9b8d1f28..2a0602f14f 100644
+--- a/packages/payload/src/errors/ValidationError.ts
++++ b/packages/payload/src/errors/ValidationError.ts
+@@ -48,6 +48,7 @@ export class ValidationError extends APIError<{
+     delete results['req']
+ 
+     super(
++      'VALIDATION_ERROR',
+       `${message} ${results.errors
+         .map((f) => {
+           if (f.label) {
+diff --git a/packages/payload/src/fields/config/sanitizeJoinField.ts b/packages/payload/src/fields/config/sanitizeJoinField.ts
+index bd900a0451..a16d2bf492 100644
+--- a/packages/payload/src/fields/config/sanitizeJoinField.ts
++++ b/packages/payload/src/fields/config/sanitizeJoinField.ts
+@@ -42,7 +42,10 @@ export const sanitizeJoinField = ({
+ }) => {
+   // the `joins` arg is not passed for globals or when recursing on fields that do not allow a join field
+   if (typeof joins === 'undefined') {
+-    throw new APIError('Join fields cannot be added to arrays, blocks or globals.')
++    throw new APIError(
++      'INTERNAL_ERROR',
++      'Join fields cannot be added to arrays, blocks or globals.',
++    )
+   }
+   if (!field.admin) {
+     field.admin = {}
+@@ -60,7 +63,7 @@ export const sanitizeJoinField = ({
+ 
+   // Orderable joins must target a single collection
+   if (field.orderable && Array.isArray(field.collection)) {
+-    throw new APIError('Orderable joins must target a single collection')
++    throw new APIError('INTERNAL_ERROR', 'Orderable joins must target a single collection')
+   }
+ 
+   if (Array.isArray(field.collection)) {
+diff --git a/packages/payload/src/globals/operations/local/countVersions.ts b/packages/payload/src/globals/operations/local/countVersions.ts
+index 7115d6fd9e..b0a770c0e8 100644
+--- a/packages/payload/src/globals/operations/local/countVersions.ts
++++ b/packages/payload/src/globals/operations/local/countVersions.ts
+@@ -57,6 +57,7 @@ export async function countGlobalVersionsLocal<TSlug extends GlobalSlug>(
+ 
+   if (!global) {
+     throw new APIError(
++      'NOT_FOUND',
+       `The global with slug ${String(globalSlug)} can't be found. Count Global Versions Operation.`,
+     )
+   }
+diff --git a/packages/payload/src/globals/operations/local/findOne.ts b/packages/payload/src/globals/operations/local/findOne.ts
+index 75217a4e59..5205b931c3 100644
+--- a/packages/payload/src/globals/operations/local/findOne.ts
++++ b/packages/payload/src/globals/operations/local/findOne.ts
+@@ -118,7 +118,7 @@ export async function findOneGlobalLocal<
+   const globalConfig = payload.globals.config.find((config) => config.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`The global with slug ${String(globalSlug)} can't be found.`)
++    throw new APIError('NOT_FOUND', `The global with slug ${String(globalSlug)} can't be found.`)
+   }
+ 
+   return findOneOperation({
+diff --git a/packages/payload/src/globals/operations/local/findVersionByID.ts b/packages/payload/src/globals/operations/local/findVersionByID.ts
+index 0f3b334f85..d83fd1b271 100644
+--- a/packages/payload/src/globals/operations/local/findVersionByID.ts
++++ b/packages/payload/src/globals/operations/local/findVersionByID.ts
+@@ -93,7 +93,7 @@ export async function findGlobalVersionByIDLocal<TSlug extends GlobalSlug>(
+   const globalConfig = payload.globals.config.find((config) => config.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`The global with slug ${String(globalSlug)} can't be found.`)
++    throw new APIError('NOT_FOUND', `The global with slug ${String(globalSlug)} can't be found.`)
+   }
+ 
+   return findVersionByIDOperation({
+diff --git a/packages/payload/src/globals/operations/local/findVersions.ts b/packages/payload/src/globals/operations/local/findVersions.ts
+index f396dd0ffe..4e69869c0d 100644
+--- a/packages/payload/src/globals/operations/local/findVersions.ts
++++ b/packages/payload/src/globals/operations/local/findVersions.ts
+@@ -113,7 +113,7 @@ export async function findGlobalVersionsLocal<TSlug extends GlobalSlug>(
+   const globalConfig = payload.globals.config.find((config) => config.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`The global with slug ${String(globalSlug)} can't be found.`)
++    throw new APIError('NOT_FOUND', `The global with slug ${String(globalSlug)} can't be found.`)
+   }
+ 
+   return findVersionsOperation({
+diff --git a/packages/payload/src/globals/operations/local/restoreVersion.ts b/packages/payload/src/globals/operations/local/restoreVersion.ts
+index a6119ff9d6..9a67d6eeea 100644
+--- a/packages/payload/src/globals/operations/local/restoreVersion.ts
++++ b/packages/payload/src/globals/operations/local/restoreVersion.ts
+@@ -70,7 +70,7 @@ export async function restoreGlobalVersionLocal<TSlug extends GlobalSlug>(
+   const globalConfig = payload.globals.config.find((config) => config.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`The global with slug ${String(globalSlug)} can't be found.`)
++    throw new APIError('NOT_FOUND', `The global with slug ${String(globalSlug)} can't be found.`)
+   }
+ 
+   return restoreVersionOperation({
+diff --git a/packages/payload/src/globals/operations/local/update.ts b/packages/payload/src/globals/operations/local/update.ts
+index dc71365ada..b84c986361 100644
+--- a/packages/payload/src/globals/operations/local/update.ts
++++ b/packages/payload/src/globals/operations/local/update.ts
+@@ -128,7 +128,7 @@ export async function updateGlobalLocal<
+   const globalConfig = payload.globals.config.find((config) => config.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`The global with slug ${String(globalSlug)} can't be found.`)
++    throw new APIError('NOT_FOUND', `The global with slug ${String(globalSlug)} can't be found.`)
+   }
+ 
+   return updateOperation<TSlug, TSelect>({
+diff --git a/packages/payload/src/hierarchy/hooks/ensureSafeCollectionsChange.ts b/packages/payload/src/hierarchy/hooks/ensureSafeCollectionsChange.ts
+index 9d0adcad83..05d75c79fb 100644
+--- a/packages/payload/src/hierarchy/hooks/ensureSafeCollectionsChange.ts
++++ b/packages/payload/src/hierarchy/hooks/ensureSafeCollectionsChange.ts
+@@ -97,6 +97,7 @@ export const ensureSafeCollectionsChange =
+ 
+           const isFolder = dependentCollection === foldersSlug
+           throw new APIError(
++            'BAD_REQUEST',
+             `The folder "${data.name || originalDoc.name}" contains ${isFolder ? 'folders' : 'documents'} that still belong to the following collections: ${translatedLabels.join(', ')}`,
+             400,
+           )
+@@ -137,6 +138,7 @@ export const ensureSafeCollectionsChange =
+         parentTypeValue.length > 0
+       ) {
+         throw new APIError(
++          'BAD_REQUEST',
+           `The folder "${data?.name || originalDoc.name}" must have folder-type set since its parent folder ${parentFolder?.name ? `"${parentFolder?.name}" ` : ''}has a folder-type set.`,
+           400,
+         )
+diff --git a/packages/payload/src/query-presets/preventLockout.ts b/packages/payload/src/query-presets/preventLockout.ts
+index bf9e6e85df..3fcace9cde 100644
+--- a/packages/payload/src/query-presets/preventLockout.ts
++++ b/packages/payload/src/query-presets/preventLockout.ts
+@@ -72,7 +72,13 @@ export const preventLockout: Validate = async (
+       canUpdate = true
+     } catch (_err) {
+       if (!canRead || !canUpdate) {
+-        throw new APIError('This action will lock you out of this preset.', 403, {}, true)
++        throw new APIError(
++          'FORBIDDEN',
++          'This action will lock you out of this preset.',
++          403,
++          {},
++          true,
++        )
+       }
+     } finally {
+       if (transaction) {
+diff --git a/packages/payload/src/uploads/endpoints/getFile.ts b/packages/payload/src/uploads/endpoints/getFile.ts
+index 89488c0723..b0328ab193 100644
+--- a/packages/payload/src/uploads/endpoints/getFile.ts
++++ b/packages/payload/src/uploads/endpoints/getFile.ts
+@@ -23,6 +23,7 @@ export const getFileHandler: PayloadHandler = async (req) => {
+ 
+   if (!collection.config.upload) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `This collection is not an upload collection: ${collection.config.slug}`,
+       httpStatus.BAD_REQUEST,
+     )
+@@ -70,7 +71,7 @@ export const getFileHandler: PayloadHandler = async (req) => {
+   const filePath = path.resolve(resolvedDir, filename)
+ 
+   if (!filePath.startsWith(resolvedDir + path.sep)) {
+-    throw new APIError('Invalid filename.', httpStatus.BAD_REQUEST)
++    throw new APIError('BAD_REQUEST', 'Invalid filename.', httpStatus.BAD_REQUEST)
+   }
+ 
+   let stats: Stats
+diff --git a/packages/payload/src/uploads/endpoints/getFileFromURL.ts b/packages/payload/src/uploads/endpoints/getFileFromURL.ts
+index fcab1bd5fe..199a25aa51 100644
+--- a/packages/payload/src/uploads/endpoints/getFileFromURL.ts
++++ b/packages/payload/src/uploads/endpoints/getFileFromURL.ts
+@@ -24,7 +24,7 @@ export const getFileFromURLHandler: PayloadHandler = async (req) => {
+   const config = collection?.config
+ 
+   if (!config.upload?.pasteURL) {
+-    throw new APIError('Pasting from URL is not enabled for this collection.', 400)
++    throw new APIError('BAD_REQUEST', 'Pasting from URL is not enabled for this collection.', 400)
+   }
+ 
+   if (id) {
+@@ -42,14 +42,14 @@ export const getFileFromURLHandler: PayloadHandler = async (req) => {
+   }
+ 
+   if (!req.url) {
+-    throw new APIError('Request URL is missing.', 400)
++    throw new APIError('BAD_REQUEST', 'Request URL is missing.', 400)
+   }
+ 
+   const { searchParams } = new URL(req.url)
+   const src = searchParams.get('src')
+ 
+   if (!src || typeof src !== 'string') {
+-    throw new APIError('A valid URL string is required.', 400)
++    throw new APIError('BAD_REQUEST', 'A valid URL string is required.', 400)
+   }
+ 
+   const hasAllowList =
+@@ -59,11 +59,11 @@ export const getFileFromURLHandler: PayloadHandler = async (req) => {
+   try {
+     fileURL = new URL(src).href
+   } catch {
+-    throw new APIError('A valid URL string is required.', 400)
++    throw new APIError('BAD_REQUEST', 'A valid URL string is required.', 400)
+   }
+ 
+   if (hasAllowList && !isURLAllowed(fileURL, config.upload.pasteURL.allowList)) {
+-    throw new APIError('The provided URL is not allowed.', 400)
++    throw new APIError('BAD_REQUEST', 'The provided URL is not allowed.', 400)
+   }
+ 
+   let redirectCount = 0
+@@ -90,13 +90,13 @@ export const getFileFromURLHandler: PayloadHandler = async (req) => {
+     if (response.status >= 300 && response.status < 400) {
+       redirectCount++
+       if (redirectCount > maxRedirects) {
+-        throw new APIError('Too many redirects.', 403)
++        throw new APIError('FORBIDDEN', 'Too many redirects.', 403)
+       }
+       const location = response.headers.get('location')
+       if (location) {
+         fileURL = new URL(location, fileURL).href
+         if (hasAllowList && !isURLAllowed(fileURL, config.upload.pasteURL.allowList)) {
+-          throw new APIError('The provided URL is not allowed.', 400)
++          throw new APIError('BAD_REQUEST', 'The provided URL is not allowed.', 400)
+         }
+         continue
+       }
+@@ -106,7 +106,11 @@ export const getFileFromURLHandler: PayloadHandler = async (req) => {
+   }
+ 
+   if (!response.ok) {
+-    throw new APIError('Failed to fetch the file from the provided URL.', response.status)
++    throw new APIError(
++      'FILE_ERROR',
++      'Failed to fetch the file from the provided URL.',
++      response.status,
++    )
+   }
+ 
+   const rawFileName = decodeURIComponent(new URL(fileURL).pathname.split('/').pop() || '')
+diff --git a/packages/payload/src/uploads/endpoints/uploadInstructions.ts b/packages/payload/src/uploads/endpoints/uploadInstructions.ts
+index bc72f8b156..6e61a64ef3 100644
+--- a/packages/payload/src/uploads/endpoints/uploadInstructions.ts
++++ b/packages/payload/src/uploads/endpoints/uploadInstructions.ts
+@@ -42,12 +42,17 @@ export const getUploadInstructions = async ({
+   const uploadInstructions = collection?.config?.upload?.uploadInstructions
+ 
+   if (!collection?.config?.upload) {
+-    throw new APIError(`Upload collection ${upload.collectionSlug} was not found`, 400)
++    throw new APIError(
++      'BAD_REQUEST',
++      `Upload collection ${upload.collectionSlug} was not found`,
++      400,
++    )
+   }
+ 
+   const filesizeLimit = req.payload.config.upload.limits?.fileSize
+   if (filesizeLimit && upload.filesize > filesizeLimit) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `Exceeded file size limit. Limit: ${bytesToMB(filesizeLimit).toFixed(2)}MB, got: ${bytesToMB(upload.filesize).toFixed(2)}MB`,
+       400,
+     )
+@@ -89,12 +94,12 @@ export const getUploadInstructions = async ({
+ export const uploadInstructionsEndpoint: Endpoint = {
+   handler: async (req) => {
+     if (!req.json) {
+-      throw new APIError('Content-Type expected to be application/json', 400)
++      throw new APIError('BAD_REQUEST', 'Content-Type expected to be application/json', 400)
+     }
+ 
+     const upload: unknown = await req.json()
+     if (!isUploadInstructionsRequest(upload)) {
+-      throw new APIError('Invalid upload instructions request', 400)
++      throw new APIError('BAD_REQUEST', 'Invalid upload instructions request', 400)
+     }
+ 
+     return Response.json(await getUploadInstructions({ ...upload, req }))
+diff --git a/packages/payload/src/uploads/fetchAPI-multipart/index.ts b/packages/payload/src/uploads/fetchAPI-multipart/index.ts
+index 9cc9fefde1..7236657658 100644
+--- a/packages/payload/src/uploads/fetchAPI-multipart/index.ts
++++ b/packages/payload/src/uploads/fetchAPI-multipart/index.ts
+@@ -64,7 +64,7 @@ export const processMultipartFormdata: FetchAPIFileUpload = async ({
+     debugLog(options, 'Request is not eligible for file upload!')
+ 
+     return {
+-      error: new APIError('Request is not eligible for file upload', 500),
++      error: new APIError('INTERNAL_ERROR', 'Request is not eligible for file upload', 500),
+       fields: undefined!,
+       files: undefined!,
+     }
+diff --git a/packages/payload/src/uploads/fetchAPI-multipart/processMultipart.ts b/packages/payload/src/uploads/fetchAPI-multipart/processMultipart.ts
+index 379b5d317d..219d87243f 100644
+--- a/packages/payload/src/uploads/fetchAPI-multipart/processMultipart.ts
++++ b/packages/payload/src/uploads/fetchAPI-multipart/processMultipart.ts
+@@ -105,7 +105,7 @@ export const processMultipart: ProcessMultipart = async ({ options, request }) =
+     const uploadTimer = createUploadTimer(options.uploadTimeout, () => {
+       return abortAndDestroyFile(
+         file,
+-        new APIError(`Upload timeout for ${field}->${filename}, bytes:${getFileSize()}`),
++        new APIError('TIMEOUT', `Upload timeout for ${field}->${filename}, bytes:${getFileSize()}`),
+       )
+     })
+ 
+@@ -123,9 +123,14 @@ export const processMultipart: ProcessMultipart = async ({ options, request }) =
+         cleanup()
+         abortAndDestroyFile(
+           file,
+-          new APIError(options.responseOnLimit!, httpStatus.REQUEST_ENTITY_TOO_LARGE, {
+-            size: getFileSize(),
+-          }),
++          new APIError(
++            'REQUEST_ENTITY_TOO_LARGE',
++            options.responseOnLimit!,
++            httpStatus.REQUEST_ENTITY_TOO_LARGE,
++            {
++              size: getFileSize(),
++            },
++          ),
+         )
+       }
+     })
+@@ -213,12 +218,22 @@ export const processMultipart: ProcessMultipart = async ({ options, request }) =
+ 
+   busboy.on(
+     'error',
+-    (err = new APIError('Busboy error parsing multipart request', httpStatus.BAD_REQUEST)) => {
++    (
++      err = new APIError(
++        'BAD_REQUEST',
++        'Busboy error parsing multipart request',
++        httpStatus.BAD_REQUEST,
++      ),
++    ) => {
+       debugLog(options, `Busboy error`)
+       const busboyError =
+         err instanceof Error
+           ? err
+-          : new APIError('Busboy error parsing multipart request', httpStatus.BAD_REQUEST)
++          : new APIError(
++              'BAD_REQUEST',
++              'Busboy error parsing multipart request',
++              httpStatus.BAD_REQUEST,
++            )
+ 
+       busboyFinishedReject(busboyError)
+     },
+diff --git a/packages/payload/src/uploads/getExternalFile.ts b/packages/payload/src/uploads/getExternalFile.ts
+index b518b249bb..f49ef6941b 100644
+--- a/packages/payload/src/uploads/getExternalFile.ts
++++ b/packages/payload/src/uploads/getExternalFile.ts
+@@ -72,7 +72,7 @@ export const getExternalFile = async ({ data, req, uploadConfig }: Args): Promis
+       if (res.status >= 300 && res.status < 400) {
+         redirectCount++
+         if (redirectCount > maxRedirects) {
+-          throw new APIError(`Too many redirects (max ${maxRedirects})`, 403)
++          throw new APIError('FORBIDDEN', `Too many redirects (max ${maxRedirects})`, 403)
+         }
+         const location = res.headers.get('location')
+         if (location) {
+@@ -82,7 +82,7 @@ export const getExternalFile = async ({ data, req, uploadConfig }: Args): Promis
+             uploadConfig.pasteURL.allowList &&
+             !isURLAllowed(fileURL, uploadConfig.pasteURL.allowList)
+           ) {
+-            throw new APIError('Redirect target is not allowed.', 400)
++            throw new APIError('BAD_REQUEST', 'Redirect target is not allowed.', 400)
+           }
+           continue
+         }
+@@ -92,7 +92,7 @@ export const getExternalFile = async ({ data, req, uploadConfig }: Args): Promis
+     }
+ 
+     if (!res || !res.ok) {
+-      throw new APIError(`Failed to fetch file from ${fileURL}`, res?.status)
++      throw new APIError('FILE_ERROR', `Failed to fetch file from ${fileURL}`, res?.status)
+     }
+ 
+     const data = await res.arrayBuffer()
+@@ -105,5 +105,5 @@ export const getExternalFile = async ({ data, req, uploadConfig }: Args): Promis
+     }
+   }
+ 
+-  throw new APIError('Invalid file url', 400)
++  throw new APIError('BAD_REQUEST', 'Invalid file url', 400)
+ }
+diff --git a/packages/payload/src/uploads/getFileFromUploadInstructions.ts b/packages/payload/src/uploads/getFileFromUploadInstructions.ts
+index cdd83c92ff..2ef11264f7 100644
+--- a/packages/payload/src/uploads/getFileFromUploadInstructions.ts
++++ b/packages/payload/src/uploads/getFileFromUploadInstructions.ts
+@@ -19,7 +19,7 @@ export const getFileFromUploadInstructions = async ({
+     !file.uploadReference ||
+     typeof file.uploadReference !== 'object'
+   ) {
+-    throw new APIError('Invalid upload reference.', 400)
++    throw new APIError('BAD_REQUEST', 'Invalid upload reference.', 400)
+   }
+ 
+   /**
+@@ -33,7 +33,7 @@ export const getFileFromUploadInstructions = async ({
+   const uploadConfig = req.payload.collections[collectionSlug]!.config.upload
+ 
+   if (!uploadConfig || !uploadConfig.handlers) {
+-    throw new APIError('uploadConfig.handlers is not present for ' + collectionSlug)
++    throw new APIError('FILE_ERROR', 'uploadConfig.handlers is not present for ' + collectionSlug)
+   }
+ 
+   let response: null | Response = null
+@@ -69,7 +69,7 @@ export const getFileFromUploadInstructions = async ({
+       req.payload.logger.error(error)
+     }
+ 
+-    throw new APIError('Expected response from the upload handler.')
++    throw new APIError('FILE_ERROR', 'Expected response from the upload handler.')
+   }
+ 
+   if (response.status >= 300 && response.status < 400) {
+diff --git a/packages/payload/src/uploads/stagedUpload.ts b/packages/payload/src/uploads/stagedUpload.ts
+index 2ef19d22f3..9783cff5e4 100644
+--- a/packages/payload/src/uploads/stagedUpload.ts
++++ b/packages/payload/src/uploads/stagedUpload.ts
+@@ -89,7 +89,7 @@ export const uploadStagedFile: PayloadHandler = async (req) => {
+ 
+         uploadedSize += value.byteLength
+         if (uploadedSize > upload.filesize) {
+-          throw new APIError('Uploaded file is larger than expected.', 400)
++          throw new APIError('BAD_REQUEST', 'Uploaded file is larger than expected.', 400)
+         }
+ 
+         let offset = 0
+@@ -100,7 +100,11 @@ export const uploadStagedFile: PayloadHandler = async (req) => {
+       }
+ 
+       if (uploadedSize !== upload.filesize) {
+-        throw new APIError('Uploaded file size does not match the expected size.', 400)
++        throw new APIError(
++          'BAD_REQUEST',
++          'Uploaded file size does not match the expected size.',
++          400,
++        )
+       }
+     } finally {
+       await file.close()
+@@ -158,7 +162,7 @@ export const getStagedFile = async ({
+     !('uploadId' in uploadReference) ||
+     typeof uploadReference.uploadId !== 'string'
+   ) {
+-    throw new APIError('Invalid staged upload.', 400)
++    throw new APIError('BAD_REQUEST', 'Invalid staged upload.', 400)
+   }
+ 
+   const { uploadId } = uploadReference
+@@ -175,12 +179,12 @@ export const getStagedFile = async ({
+   try {
+     data = await fs.readFile(tempFilePath)
+   } catch {
+-    throw new APIError('Staged upload was not found.', 400)
++    throw new APIError('BAD_REQUEST', 'Staged upload was not found.', 400)
+   }
+ 
+   if (data.length !== upload.filesize) {
+     await fs.rm(tempFilePath, { force: true })
+-    throw new APIError('Staged upload is incomplete.', 400)
++    throw new APIError('BAD_REQUEST', 'Staged upload is incomplete.', 400)
+   }
+ 
+   await fs.rm(tempFilePath, { force: true })
+@@ -266,6 +270,6 @@ const verifyUploadID = async (
+ 
+     return payload as StagedUploadToken
+   } catch {
+-    throw new APIError('Invalid or expired staged upload.', 400)
++    throw new APIError('BAD_REQUEST', 'Invalid or expired staged upload.', 400)
+   }
+ }
+diff --git a/packages/payload/src/utilities/addDataAndFileToRequest.ts b/packages/payload/src/utilities/addDataAndFileToRequest.ts
+index 15639bb339..e9aece10b2 100644
+--- a/packages/payload/src/utilities/addDataAndFileToRequest.ts
++++ b/packages/payload/src/utilities/addDataAndFileToRequest.ts
+@@ -27,7 +27,7 @@ export const addDataAndFileToRequest: AddDataAndFileToRequest = async (req) => {
+         req.json = () => Promise.resolve(data)
+       } catch (error) {
+         if (error instanceof SyntaxError) {
+-          throw new APIError('Invalid JSON', 400)
++          throw new APIError('BAD_REQUEST', 'Invalid JSON', 400)
+         }
+         req.payload.logger.error(error)
+         throw error
+@@ -42,7 +42,7 @@ export const addDataAndFileToRequest: AddDataAndFileToRequest = async (req) => {
+       })
+ 
+       if (error) {
+-        throw new APIError(error.message)
++        throw new APIError('INTERNAL_ERROR', error.message)
+       }
+ 
+       // Set all files on req.files for access by hooks
+@@ -64,7 +64,7 @@ export const addDataAndFileToRequest: AddDataAndFileToRequest = async (req) => {
+         try {
+           uploadedFile = JSON.parse(fields.file)
+         } catch {
+-          throw new APIError('A file name is required.', 400)
++          throw new APIError('BAD_REQUEST', 'A file name is required.', 400)
+         }
+         const collectionSlug =
+           typeof req.routeParams?.collection === 'string'
+@@ -75,7 +75,7 @@ export const addDataAndFileToRequest: AddDataAndFileToRequest = async (req) => {
+           : undefined
+ 
+         if (!collectionSlug || !uploadConfig) {
+-          throw new APIError('Invalid upload collection.', 400)
++          throw new APIError('BAD_REQUEST', 'Invalid upload collection.', 400)
+         }
+ 
+         req.file = await getFileFromUploadInstructions({
+diff --git a/packages/payload/src/utilities/formatErrors.spec.ts b/packages/payload/src/utilities/formatErrors.spec.ts
+index 7da8894aaa..b464ff2b2c 100644
+--- a/packages/payload/src/utilities/formatErrors.spec.ts
++++ b/packages/payload/src/utilities/formatErrors.spec.ts
+@@ -21,7 +21,13 @@ describe('formatErrors', () => {
+   })
+ 
+   it('should format a Payload APIError', () => {
+-    const err = new APIError('Something went wrong', 400, { detail: 'bad input' }, true)
++    const err = new APIError(
++      'BAD_REQUEST',
++      'Something went wrong',
++      400,
++      { detail: 'bad input' },
++      true,
++    )
+ 
+     const result = formatErrors(err)
+ 
+@@ -67,7 +73,7 @@ describe('formatErrors', () => {
+   })
+ 
+   it('should format a Payload APIError with no data', () => {
+-    const err = new APIError('Server error')
++    const err = new APIError('INTERNAL_ERROR', 'Server error')
+ 
+     const result = formatErrors(err)
+ 
+diff --git a/packages/payload/src/utilities/getRequestEntity.ts b/packages/payload/src/utilities/getRequestEntity.ts
+index 57d8236708..2d8b49eca9 100644
+--- a/packages/payload/src/utilities/getRequestEntity.ts
++++ b/packages/payload/src/utilities/getRequestEntity.ts
+@@ -8,13 +8,13 @@ export const getRequestCollection = (req: PayloadRequest): Collection => {
+   const collectionSlug = req.routeParams?.collection
+ 
+   if (typeof collectionSlug !== 'string') {
+-    throw new APIError(`No collection was specified`, 400)
++    throw new APIError('BAD_REQUEST', `No collection was specified`, 400)
+   }
+ 
+   const collection = req.payload.collections[collectionSlug]
+ 
+   if (!collection) {
+-    throw new APIError(`Collection with the slug ${collectionSlug} was not found`, 404)
++    throw new APIError('NOT_FOUND', `Collection with the slug ${collectionSlug} was not found`, 404)
+   }
+ 
+   return collection
+@@ -44,7 +44,7 @@ export const getRequestCollectionWithID = <T extends boolean>(
+       }
+     }
+ 
+-    throw new APIError(`ID was not specified`, 400)
++    throw new APIError('BAD_REQUEST', `ID was not specified`, 400)
+   }
+ 
+   if (disableSanitize === true) {
+@@ -80,13 +80,13 @@ export const getRequestGlobal = (req: PayloadRequest): SanitizedGlobalConfig =>
+   const globalSlug = req.routeParams?.global
+ 
+   if (typeof globalSlug !== 'string') {
+-    throw new APIError(`No global was specified`, 400)
++    throw new APIError('BAD_REQUEST', `No global was specified`, 400)
+   }
+ 
+   const globalConfig = req.payload.globals.config.find((each) => each.slug === globalSlug)
+ 
+   if (!globalConfig) {
+-    throw new APIError(`Global with the slug ${globalSlug} was not found`, 404)
++    throw new APIError('NOT_FOUND', `Global with the slug ${globalSlug} was not found`, 404)
+   }
+ 
+   return globalConfig
+diff --git a/packages/payload/src/utilities/routeError.ts b/packages/payload/src/utilities/routeError.ts
+index ec498a643a..292b955753 100644
+--- a/packages/payload/src/utilities/routeError.ts
++++ b/packages/payload/src/utilities/routeError.ts
+@@ -70,7 +70,7 @@ export const routeError = async ({
+   // Internal server errors can contain anything, including potentially sensitive data.
+   // Therefore, error details will be hidden from the response unless `config.debug` is `true`
+   if (!isErrorPublic(err, config)) {
+-    response = formatErrors(new APIError('Something went wrong.'))
++    response = formatErrors(new APIError('INTERNAL_ERROR', 'Something went wrong.'))
+   }
+ 
+   if (config.debug && config.debug === true) {
+diff --git a/packages/payload/src/utilities/sanitizeFilename.ts b/packages/payload/src/utilities/sanitizeFilename.ts
+index a1dea683a9..a8d2e10d5a 100644
+--- a/packages/payload/src/utilities/sanitizeFilename.ts
++++ b/packages/payload/src/utilities/sanitizeFilename.ts
+@@ -20,7 +20,7 @@ export function sanitizeFilename(filename: string): string {
+   sanitized = sanitized.replace(/[\x00-\x1f\x80-\x9f]/g, '')
+ 
+   if (!sanitized) {
+-    throw new APIError('Invalid filename', 400)
++    throw new APIError('BAD_REQUEST', 'Invalid filename', 400)
+   }
+ 
+   return sanitized
+diff --git a/packages/plugin-import-export/src/export/createExport.ts b/packages/plugin-import-export/src/export/createExport.ts
+index e4b3336ebe..65a6d168bb 100644
+--- a/packages/plugin-import-export/src/export/createExport.ts
++++ b/packages/plugin-import-export/src/export/createExport.ts
+@@ -96,7 +96,7 @@ export const createExport = async (args: CreateExportArgs) => {
+   const collectionConfig = payload.config.collections.find(({ slug }) => slug === collectionSlug)
+ 
+   if (!collectionConfig) {
+-    throw new APIError(`Collection with slug ${collectionSlug} not found.`)
++    throw new APIError('NOT_FOUND', `Collection with slug ${collectionSlug} not found.`)
+   }
+ 
+   let user: undefined | User
+@@ -114,7 +114,7 @@ export const createExport = async (args: CreateExportArgs) => {
+   }
+ 
+   if (!user) {
+-    throw new APIError('User authentication is required to create exports.')
++    throw new APIError('BAD_REQUEST', 'User authentication is required to create exports.')
+   }
+ 
+   const draft = draftsFromInput === 'yes'
+@@ -251,7 +251,7 @@ export const createExport = async (args: CreateExportArgs) => {
+   if (download) {
+     const limitErrorMsg = validateLimitValue(incomingLimit, req.t)
+     if (limitErrorMsg) {
+-      throw new APIError(limitErrorMsg)
++      throw new APIError('INTERNAL_ERROR', limitErrorMsg)
+     }
+ 
+     // Get schema-based columns first (provides base ordering and handles empty exports)
+diff --git a/packages/plugin-import-export/src/export/handleDownload.ts b/packages/plugin-import-export/src/export/handleDownload.ts
+index 978d61dae2..7f92eec463 100644
+--- a/packages/plugin-import-export/src/export/handleDownload.ts
++++ b/packages/plugin-import-export/src/export/handleDownload.ts
+@@ -14,7 +14,7 @@ export const handleDownload = async (req: PayloadRequest, debug = false) => {
+     }
+ 
+     if (!body || !body.data) {
+-      throw new APIError('Request data is required.')
++      throw new APIError('BAD_REQUEST', 'Request data is required.')
+     }
+ 
+     const { collectionSlug, format } = body.data || {}
+@@ -31,6 +31,7 @@ export const handleDownload = async (req: PayloadRequest, debug = false) => {
+       const forcedFormat = adminPluginConfig?.exportFormat
+       if (forcedFormat && format && format !== forcedFormat) {
+         throw new APIError(
++          'NOT_SUPPORTED',
+           `Export format '${format}' is not supported for collection '${collectionSlug}'. Only '${forcedFormat}' format is allowed.`,
+         )
+       }
+diff --git a/packages/plugin-import-export/src/import/createImport.ts b/packages/plugin-import-export/src/import/createImport.ts
+index e5be21f487..dccf33fe70 100644
+--- a/packages/plugin-import-export/src/import/createImport.ts
++++ b/packages/plugin-import-export/src/import/createImport.ts
+@@ -77,7 +77,7 @@ export const createImport = async ({
+   }
+ 
+   if (!user) {
+-    throw new APIError('User is required for import operations', 401, null, true)
++    throw new APIError('UNAUTHORIZED', 'User is required for import operations', 401, null, true)
+   }
+ 
+   if (debug) {
+@@ -92,11 +92,11 @@ export const createImport = async ({
+   }
+ 
+   if (!collectionSlug) {
+-    throw new APIError('Collection slug is required', 400, null, true)
++    throw new APIError('BAD_REQUEST', 'Collection slug is required', 400, null, true)
+   }
+ 
+   if (!file || !file?.data) {
+-    throw new APIError('No file data provided for import', 400, null, true)
++    throw new APIError('BAD_REQUEST', 'No file data provided for import', 400, null, true)
+   }
+ 
+   if (debug) {
+@@ -114,9 +114,15 @@ export const createImport = async ({
+ 
+   if (!collectionConfig) {
+     if (!collectionSlug) {
+-      throw new APIError('Collection slug is required', 400, null, true)
++      throw new APIError('BAD_REQUEST', 'Collection slug is required', 400, null, true)
+     }
+-    throw new APIError(`Collection with slug ${collectionSlug} not found`, 400, null, true)
++    throw new APIError(
++      'BAD_REQUEST',
++      `Collection with slug ${collectionSlug} not found`,
++      400,
++      null,
++      true,
++    )
+   }
+ 
+   // Get disabled fields configuration
+@@ -195,6 +201,7 @@ export const createImport = async ({
+   // Enforce maxLimit before processing to save memory/time
+   if (typeof maxLimit === 'number' && maxLimit > 0 && documents.length > maxLimit) {
+     throw new APIError(
++      'BAD_REQUEST',
+       `Import file contains ${documents.length} documents but limit is ${maxLimit}`,
+       400,
+       null,
+diff --git a/packages/plugin-import-export/src/utilities/parseJSON.ts b/packages/plugin-import-export/src/utilities/parseJSON.ts
+index 9fb1048a77..ec2de92001 100644
+--- a/packages/plugin-import-export/src/utilities/parseJSON.ts
++++ b/packages/plugin-import-export/src/utilities/parseJSON.ts
+@@ -17,7 +17,7 @@ export const parseJSON = ({ data, req }: ParseJSONArgs): Record<string, unknown>
+     const parsed = JSON.parse(content)
+ 
+     if (!Array.isArray(parsed)) {
+-      throw new APIError('JSON import data must be an array of documents')
++      throw new APIError('INTERNAL_ERROR', 'JSON import data must be an array of documents')
+     }
+ 
+     return parsed
+@@ -26,6 +26,6 @@ export const parseJSON = ({ data, req }: ParseJSONArgs): Record<string, unknown>
+     if (err instanceof APIError) {
+       throw err
+     }
+-    throw new APIError('Invalid JSON format')
++    throw new APIError('BAD_REQUEST', 'Invalid JSON format')
+   }
+ }
+diff --git a/packages/plugin-mcp/src/endpoint/index.ts b/packages/plugin-mcp/src/endpoint/index.ts
+index 0c55233bb2..e7ffa812ff 100644
+--- a/packages/plugin-mcp/src/endpoint/index.ts
++++ b/packages/plugin-mcp/src/endpoint/index.ts
+@@ -13,7 +13,7 @@ import { getAuthorizedMCP } from './access.js'
+ 
+ export const mcpEndpoint: PayloadHandler = async (req) => {
+   if (!req.url) {
+-    throw new APIError('Missing request URL', 400)
++    throw new APIError('BAD_REQUEST', 'Missing request URL', 400)
+   }
+ 
+   req.payloadAPI = 'MCP' as const
+@@ -22,14 +22,14 @@ export const mcpEndpoint: PayloadHandler = async (req) => {
+   const overrideAccessParam = new URL(req.url).searchParams.get('overrideAccess')
+ 
+   if (overrideAccessParam !== null && process.env.NODE_ENV !== 'development') {
+-    throw new APIError('MCP overrideAccess is only available in development.', 400)
++    throw new APIError('BAD_REQUEST', 'MCP overrideAccess is only available in development.', 400)
+   }
+ 
+   let overrideAccess = false
+   if (overrideAccessParam === 'true') {
+     overrideAccess = true
+   } else if (overrideAccessParam !== null && overrideAccessParam !== 'false') {
+-    throw new APIError('MCP overrideAccess must be "true" or "false".', 400)
++    throw new APIError('BAD_REQUEST', 'MCP overrideAccess must be "true" or "false".', 400)
+   }
+ 
+   const authorizedMCP = await getAuthorizedMCP({ overrideAccess, req })
+diff --git a/packages/plugin-mcp/src/mcp/buildMcpServer.ts b/packages/plugin-mcp/src/mcp/buildMcpServer.ts
+index f43a093a01..608984e7d8 100644
+--- a/packages/plugin-mcp/src/mcp/buildMcpServer.ts
++++ b/packages/plugin-mcp/src/mcp/buildMcpServer.ts
+@@ -240,7 +240,7 @@ export const buildMcpServer = ({
+       }
+     }
+   } catch (error) {
+-    throw new APIError(`Error initializing MCP handler: ${String(error)}`, 500)
++    throw new APIError('INTERNAL_ERROR', `Error initializing MCP handler: ${String(error)}`, 500)
+   }
+ 
+   return server
+diff --git a/packages/plugin-mcp/src/mcp/builtin/collections/fileInput.ts b/packages/plugin-mcp/src/mcp/builtin/collections/fileInput.ts
+index 3601596a03..69a4175d49 100644
+--- a/packages/plugin-mcp/src/mcp/builtin/collections/fileInput.ts
++++ b/packages/plugin-mcp/src/mcp/builtin/collections/fileInput.ts
+@@ -59,6 +59,7 @@ export async function resolveFile({
+     } catch (error) {
+       if (error instanceof Error && error.message === 'Staged upload was not found.') {
+         throw new APIError(
++          'BAD_REQUEST',
+           'Staged upload not found. Complete the upload action first, or use base64 for small local files.',
+           400,
+         )
+@@ -70,7 +71,11 @@ export async function resolveFile({
+   const uploadConfig = req.payload.collections[collectionSlug]?.config.upload
+ 
+   if (!uploadConfig) {
+-    throw new APIError(`Collection "${collectionSlug}" does not support file uploads.`, 400)
++    throw new APIError(
++      'BAD_REQUEST',
++      `Collection "${collectionSlug}" does not support file uploads.`,
++      400,
++    )
+   }
+ 
+   const maxFileSize = req.payload.config.upload.limits?.fileSize
+@@ -88,6 +93,7 @@ export async function resolveFile({
+   } else {
+     if (uploadConfig.pasteURL === false) {
+       throw new APIError(
++        'BAD_REQUEST',
+         `Uploading files from URLs is disabled for collection "${collectionSlug}".`,
+         400,
+       )
+@@ -96,14 +102,14 @@ export async function resolveFile({
+     const url = new URL(input.url)
+ 
+     if (!['http:', 'https:'].includes(url.protocol)) {
+-      throw new APIError('File URLs must use http or https.', 400)
++      throw new APIError('BAD_REQUEST', 'File URLs must use http or https.', 400)
+     }
+ 
+     if (
+       typeof uploadConfig.pasteURL === 'object' &&
+       !isURLAllowed(input.url, uploadConfig.pasteURL.allowList)
+     ) {
+-      throw new APIError('The provided file URL is not allowed.', 400)
++      throw new APIError('BAD_REQUEST', 'The provided file URL is not allowed.', 400)
+     }
+ 
+     file = await getExternalFile({
+@@ -122,7 +128,7 @@ export async function resolveFile({
+   }
+ 
+   if (maxFileSize !== undefined && Number.isFinite(maxFileSize) && file.size > maxFileSize) {
+-    throw new APIError(`File exceeds the ${maxFileSize} byte upload limit.`, 400)
++    throw new APIError('BAD_REQUEST', `File exceeds the ${maxFileSize} byte upload limit.`, 400)
+   }
+ 
+   return file
+@@ -132,7 +138,7 @@ function decodeBase64({ maxFileSize, value }: { maxFileSize?: number; value: str
+   const normalized = value.replace(/\s/g, '')
+ 
+   if (!/^[a-z0-9+/]*={0,2}$/i.test(normalized) || normalized.length % 4 === 1) {
+-    throw new APIError('File data must be valid base64.', 400)
++    throw new APIError('BAD_REQUEST', 'File data must be valid base64.', 400)
+   }
+ 
+   if (maxFileSize !== undefined && Number.isFinite(maxFileSize)) {
+@@ -140,14 +146,14 @@ function decodeBase64({ maxFileSize, value }: { maxFileSize?: number; value: str
+     const decodedSize = Math.floor((normalized.length * 3) / 4) - paddingLength
+ 
+     if (decodedSize > maxFileSize) {
+-      throw new APIError(`File exceeds the ${maxFileSize} byte upload limit.`, 400)
++      throw new APIError('BAD_REQUEST', `File exceeds the ${maxFileSize} byte upload limit.`, 400)
+     }
+   }
+ 
+   const data = Buffer.from(normalized, 'base64')
+ 
+   if (data.toString('base64').replace(/=+$/, '') !== normalized.replace(/=+$/, '')) {
+-    throw new APIError('File data must be valid base64.', 400)
++    throw new APIError('BAD_REQUEST', 'File data must be valid base64.', 400)
+   }
+ 
+   return data
+diff --git a/packages/plugin-multi-tenant/src/endpoints/getTenantOptionsEndpoint.ts b/packages/plugin-multi-tenant/src/endpoints/getTenantOptionsEndpoint.ts
+index beedf7ea88..1b311b8d0c 100644
+--- a/packages/plugin-multi-tenant/src/endpoints/getTenantOptionsEndpoint.ts
++++ b/packages/plugin-multi-tenant/src/endpoints/getTenantOptionsEndpoint.ts
+@@ -23,7 +23,7 @@ export const getTenantOptionsEndpoint = ({
+     const { payload, user } = req
+ 
+     if (!user) {
+-      throw new APIError('Unauthorized', 401)
++      throw new APIError('UNAUTHORIZED', 'Unauthorized', 401)
+     }
+ 
+     const tenantOptions = await getTenantOptions({
+diff --git a/packages/plugin-nested-docs/src/hooks/resaveChildren.ts b/packages/plugin-nested-docs/src/hooks/resaveChildren.ts
+index fc007f65e9..7eda963a21 100644
+--- a/packages/plugin-nested-docs/src/hooks/resaveChildren.ts
++++ b/packages/plugin-nested-docs/src/hooks/resaveChildren.ts
+@@ -93,6 +93,7 @@ export const resaveChildren =
+ 
+         if (err instanceof ValidationError && err.data?.errors?.length) {
+           throw new APIError(
++            'BAD_REQUEST',
+             'Could not publish or save changes: One or more children are invalid.',
+             400,
+           )
+diff --git a/packages/plugin-stripe/src/hooks/createNewInStripe.ts b/packages/plugin-stripe/src/hooks/createNewInStripe.ts
+index 8fdf628f4d..49ee9e90e1 100644
+--- a/packages/plugin-stripe/src/hooks/createNewInStripe.ts
++++ b/packages/plugin-stripe/src/hooks/createNewInStripe.ts
+@@ -131,6 +131,7 @@ export const createNewInStripe: CollectionBeforeValidateHookWithArgs = async (ar
+           } catch (error: unknown) {
+             const msg = error instanceof Error ? error.message : error
+             throw new APIError(
++              'INTERNAL_ERROR',
+               `Failed to create new '${syncConfig.stripeResourceType}' resource in Stripe: ${msg}`,
+             )
+           }
+diff --git a/packages/plugin-stripe/src/hooks/deleteFromStripe.ts b/packages/plugin-stripe/src/hooks/deleteFromStripe.ts
+index 8ab021a64b..fcd0c11bd7 100644
+--- a/packages/plugin-stripe/src/hooks/deleteFromStripe.ts
++++ b/packages/plugin-stripe/src/hooks/deleteFromStripe.ts
+@@ -60,7 +60,10 @@ export const deleteFromStripe: CollectionAfterDeleteHookWithArgs = async (args)
+         }
+       } catch (error: unknown) {
+         const msg = error instanceof Error ? error.message : error
+-        throw new APIError(`Failed to delete Stripe document with ID: '${doc.stripeID}': ${msg}`)
++        throw new APIError(
++          'INTERNAL_ERROR',
++          `Failed to delete Stripe document with ID: '${doc.stripeID}': ${msg}`,
++        )
+       }
+     }
+   }
+diff --git a/packages/plugin-stripe/src/hooks/syncExistingWithStripe.ts b/packages/plugin-stripe/src/hooks/syncExistingWithStripe.ts
+index 719f17a9cb..2bbef6c6e4 100644
+--- a/packages/plugin-stripe/src/hooks/syncExistingWithStripe.ts
++++ b/packages/plugin-stripe/src/hooks/syncExistingWithStripe.ts
+@@ -79,7 +79,10 @@ export const syncExistingWithStripe: CollectionBeforeChangeHookWithArgs = async
+             }
+           } catch (error: unknown) {
+             const msg = error instanceof Error ? error.message : error
+-            throw new APIError(`Failed to sync document with ID: '${data.id}' to Stripe: ${msg}`)
++            throw new APIError(
++              'INTERNAL_ERROR',
++              `Failed to sync document with ID: '${data.id}' to Stripe: ${msg}`,
++            )
+           }
+         }
+       }
+diff --git a/packages/storage-r2/src/handleMultiPartUpload.ts b/packages/storage-r2/src/handleMultiPartUpload.ts
+index ad1c6924a5..d288434499 100644
+--- a/packages/storage-r2/src/handleMultiPartUpload.ts
++++ b/packages/storage-r2/src/handleMultiPartUpload.ts
+@@ -19,7 +19,7 @@ export const defaultR2ClientUploadsAccess: UploadInstructionsAccess = async ({
+ }) => {
+   const collection = req.payload.collections[collectionSlug]
+   if (!collection?.config) {
+-    throw new APIError(`Collection ${collectionSlug} not found`)
++    throw new APIError('NOT_FOUND', `Collection ${collectionSlug} not found`)
+   }
+ 
+   const createAccess = collection.config.access?.create
+@@ -41,7 +41,10 @@ export const getHandleMultiPartUpload =
+ 
+     const collectionConfig = collections[collectionSlug]
+     if (!collectionConfig) {
+-      throw new APIError(`Collection ${collectionSlug} was not found in R2 Storage options`)
++      throw new APIError(
++        'NOT_FOUND',
++        `Collection ${collectionSlug} was not found in R2 Storage options`,
++      )
+     }
+ 
+     if (!(await access({ collectionSlug, req }))) {
+diff --git a/packages/ui/src/utilities/buildTableState.ts b/packages/ui/src/utilities/buildTableState.ts
+index 4425ef3f80..06d47fde07 100644
+--- a/packages/ui/src/utilities/buildTableState.ts
++++ b/packages/ui/src/utilities/buildTableState.ts
+@@ -137,7 +137,10 @@ const buildTableState: ServerFunction<
+   if (!data?.docs || query) {
+     if (Array.isArray(collectionSlug)) {
+       if (!parent) {
+-        throw new APIError('Unexpected array of collectionSlug, parent must be provided')
++        throw new APIError(
++          'INTERNAL_ERROR',
++          'Unexpected array of collectionSlug, parent must be provided',
++        )
+       }
+ 
+       const select = {}
+diff --git a/test/collections-rest/config.ts b/test/collections-rest/config.ts
+index 0226deba20..4a9524fd41 100644
+--- a/test/collections-rest/config.ts
++++ b/test/collections-rest/config.ts
+@@ -341,7 +341,7 @@ export default buildConfigWithDefaults({
+     {
+       handler: () => {
+         // Throwing an internal error with potentially sensitive data
+-        throw new APIError('Connected to the Pentagon. Secret data: ******')
++        throw new APIError('INTERNAL_ERROR', 'Connected to the Pentagon. Secret data: ******')
+       },
+       method: 'get',
+       path: '/api-error-here',
+diff --git a/test/hooks/collections/BeforeDelete/index.ts b/test/hooks/collections/BeforeDelete/index.ts
+index 4d548d521e..f9bc1f294b 100644
+--- a/test/hooks/collections/BeforeDelete/index.ts
++++ b/test/hooks/collections/BeforeDelete/index.ts
+@@ -5,7 +5,7 @@ export const BeforeDeleteCollection: CollectionConfig = {
+   hooks: {
+     beforeDelete: [
+       ({ id }) => {
+-        throw new APIError(`Test error: cannot delete document with ID ${id}`, 401)
++        throw new APIError('UNAUTHORIZED', `Test error: cannot delete document with ID ${id}`, 401)
+       },
+     ],
+   },
+diff --git a/test/hooks/config.ts b/test/hooks/config.ts
+index 52f16b727d..87adeed276 100644
+--- a/test/hooks/config.ts
++++ b/test/hooks/config.ts
+@@ -59,7 +59,7 @@ export const HooksConfig: Promise<SanitizedConfig> = buildConfigWithDefaults({
+       path: '/throw-to-after-error',
+       method: 'get',
+       handler: () => {
+-        throw new APIError("I'm a teapot", 418)
++        throw new APIError('TEAPOT', "I'm a teapot", 418)
+       },
+     },
+   ],
+diff --git a/test/plugin-cloud-storage/collections/MediaWithThrowingHook.ts b/test/plugin-cloud-storage/collections/MediaWithThrowingHook.ts
+index 4978a6bce0..e063e44d5e 100644
+--- a/test/plugin-cloud-storage/collections/MediaWithThrowingHook.ts
++++ b/test/plugin-cloud-storage/collections/MediaWithThrowingHook.ts
+@@ -31,7 +31,7 @@ export const MediaWithThrowingHook: CollectionConfig = {
+     afterChange: [
+       ({ doc, operation, req }) => {
+         if (operation === 'update' && req.context?.skipCloudStorage && doc.shouldThrow) {
+-          throw new APIError(throwingHookError, 500, null, true)
++          throw new APIError('INTERNAL_ERROR', throwingHookError, 500, null, true)
+         }
+ 
+         return doc
+diff --git a/test/plugin-sentry/config.ts b/test/plugin-sentry/config.ts
+index 4f902b6305..c5f01c4d11 100644
+--- a/test/plugin-sentry/config.ts
++++ b/test/plugin-sentry/config.ts
+@@ -35,7 +35,7 @@ export default buildConfigWithDefaults({
+     {
+       path: '/exception',
+       handler: () => {
+-        throw new APIError('Test Plugin-Sentry Exception', 500)
++        throw new APIError('INTERNAL_ERROR', 'Test Plugin-Sentry Exception', 500)
+       },
+       method: 'get',
+     },
+diff --git a/test/plugin-stripe/webhooks/subscriptionCreatedOrUpdated.ts b/test/plugin-stripe/webhooks/subscriptionCreatedOrUpdated.ts
+index 28ef8fce16..6584fea942 100644
+--- a/test/plugin-stripe/webhooks/subscriptionCreatedOrUpdated.ts
++++ b/test/plugin-stripe/webhooks/subscriptionCreatedOrUpdated.ts
+@@ -106,6 +106,7 @@ export const subscriptionCreatedOrUpdated = async (args) => {
+     }
+   } catch (error) {
+     new APIError(
++      'INTERNAL_ERROR',
+       `Error looking up customer with Stripe ID: '${customerStripeID}': ${error?.message}`,
+     )
+   }
+diff --git a/test/plugin-stripe/webhooks/subscriptionDeleted.ts b/test/plugin-stripe/webhooks/subscriptionDeleted.ts
+index 3cbbb6d981..b76969b201 100644
+--- a/test/plugin-stripe/webhooks/subscriptionDeleted.ts
++++ b/test/plugin-stripe/webhooks/subscriptionDeleted.ts
+@@ -66,6 +66,7 @@ export const subscriptionDeleted = async (args) => {
+     }
+   } catch (error) {
+     new APIError(
++      'INTERNAL_ERROR',
+       `Error looking up customer with Stripe ID: '${customerStripeID}': ${error?.message}`,
+     )
+   }
+diff --git a/test/uploads/collections/BulkUploadsHookError/index.ts b/test/uploads/collections/BulkUploadsHookError/index.ts
+index 338180ac55..25387f46e5 100644
+--- a/test/uploads/collections/BulkUploadsHookError/index.ts
++++ b/test/uploads/collections/BulkUploadsHookError/index.ts
+@@ -31,7 +31,13 @@ export const BulkUploadsHookErrorCollection: CollectionConfig = {
+     beforeChange: [
+       ({ data }) => {
+         if (data?.shouldFail) {
+-          throw new APIError('Simulated hook error in beforeChange', 422, undefined, true)
++          throw new APIError(
++            'UNPROCESSABLE_ENTITY',
++            'Simulated hook error in beforeChange',
++            422,
++            undefined,
++            true,
++          )
+         }
+         return data
+       },
+diff --git a/test/versions/collections/DraftsWithChangeHook.ts b/test/versions/collections/DraftsWithChangeHook.ts
+index f077454ebb..53beeb5c9d 100644
+--- a/test/versions/collections/DraftsWithChangeHook.ts
++++ b/test/versions/collections/DraftsWithChangeHook.ts
+@@ -20,7 +20,11 @@ const DraftWithChangeHookPosts: CollectionConfig = {
+         beforeChange: [
+           (args) => {
+             if (args?.data?.title?.includes('Invalid')) {
+-              throw new APIError('beforeChange hook threw APIError 422', 422)
++              throw new APIError(
++                'UNPROCESSABLE_ENTITY',
++                'beforeChange hook threw APIError 422',
++                422,
++              )
+             }
+           },
+         ],
+diff --git a/test/versions/collections/ErrorOnUnpublish.ts b/test/versions/collections/ErrorOnUnpublish.ts
+index 08082f1818..92e60ee9d0 100644
+--- a/test/versions/collections/ErrorOnUnpublish.ts
++++ b/test/versions/collections/ErrorOnUnpublish.ts
+@@ -27,7 +27,7 @@ const ErrorOnUnpublish: CollectionConfig = {
+           originalDoc?._status === 'published' &&
+           unpublishAllLocales
+         ) {
+-          throw new APIError('Custom error on unpublish', 400, {}, true)
++          throw new APIError('BAD_REQUEST', 'Custom error on unpublish', 400, {}, true)
+         }
+       },
+     ],
+-- 
+2.52.0
+
