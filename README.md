@@ -2,21 +2,18 @@
 
 Reproducible benchmark comparing AI coding agent performance with and without [Depwire](https://github.com/depwire/depwire) MCP tools.
 
-## Results
+## Results withdrawn
 
-Tested on [payloadcms/payload](https://github.com/payloadcms/payload) — 645 files, 9,292 symbols, 3-mode comparison using Claude Code (claude-opus-4-8).
+The July results and all performance and correctness claims derived from them
+have been withdrawn. An audit found three material harness defects:
 
-| Mode | Duration | API Calls | Tokens | Cost | Score |
-|------|----------|-----------|--------|------|-------|
-| No Depwire | 16m 46s | 40 | 2,959,169 | $9.03 | 100% |
-| Depwire (no guidance) | 11m 20s | 46 | 3,399,822 | $9.80 | 100% |
-| Depwire + workflow | **10m 43s** | **26** | **2,165,356** | **$7.35** | 100% |
+1. The task prompt exposed the complete answer key.
+2. The scored 81-file set excluded required monorepo consumers.
+3. The no-Depwire arm started in a different working directory.
 
-**Depwire + guided workflow vs no Depwire:**
-- 36% faster
-- 35% fewer API calls
-- 27% fewer tokens
-- 19% lower cost
+The raw records remain in `results/` for auditability, but they are not valid
+evidence of a Depwire effect. All three arms will be rerun after the prompt,
+scope, scoring, and launch conditions are made identical.
 
 ## Task
 
@@ -24,17 +21,9 @@ Tested on [payloadcms/payload](https://github.com/payloadcms/payload) — 645 fi
 
 Repository: payloadcms/payload @ 1545e87
 
-Task: Add `errorCode: string` as a required first parameter to the `APIError` constructor. Update ALL callers — 27 subclasses (via `super()`) + 52 direct instantiations = 80 files.
-
-**Why this tests Depwire:**
-
-| Method | Files Found |
-|--------|-------------|
-| Naive grep (`new APIError(`) | 52 |
-| Smart grep (+ `extends APIError`) | 79 |
-| `depwire affected_files` | 84 |
-
-The 27 error subclasses use `super()` not `new APIError()` — naive grep misses them entirely. Depwire's graph traversal finds them all.
+Task: Add `errorCode: string` as a required first parameter to the `APIError`
+constructor and update every affected caller in the monorepo. The answer key is
+kept outside the agent-visible prompt.
 
 ## How to Run
 
@@ -91,22 +80,13 @@ After each run, fill in agent/cost/quality:
 ./scripts/summary.sh
 ```
 
-## Key Finding
-
-Depwire without workflow guidance performed worse than no Depwire — agents had the tools but didn't use them unprompted, paying MCP overhead without getting any benefit. The `affected_files` command returned the complete 84-file blast radius in one call, but only when the agent was explicitly told to run it first.
-
-This is why we built `depwire prompt` — not as boilerplate, but because the benchmark showed agents need an explicit decision tree to use graph tools effectively.
-
-```bash
-depwire prompt --tool claude
-```
-
 ## Structure
 
 ```
 depwire-benchmark/
 ├── tasks/
-│   └── TASK_C.md          # Full task definition + ground truth
+│   ├── TASK_C_PROMPT.md   # Agent-visible task; no answer key
+│   └── TASK_C.md          # Archived flawed July prompt; never shown by runners
 ├── scripts/
 │   ├── measure.sh          # Automated measurement (tsc + tests + scoring)
 │   ├── run_task_c_*.sh     # 3 runner scripts (one per mode)
