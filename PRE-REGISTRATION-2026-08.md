@@ -40,6 +40,10 @@ tool availability in isolation.
 - Commit: `1545e8758be9a887f3f1020592b3117adb54dd5f`
 - Baseline branch: `benchmark-baseline`
 - Depwire version in both enabled arms: `depwire-cli@1.14.2`
+- Agent CLI: Claude Code `2.1.71`
+- Model: `claude-opus-4-6`, high effort
+- Execution: non-interactive `claude -p`, with session persistence disabled
+- Subagent, WebSearch, and WebFetch tools: disabled in every arm
 - Agent working directory in every arm:
   `repo/packages/payload`
 - Agent-visible task in every arm: `tasks/TASK_C_PROMPT.md`
@@ -54,9 +58,11 @@ guard verifies that all runners use the shared prompt, that neither the prompt
 nor guided workflow contains answer-key material, that the hidden oracle has
 126 entries, and that the oracle can be reproduced from the pinned baseline.
 The prompt SHA-256 and enforced working directory are printed into every run.
-Before timing starts, the operator must paste the agent terminal's exact
-`pwd -P` output; the runner refuses to continue unless it matches the locked
-working directory.
+The runner launches the agent process itself from that directory and refuses to
+start if the Claude Code version differs from the locked version. This removes
+operator launch-directory variance. Disabling subagents prevents delegation
+strategy from dominating the cost comparison; disabling web tools prevents the
+agent from retrieving the public scoring oracle.
 
 ## 4. Ground-truth scope decision
 
@@ -94,14 +100,15 @@ Recorded automatically:
 - unit-test exit code and pass/fail counts;
 - final score.
 
-Recorded manually with `fill_manual.sh`:
+Extracted from the Claude stream transcript:
 
-- agent and model;
-- quality assessment;
 - cost;
 - total tool calls;
 - Depwire tool calls;
-- session notes.
+- model and turn count.
+
+Quality assessment and any additional notes may be added manually with
+`fill_manual.sh`.
 
 Score:
 
@@ -136,8 +143,9 @@ as the observed values for these three corrected sessions.
 ## 7. Publication commitment
 
 All three corrected sessions will be published, including failures and
-unfavorable results. Raw JSON, compiler output, test output, prompt hash, model,
-cost, and tool-call counts will accompany any narrative report.
+unfavorable results. Raw JSON, Claude stream transcript, exact result-branch
+commit, compiler output, test output, prompt hash, model, cost, and tool-call
+counts will accompany any narrative report.
 
 ## 8. Session invalidation rule
 

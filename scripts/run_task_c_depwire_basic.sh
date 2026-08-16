@@ -14,34 +14,11 @@ echo "Started: $(date)"
 echo "========================================"
 
 prepare_task_c_branch
-confirm_agent_working_directory
-
 START_TIME=$(date +%s)
-
 print_task_prompt
-
-echo ""
 echo "=== DEPWIRE BASIC MODE ==="
-echo "MCP config for Claude Desktop/Cline/Codex:"
-echo '{
-  "mcpServers": {
-    "depwire": {
-      "command": "npx",
-      "args": ["-y", "depwire-cli@'"$DEPWIRE_VERSION"'", "mcp", "."],
-      "cwd": "'"$REPO"'"
-    }
-  }
-}'
-echo ""
-echo "=== SYSTEM PROMPT TO INJECT ==="
-echo "Add the Depwire AGENTS.md as agent context:"
-echo "---"
-cat "$REPO/.depwire/AGENTS.md"
-echo "---"
-echo ""
-echo "Then give the task prompt."
-echo ""
-echo "=== Press ENTER when agent has completed the task ==="
-read -r
+run_claude_task_c "$MODE"
 
 "$SCRIPT_DIR/measure.sh" "$REPO" "$BASELINE" "$TASK" "$MODE" "$BRANCH" "$START_TIME" "$RESULTS_DIR"
+"$SCRIPT_DIR/fill_from_claude_transcript.sh" "$RESULTS_DIR/$BRANCH.json" "$RESULTS_DIR/$BRANCH-transcript.jsonl" "$CLAUDE_EXIT"
+finalize_task_c_branch

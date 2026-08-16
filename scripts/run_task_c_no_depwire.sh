@@ -14,15 +14,11 @@ echo "Started: $(date)"
 echo "========================================"
 
 prepare_task_c_branch
-confirm_agent_working_directory
-
 START_TIME=$(date +%s)
-
 print_task_prompt
-echo ""
-echo "=== NO DEPWIRE MODE — agent has no MCP tools ==="
-echo "=== Working directory: $REPO ==="
-echo "=== Press ENTER when agent has completed the task ==="
-read -r
+echo "=== NO DEPWIRE MODE ==="
+run_claude_task_c "$MODE"
 
 "$SCRIPT_DIR/measure.sh" "$REPO" "$BASELINE" "$TASK" "$MODE" "$BRANCH" "$START_TIME" "$RESULTS_DIR"
+"$SCRIPT_DIR/fill_from_claude_transcript.sh" "$RESULTS_DIR/$BRANCH.json" "$RESULTS_DIR/$BRANCH-transcript.jsonl" "$CLAUDE_EXIT"
+finalize_task_c_branch

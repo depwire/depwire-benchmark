@@ -10,6 +10,9 @@ GROUND_TRUTH="$BENCHMARK_ROOT/tasks/TASK_C_GROUND_TRUTH.txt"
 GUIDED_WORKFLOW="$BENCHMARK_ROOT/tasks/DEPWIRE_GUIDED_WORKFLOW.md"
 BASELINE="benchmark-baseline"
 DEPWIRE_VERSION="1.14.2"
+CLAUDE_VERSION="2.1.71"
+CLAUDE_MODEL="claude-opus-4-6"
+CLAUDE_EFFORT="high"
 
 validate_task_c_harness() {
   local runner
@@ -44,7 +47,18 @@ validate_task_c_harness() {
       echo "ERROR: mixed-arm guard: $runner hard-codes a task file" >&2
       return 1
     fi
+    if ! grep -Fq 'run_claude_task_c "$MODE"' "$runner" || grep -Eq 'read[[:space:]]+-r' "$runner"; then
+      echo "ERROR: mixed-arm guard: $runner is not using the automated agent launcher" >&2
+      return 1
+    fi
   done
+
+  local actual_claude_version
+  actual_claude_version=$(claude --version | awk '{print $1}')
+  if [ "$actual_claude_version" != "$CLAUDE_VERSION" ]; then
+    echo "ERROR: expected Claude Code $CLAUDE_VERSION, found $actual_claude_version" >&2
+    return 1
+  fi
 
   local expected_count
   expected_count=$(grep -Ev '^[[:space:]]*(#|$)' "$GROUND_TRUTH" | wc -l | tr -d ' ')
@@ -83,15 +97,74 @@ print_task_prompt() {
   cat "$TASK_PROMPT"
 }
 
-confirm_agent_working_directory() {
-  local confirmed_path
-  echo ""
-  echo "Launch the agent from: $REPO"
-  echo "In the agent terminal, run: pwd -P"
-  echo "Paste that exact output here to start timing:"
-  read -r confirmed_path
-  if [ "$confirmed_path" != "$(cd "$REPO" && pwd -P)" ]; then
-    echo "ERROR: agent working directory mismatch; session not started" >&2
+run_claude_task_c() {
+  local mode="$1"
+  local mcp_config
+  local system_context=""
+  local transcript_file="$RESULTS_DIR/${BRANCH}-transcript.jsonl"
+  local actual_claude_version
+
+  actual_claude_version=$(claude --version | awk '{print $1}')
+  if [ "$actual_claude_version" != "$CLAUDE_VERSION" ]; then
+    echo "ERROR: expected Claude Code $CLAUDE_VERSION, found $actual_claude_version" >&2
     return 1
+  fi
+
+  mcp_config=$(mktemp)
+  if [ "$mode" = "no_depwire" ]; then
+    printf '%s\n' '{"mcpServers":{}}' > "$mcp_config"
+  else
+    jq -n \
+      --arg version "$DEPWIRE_VERSION" \
+      --arg cwd "$REPO" \
+      '{mcpServers:{depwire:{command:"npx",args:["-y",("depwire-cli@" + $version),"mcp","."],cwd:$cwd}}}' \
+      > "$mcp_config"
+    system_context=$(cat "$REPO/.depwire/AGENTS.md")
+    if [ "$mode" = "depwire_guided" ]; then
+      system_context="$system_context
+
+$(cat "$GUIDED_WORKFLOW")"
+    fi
+  fi
+
+  mkdir -p "$RESULTS_DIR"
+  cd "$REPO"
+  echo "Launching Claude Code $CLAUDE_VERSION with $CLAUDE_MODEL ($CLAUDE_EFFORT effort)"
+  echo "Subagents and web tools are disabled in every arm."
+
+  local claude_args=(
+    -p
+    --output-format stream-json
+    --verbose
+    --model "$CLAUDE_MODEL"
+    --effort "$CLAUDE_EFFORT"
+    --permission-mode bypassPermissions
+    --strict-mcp-config
+    --mcp-config "$mcp_config"
+    --setting-sources user
+    --no-session-persistence
+    --disallowedTools "Agent,WebSearch,WebFetch"
+  )
+  if [ -n "$system_context" ]; then
+    claude_args+=(--append-system-prompt "$system_context")
+  fi
+
+  set +e
+  claude "${claude_args[@]}" < "$TASK_PROMPT" | tee "$transcript_file"
+  CLAUDE_EXIT=${PIPESTATUS[0]}
+  set -e
+  rm -f "$mcp_config"
+
+  if [ "$CLAUDE_EXIT" -ne 0 ]; then
+    echo "ERROR: Claude Code exited with $CLAUDE_EXIT" >&2
+    return "$CLAUDE_EXIT"
+  fi
+}
+
+finalize_task_c_branch() {
+  cd "$MONOREPO_ROOT"
+  git add -A
+  if ! git diff --cached --quiet; then
+    git commit -m "benchmark: Task C $MODE result"
   fi
 }
