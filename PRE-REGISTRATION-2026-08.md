@@ -186,3 +186,36 @@ The AST validator was corrected to accept either direct readonly storage in
 first parameter through. Each frozen result-branch commit was then rescored;
 no agent code, transcript, timing, tool count, test result, or branch commit was
 changed. This is a scorer-bug correction, not a session rerun or exclusion.
+
+## 11. Additional-session amendment
+
+**Recorded:** 2026-08-17, before any additional session.
+
+Exactly two additional sessions per arm will be run, bringing the combined
+sample to three sessions per arm (`n=3`). All six additional sessions will be
+published regardless of outcome. No further sessions will be run after these
+six without a new amendment.
+
+The flaky-test policy is fixed in advance: if `pnpm test:unit` fails, the test
+command will be retried once on the unchanged result branch. Both outcomes will
+be recorded, and scoring will use the retry result. This policy is motivated by
+the documented `create-payload-app` network timeout in the
+`20260817-003139` Basic run. For retroactive consistency, the failed test
+command will also be retried once at the frozen result-branch commit `7f2051a`,
+without changing that branch's code, and both outcomes will be recorded.
+
+Execution will be interleaved in this fixed order so time-of-day effects are
+spread across arms rather than blocked by arm:
+
+1. `no_depwire`
+2. `depwire_basic`
+3. `depwire_guided`
+4. `no_depwire`
+5. `depwire_basic`
+6. `depwire_guided`
+
+The interpretation remains exploratory and reports observed values. With
+three sessions per arm, comparisons remain too small to support extrapolated
+percentages as general performance guarantees. This supersedes only the
+sample-size wording in section 6; the remaining interpretation rules continue
+to apply.
