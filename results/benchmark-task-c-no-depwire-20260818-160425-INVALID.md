@@ -14,5 +14,5 @@
   Claude Code returned exit status 1.
 - Operator log: `runner-env-no-depwire-20260818-160424.log`
 - Transcript: `benchmark-task-c-no-depwire-20260818-160425-transcript.jsonl`
-- Disposition: retained and excluded from the `n=3` analysis. The required
-  replacement session has not been started pending re-authentication.
+- Disposition: retained and excluded from the `n=3` analysis. A valid
+  replacement session was completed after re-authentication.

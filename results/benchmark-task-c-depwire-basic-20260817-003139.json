@@ -284,6 +284,11 @@
   "tests": {
     "exit_code": 1,
     "result": "FAIL",
+    "initial_result": "FAIL",
+    "initial_exit_code": 1,
+    "retry_result": "FAIL",
+    "retry_exit_code": 1,
+    "retry_output_file": "/Users/atefataya/Developer/depwire-benchmark-v2/results/benchmark-task-c-depwire-basic-20260817-003139-tests-retry.txt",
     "passed": 1727,
     "failed": -1,
     "skipped": 2,
