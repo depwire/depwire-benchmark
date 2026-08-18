@@ -1,0 +1,59 @@
+$ vitest run --project unit
+[Dev Setup] Checking for local Figma plugin at: /Users/atefataya/Developer/depwire-benchmark-v2/enterprise-plugins/packages/figma/src/index.ts
+[Dev Setup] Local Figma plugin NOT found, using node_modules
+
+ RUN  v4.1.6 /Users/atefataya/Developer/depwire-benchmark-v2/repo
+
+[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◑  Resolving Payload version (canary)• turbo 2.10.4
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h│
+│  
+│  
+│    Please manually wrap your existing Next config with the withPayload function. Here is an example:
+│  
+│    import { withPayload } from "@payloadcms/next/withPayload";
+│  
+│    const nextConfig = {
+│      // Your Next.js config here
+│    }
+│  
+│    export default withPayload(nextConfig)
+│  
+│  
+[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25hnpm error code EPUBLISHCONFLICT
+You cannot publish over the previously published versions: 4.0.0-canary.10[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◑  Resolving Payload version (canary)[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h ❯ |unit| packages/create-payload-app/src/lib/create-project.spec.ts (6 tests | 1 failed) 95501ms
+       × creates example 90007ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/create-payload-app/src/lib/create-project.spec.ts > createProject > #createProject > creates example
+Error: Test timed out in 90000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/create-payload-app/src/lib/create-project.spec.ts:88:5
+     86|     })
+     87|
+     88|     it('creates example', async () => {
+       |     ^
+     89|       const projectName = 'custom-server-example'
+     90|       const example: ProjectExample = {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 156 passed (157)
+      Tests  1 failed | 1727 passed | 2 skipped (1730)
+   Start at  21:25:59
+   Duration  96.89s (transform 26.66s, setup 0ms, import 66.46s, tests 115.50s, environment 14ms)
+
+[ELIFECYCLE] Command failed with exit code 1.
