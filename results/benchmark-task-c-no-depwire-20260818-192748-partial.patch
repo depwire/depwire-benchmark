@@ -1,0 +1,217 @@
+From 92e6b19ee8bff42c68109e5026138872479fc934 Mon Sep 17 00:00:00 2001
+From: Atef Ataya <atef.ataya@gmail.com>
+Date: Tue, 18 Aug 2026 19:42:03 +0400
+Subject: [PATCH] benchmark: retain invalid Task C no_depwire timeout artifacts
+
+---
+ packages/payload/src/errors/APIError.ts                 | 8 +++++++-
+ packages/payload/src/errors/DuplicateCollection.ts      | 2 +-
+ packages/payload/src/errors/DuplicateFieldName.ts       | 1 +
+ packages/payload/src/errors/ErrorDeletingFile.ts        | 1 +
+ packages/payload/src/errors/MissingCollectionLabel.ts   | 2 +-
+ packages/payload/src/errors/MissingEditorProp.ts        | 1 +
+ packages/payload/src/errors/MissingFieldInputOptions.ts | 2 +-
+ packages/payload/src/errors/MissingFieldType.ts         | 1 +
+ packages/payload/src/errors/MissingFile.ts              | 1 +
+ packages/payload/src/errors/QueryError.ts               | 1 +
+ packages/payload/src/errors/ReservedFieldName.ts        | 2 +-
+ packages/payload/src/errors/TimestampsRequired.ts       | 1 +
+ packages/payload/src/errors/UnverifiedEmail.ts          | 1 +
+ 13 files changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/packages/payload/src/errors/APIError.ts b/packages/payload/src/errors/APIError.ts
+index 4bab024138..2fa14a5a77 100644
+--- a/packages/payload/src/errors/APIError.ts
++++ b/packages/payload/src/errors/APIError.ts
+@@ -6,18 +6,21 @@ export const APIErrorName = 'APIError'
+ class ExtendableError<TData extends object = { [key: string]: unknown }> extends Error {
+   data: TData
+ 
++  readonly errorCode: string
++
+   isOperational: boolean
+ 
+   isPublic: boolean
+ 
+   status: number
+ 
+-  constructor(message: string, status: number, data: TData, isPublic: boolean) {
++  constructor(errorCode: string, message: string, status: number, data: TData, isPublic: boolean) {
+     super(message, {
+       // show data in cause
+       cause: data,
+     })
+     this.name = this.constructor.name
++    this.errorCode = errorCode
+     this.message = message
+     this.status = status
+     this.data = data
+@@ -37,18 +40,21 @@ export class APIError<
+ > extends ExtendableError<TData> {
+   /**
+    * Creates an API error.
++   * @param {string} errorCode - UPPER_SNAKE_CASE error code identifying the error type.
+    * @param {string} message - Error message.
+    * @param {number} status - HTTP status code of error.
+    * @param {object} data - response data to be returned.
+    * @param {boolean} isPublic - Whether the message should be visible to user or not.
+    */
+   constructor(
++    errorCode: string,
+     message: string,
+     status: number = httpStatus.INTERNAL_SERVER_ERROR,
+     data: TData = null!,
+     isPublic?: boolean,
+   ) {
+     super(
++      errorCode,
+       message,
+       status,
+       data,
+diff --git a/packages/payload/src/errors/DuplicateCollection.ts b/packages/payload/src/errors/DuplicateCollection.ts
+index e2f97b493d..988bd2fa64 100644
+--- a/packages/payload/src/errors/DuplicateCollection.ts
++++ b/packages/payload/src/errors/DuplicateCollection.ts
+@@ -2,6 +2,6 @@ import { APIError } from './APIError.js'
+ 
+ export class DuplicateCollection extends APIError {
+   constructor(propertyName: string, duplicate: string) {
+-    super(`Collection ${propertyName} already in use: "${duplicate}"`)
++    super('DUPLICATE_COLLECTION', `Collection ${propertyName} already in use: "${duplicate}"`)
+   }
+ }
+diff --git a/packages/payload/src/errors/DuplicateFieldName.ts b/packages/payload/src/errors/DuplicateFieldName.ts
+index 4760415c38..c688b5e8e2 100644
+--- a/packages/payload/src/errors/DuplicateFieldName.ts
++++ b/packages/payload/src/errors/DuplicateFieldName.ts
+@@ -3,6 +3,7 @@ import { APIError } from './APIError.js'
+ export class DuplicateFieldName extends APIError {
+   constructor(fieldName: string) {
+     super(
++      'DUPLICATE_FIELD_NAME',
+       `A field with the name '${fieldName}' was found multiple times on the same level. Field names must be unique.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/ErrorDeletingFile.ts b/packages/payload/src/errors/ErrorDeletingFile.ts
+index 01ef0e7800..0d9c8e383d 100644
+--- a/packages/payload/src/errors/ErrorDeletingFile.ts
++++ b/packages/payload/src/errors/ErrorDeletingFile.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class ErrorDeletingFile extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'ERROR_DELETING_FILE',
+       t ? t('error:deletingFile') : en.translations.error.deletingFile,
+       httpStatus.INTERNAL_SERVER_ERROR,
+     )
+diff --git a/packages/payload/src/errors/MissingCollectionLabel.ts b/packages/payload/src/errors/MissingCollectionLabel.ts
+index ea8206635f..18cc387c0f 100644
+--- a/packages/payload/src/errors/MissingCollectionLabel.ts
++++ b/packages/payload/src/errors/MissingCollectionLabel.ts
+@@ -2,6 +2,6 @@ import { APIError } from './APIError.js'
+ 
+ export class MissingCollectionLabel extends APIError {
+   constructor() {
+-    super('payload.config.collection object is missing label')
++    super('MISSING_COLLECTION_LABEL', 'payload.config.collection object is missing label')
+   }
+ }
+diff --git a/packages/payload/src/errors/MissingEditorProp.ts b/packages/payload/src/errors/MissingEditorProp.ts
+index 63adf9cf12..0b8ee396ba 100644
+--- a/packages/payload/src/errors/MissingEditorProp.ts
++++ b/packages/payload/src/errors/MissingEditorProp.ts
+@@ -6,6 +6,7 @@ import { APIError } from './APIError.js'
+ export class MissingEditorProp extends APIError {
+   constructor(field: Field) {
+     super(
++      'MISSING_EDITOR_PROP',
+       `RichText field${fieldAffectsData(field) ? ` "${field.name}"` : ''} is missing the editor prop. For sub-richText fields, the editor props is required, as it would otherwise create infinite recursion.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/MissingFieldInputOptions.ts b/packages/payload/src/errors/MissingFieldInputOptions.ts
+index 7907598285..ce705b32e6 100644
+--- a/packages/payload/src/errors/MissingFieldInputOptions.ts
++++ b/packages/payload/src/errors/MissingFieldInputOptions.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class MissingFieldInputOptions extends APIError {
+   constructor(field: RadioField | SelectField) {
+-    super(`Field ${field.label} is missing options.`)
++    super('MISSING_FIELD_INPUT_OPTIONS', `Field ${field.label} is missing options.`)
+   }
+ }
+diff --git a/packages/payload/src/errors/MissingFieldType.ts b/packages/payload/src/errors/MissingFieldType.ts
+index ab805c7b10..b8313df1ea 100644
+--- a/packages/payload/src/errors/MissingFieldType.ts
++++ b/packages/payload/src/errors/MissingFieldType.ts
+@@ -6,6 +6,7 @@ import { APIError } from './APIError.js'
+ export class MissingFieldType extends APIError {
+   constructor(field: Field) {
+     super(
++      'MISSING_FIELD_TYPE',
+       `Field${
+         fieldAffectsData(field) ? ` "${field.name}"` : ''
+       } is either missing a field type or it does not match an available field type`,
+diff --git a/packages/payload/src/errors/MissingFile.ts b/packages/payload/src/errors/MissingFile.ts
+index d8dcd3a9a2..c3bb14b82e 100644
+--- a/packages/payload/src/errors/MissingFile.ts
++++ b/packages/payload/src/errors/MissingFile.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class MissingFile extends APIError {
+   constructor(t?: TFunction) {
+     super(
++      'MISSING_FILE',
+       t ? t('error:noFilesUploaded') : en.translations.error.noFilesUploaded,
+       httpStatus.BAD_REQUEST,
+     )
+diff --git a/packages/payload/src/errors/QueryError.ts b/packages/payload/src/errors/QueryError.ts
+index 2d891e6d3d..a3462da496 100644
+--- a/packages/payload/src/errors/QueryError.ts
++++ b/packages/payload/src/errors/QueryError.ts
+@@ -7,6 +7,7 @@ export class QueryError extends APIError<{ path: string }[]> {
+     const message = `The following path${results.length === 1 ? '' : 's'} cannot be queried:`
+ 
+     super(
++      'QUERY_ERROR',
+       `${message} ${results.map((err) => err.path).join(', ')}`,
+       httpStatus.BAD_REQUEST,
+       results,
+diff --git a/packages/payload/src/errors/ReservedFieldName.ts b/packages/payload/src/errors/ReservedFieldName.ts
+index d9317fa96f..e53b05ae8e 100644
+--- a/packages/payload/src/errors/ReservedFieldName.ts
++++ b/packages/payload/src/errors/ReservedFieldName.ts
+@@ -4,6 +4,6 @@ import { APIError } from './APIError.js'
+ 
+ export class ReservedFieldName extends APIError {
+   constructor(field: FieldAffectingData, fieldName: string) {
+-    super(`Field ${field.label} has reserved name '${fieldName}'.`)
++    super('RESERVED_FIELD_NAME', `Field ${field.label} has reserved name '${fieldName}'.`)
+   }
+ }
+diff --git a/packages/payload/src/errors/TimestampsRequired.ts b/packages/payload/src/errors/TimestampsRequired.ts
+index 0846f9fcd9..13f5c344d5 100644
+--- a/packages/payload/src/errors/TimestampsRequired.ts
++++ b/packages/payload/src/errors/TimestampsRequired.ts
+@@ -5,6 +5,7 @@ import { APIError } from './APIError.js'
+ export class TimestampsRequired extends APIError {
+   constructor(collection: CollectionConfig) {
+     super(
++      'TIMESTAMPS_REQUIRED',
+       `Timestamps are required in the collection ${collection.slug} because you have opted in to Versions.`,
+     )
+   }
+diff --git a/packages/payload/src/errors/UnverifiedEmail.ts b/packages/payload/src/errors/UnverifiedEmail.ts
+index 7a969d31e5..e5a73f489a 100644
+--- a/packages/payload/src/errors/UnverifiedEmail.ts
++++ b/packages/payload/src/errors/UnverifiedEmail.ts
+@@ -8,6 +8,7 @@ import { APIError } from './APIError.js'
+ export class UnverifiedEmail extends APIError {
+   constructor({ t }: { t?: TFunction }) {
+     super(
++      'UNVERIFIED_EMAIL',
+       t ? t('error:unverifiedEmail') : en.translations.error.unverifiedEmail,
+       httpStatus.FORBIDDEN,
+     )
+-- 
+2.52.0
+
