@@ -1,5 +1,6 @@
 # Benchmark repo exclusions
-repo/                    # the cloned test repo (too large)
+# The cloned test repo is too large to track.
+repo/
 results/                 # local results (personal data)
 *.jsonl                  # Claude Code session logs
 .claude/                 # Claude Code project files
