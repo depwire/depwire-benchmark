@@ -7,4 +7,3 @@ repo/.mcp.json           # may contain tokens
 node_modules/
 *.log
 .DS_Store
-repo/
