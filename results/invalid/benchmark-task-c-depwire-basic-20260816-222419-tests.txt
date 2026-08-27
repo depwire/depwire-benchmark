@@ -1,0 +1,691 @@
+$ vitest run --project unit
+[Dev Setup] Checking for local Figma plugin at: /Users/atefataya/Developer/depwire-benchmark-v2/enterprise-plugins/packages/figma/src/index.ts
+[Dev Setup] Local Figma plugin NOT found, using node_modules
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.6 [39m[90m/Users/atefataya/Developer/depwire-benchmark-v2/repo[39m
+
+[90mstderr[2m | packages/payload/src/bin/build.spec.ts[2m > [22m[2mbuild[2m > [22m[2mexits 1 and does not spawn when generation fails
+[22m[39mPre-build generation failed:
+Error: boom
+    at [90m/Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mpackages/payload/src/bin/build.spec.ts:275:49
+    at [90mfile:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:302:11
+    at [90mfile:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:1903:26
+    at [90mfile:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel [90m(file:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:2323:10[90m)[39m
+    at [90mfile:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:2272:10[90m)[39m
+    at [90mfile:///Users/atefataya/Developer/depwire-benchmark-v2/repo/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.1.6/node_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:2955:64
+
+[90mstderr[2m | packages/payload/src/bin/build.spec.ts[2m > [22m[2mbuild[2m > [22m[2mexits 1 and does not spawn when the framework cannot be detected
+[22m[39mCould not determine your framework for `payload build`.
+Checked:
+  • dependencies: no `next` or `@tanstack/react-start` in package.json
+  • config files: no next.config.* or vite.config.*
+  • app folders:  no app/(payload) or app/_payload
+Install your framework (Next.js or TanStack Start) and try again.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/bin/build.spec.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 194[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-after-operation-read/index.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/remove-publish-specific-locale/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/rename-typescript-schema-to-json-schema/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 78[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-document-title-context/index.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-storage-adapters-to-config/index.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-disabled-fields/index.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 109[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-force-select/index.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-import-export-hooks/index.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 135[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/remove-group-by-true/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-next-generate-viewport-export/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 93[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/auth/strategies/local/authenticate.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 592[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/globals-components-edit/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 445[2mms[22m[39m
+     [33m[2m✓[22m[39m migrates a global with elements (and hoists Description) [33m 441[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/uploads/fetchAPI-multipart/isEligibleRequest.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/getRequestOrigin.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/rename-storage-adapters-to-storage/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 539[2mms[22m[39m
+     [33m[2m✓[22m[39m renames storageAdapters to storage [33m 498[2mms[22m[39m
+[?25l│
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-build-script/index.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+[999D[J◒  Resolving Payload version (canary) [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/isolateObjectProperty.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary) [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-azure-chunk-large-files/index.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 112[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-aliased-exports/index.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 132[2mms[22m[39m
+[999D[J◑  Resolving Payload version (canary) [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-slug-field/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 127[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-hide-api-url/index.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-db-types-subpath/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+• turbo 2.10.4
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/publishList.spec.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1278[2mms[22m[39m
+     [33m[2m✓[22m[39m should list every build dependency before its dependents [33m 1277[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/remove-localize-status-config/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-next-subpath-exports/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+[999D[J◒  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-block-references-to-blocks/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+[999D[J◇  Dependency installation skipped
+[?25h [32m✓[39m [30m[42m unit [49m[39m packages/typescript-plugin/src/__tests__/plugin.spec.ts [2m([22m[2m37 tests[22m[2m)[22m[33m 1103[2mms[22m[39m
+       [33m[2m✓[22m[39m should not report errors for valid component paths [33m 631[2mms[22m[39m
+         [33m[2m✓[22m[39m should not error for valid @/ alias with named export [33m 367[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/createLocalReq.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/eslint-plugin/customRules/no-conflicting-lexical-markdown-imports.spec.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 129[2mms[22m[39m
+[90mstdout[2m | packages/payload/src/utilities/profiling.spec.ts[2m > [22m[2mProfiling Utilities[2m > [22m[2mshould print profile results
+[22m[39m
+=== Profile Results ===
+Name                                                Duration (ms)     Calls
+---------------------------------------------------------------------------
+operation1                                                   0.00         1
+operation2                                                   0.00         1
+===========================================================================
+
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/profiling.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/manage-env-files.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/migrate-list-view-select-api/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/uploads/getSafeFilename.spec.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[?25l│
+│
+│  
+│  
+│    Please manually wrap your existing Next config with the withPayload function. Here is an example:
+│  
+│    import { withPayload } from "@payloadcms/next/withPayload";
+│  
+│    const nextConfig = {
+│      // Your Next.js config here
+│    }
+│  
+│    export default withPayload(nextConfig)
+│  
+│  
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/parseCSV.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/wrap-next-config.spec.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/unflattenObject.spec.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/siblingDoc.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/ast/utils.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+[999D[J◒  Resolving Payload version (canary) [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/parseParams/index.spec.ts [2m([22m[2m94 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+[999D[J◐  Resolving Payload version (canary)[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key="value""
+[22m[39m{ output: { key: [32m'value'[39m }, propsObject: { key: [32m'value'[39m } }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key='value'"
+[22m[39m{ output: { key: [32m'value'[39m }, propsObject: { key: [32m'value'[39m } }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key={[1, 2, 3]}"
+[22m[39m{ output: { key: [ [33m1[39m, [33m2[39m, [33m3[39m ] }, propsObject: { key: [ [33m1[39m, [33m2[39m, [33m3[39m ] } }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key={[1, 2, 3, [1, 2]]}"
+[22m[39m{
+  output: { key: [ [33m1[39m, [33m2[39m, [33m3[39m, [36m[Array][39m ] },
+  propsObject: { key: [ [33m1[39m, [33m2[39m, [33m3[39m, [36m[Array][39m ] }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "object={4}"
+[22m[39m{ output: { object: [33m4[39m }, propsObject: { object: [33m4[39m } }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "object={{"test": 1}}"
+[22m[39m{
+  output: { object: { test: [33m1[39m } },
+  propsObject: { object: { test: [33m1[39m } }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "object={[1, 2, 3, [1, 2]]}"
+[22m[39m{
+  output: { object: [ [33m1[39m, [33m2[39m, [33m3[39m, [36m[Array][39m ] },
+  propsObject: { object: [ [33m1[39m, [33m2[39m, [33m3[39m, [36m[Array][39m ] }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "object={[1, 2]}"
+[22m[39m{ output: { object: [ [33m1[39m, [33m2[39m ] }, propsObject: { object: [ [33m1[39m, [33m2[39m ] } }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key="value" object={{key: "value"}}"
+[22m[39m{
+  output: { key: [32m'value'[39m, object: { key: [32m'value'[39m } },
+  propsObject: { key: [32m'value'[39m, object: { key: [32m'value'[39m } }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "global packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  output: {
+    global: [33mtrue[39m,
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  },
+  propsObject: {
+    global: [33mtrue[39m,
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "global key="value" object={{key: "value", something: "test", hello: 1}} packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  output: {
+    global: [33mtrue[39m,
+    key: [32m'value'[39m,
+    object: { hello: [33m1[39m, key: [32m'value'[39m, something: [32m'test'[39m },
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  },
+  propsObject: {
+    global: [33mtrue[39m,
+    key: [32m'value'[39m,
+    object: { key: [32m'value'[39m, something: [32m'test'[39m, hello: [33m1[39m },
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "object={{hello: 1, key: "value", nested: { key: "value" }, something: "test", test: [1, 2, 3]}}"
+[22m[39m{
+  output: {
+    object: {
+      hello: [33m1[39m,
+      key: [32m'value'[39m,
+      nested: [36m[Object][39m,
+      something: [32m'test'[39m,
+      test: [36m[Array][39m
+    }
+  },
+  propsObject: {
+    object: {
+      hello: [33m1[39m,
+      key: [32m'value'[39m,
+      nested: [36m[Object][39m,
+      something: [32m'test'[39m,
+      test: [36m[Array][39m
+    }
+  }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "global key="value" object={{hello: 1, key: "value", nested: { key: "value" }, something: "test", test: [1, 2, 3]}} packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  output: {
+    global: [33mtrue[39m,
+    key: [32m'value'[39m,
+    object: {
+      hello: [33m1[39m,
+      key: [32m'value'[39m,
+      nested: [36m[Object][39m,
+      something: [32m'test'[39m,
+      test: [36m[Array][39m
+    },
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  },
+  propsObject: {
+    global: [33mtrue[39m,
+    key: [32m'value'[39m,
+    object: {
+      hello: [33m1[39m,
+      key: [32m'value'[39m,
+      nested: [36m[Object][39m,
+      something: [32m'test'[39m,
+      test: [36m[Array][39m
+    },
+    packageId: [32m'myId'[39m,
+    uniqueId: [32m'some unique id!'[39m,
+    update: [33mtrue[39m
+  }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key={[1, 2, { hello: "there" }]}"
+[22m[39m{
+  output: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] },
+  propsObject: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key={[1, 2, { hello: `there` }]}"
+[22m[39m{
+  output: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] },
+  propsObject: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert to object: "key={[1, 2, { hello: `Hello\nthere` }]}"
+[22m[39m{
+  output: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] },
+  propsObject: { key: [ [33m1[39m, [33m2[39m, [36m[Object][39m ] }
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key="value""
+[22m[39m{ input: [32m'key="value"'[39m, propsString: [32m'key="value"'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key="value""
+[22m[39m{ input: [32m'key="value"'[39m, propsString: [32m'key="value"'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key={[1, 2, 3]}"
+[22m[39m{ input: [32m'key={[1, 2, 3]}'[39m, propsString: [32m'key={[1, 2, 3]}'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key={[1, 2, 3, [1, 2]]}"
+[22m[39m{
+  input: [32m'key={[1, 2, 3, [1, 2]]}'[39m,
+  propsString: [32m'key={[1, 2, 3, [1,2]]}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "object={4}"
+[22m[39m{ input: [32m'object={4}'[39m, propsString: [32m'object={4}'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "object={{"test": 1}}"
+[22m[39m{ input: [32m'object={{"test": 1}}'[39m, propsString: [32m'object={{"test":1}}'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "object={[1, 2, 3, [1, 2]]}"
+[22m[39m{
+  input: [32m'object={[1, 2, 3, [1, 2]]}'[39m,
+  propsString: [32m'object={[1, 2, 3, [1,2]]}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "object={[1, 2]}"
+[22m[39m{ input: [32m'object={[1, 2]}'[39m, propsString: [32m'object={[1, 2]}'[39m }
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key="value" object={{"key": "value"}}"
+[22m[39m{
+  input: [32m'key="value" object={{"key": "value"}}'[39m,
+  propsString: [32m'key="value" object={{"key":"value"}}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "global packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  input: [32m'global packageId="myId" uniqueId="some unique id!" update'[39m,
+  propsString: [32m'global packageId="myId" uniqueId="some unique id!" update'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "global key="value" object={{"hello": 1, "key": "value", "something": "test"}} packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  input: [32m'global key="value" object={{"hello": 1, "key": "value", "something": "test"}} packageId="myId" uniqueId="some unique id!" update'[39m,
+  propsString: [32m'global key="value" object={{"hello":1,"key":"value","something":"test"}} packageId="myId" uniqueId="some unique id!" update'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "object={{"hello": 1, "key": "value", "nested": {"key": "value"}, "something": "test", "test": [1, 2, 3]}}"
+[22m[39m{
+  input: [32m'object={{"hello": 1, "key": "value", "nested": {"key": "value"}, "something": "test", "test": [1, 2, 3]}}'[39m,
+  propsString: [32m'object={{"hello":1,"key":"value","nested":{"key":"value"},"something":"test","test":[1,2,3]}}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "global key="value" object={{"hello": 1, "key": "value", "nested": { "key": "value" }, "something": "test", "test": [1, 2, 3]}} packageId="myId" uniqueId="some unique id!" update"
+[22m[39m{
+  input: [32m'global key="value" object={{"hello": 1, "key": "value", "nested": { "key": "value" }, "something": "test", "test": [1, 2, 3]}} packageId="myId" uniqueId="some unique id!" update'[39m,
+  propsString: [32m'global key="value" object={{"hello":1,"key":"value","nested":{"key":"value"},"something":"test","test":[1,2,3]}} packageId="myId" uniqueId="some unique id!" update'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key={[1, 2, { "hello": "there" }]}"
+[22m[39m{
+  input: [32m'key={[1, 2, { "hello": "there" }]}'[39m,
+  propsString: [32m'key={[1, 2, {"hello":"there"}]}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key={[1, 2, { "hello": "there" }]}"
+[22m[39m{
+  input: [32m'key={[1, 2, { "hello": "there" }]}'[39m,
+  propsString: [32m'key={[1, 2, {"hello":"there"}]}'[39m
+}
+
+[90mstdout[2m | packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts[2m > [22m[2mjsx[2m > [22m[2mprop string to object[2m > [22m[2mcan correctly convert from object: "key={[1, 2, { "hello": "Hello\nthere" }]}"
+[22m[39m{
+  input: [32m'key={[1, 2, { "hello": "Hello\\nthere" }]}'[39m,
+  propsString: [32m'key={[1, 2, {"hello":"Hello\\nthere"}]}'[39m
+}
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/utilities/jsx/jsx.spec.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/flattenTopLevelFields.spec.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/validateTimezones.spec.ts [2m([22m[2m89 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/transforms/example-noop/index.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+[999D[J◓  Resolving Payload version (canary) [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/database/migrations/findMigrationDir.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/lexical/utils/markdown/convertFromMarkdownString.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/addDataAndFileToRequest.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 47[2mms[22m[39m
+[90mstderr[2m | packages/richtext-lexical/src/features/link/markdownTransformer.spec.ts[2m > [22m[2mcreatePayloadLinkTransformer[2m > [22m[2minternal links[2m > [22m[2mshould export an empty href when no internalDocToHref is provided
+[22m[39mLexical → Markdown converter: found internal link but internalDocToHref is not provided — link will have an empty href
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/payments/adapters/stripe/confirmOrder.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/features/link/markdownTransformer.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/fields/validations.spec.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-cloud-storage/src/utilities/getFilePrefix.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/fields/config/sanitize.spec.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/utils/generateReleaseNotes.spec.ts[2m > [22m[2mgenerateReleaseNotes[2m > [22m[2mshould return a prefilled releases/new URL for the version
+[22m[39mGenerating release notes for v4.0.0-canary.5 to HEAD...
+{
+  fromVersion: [32m'v4.0.0-canary.5'[39m,
+  proposedVersion: [32m'v4.0.0-canary.6'[39m,
+  recommendedBump: [32m'prerelease'[39m,
+  tag: [32m'canary'[39m,
+  toVersion: [32m'HEAD'[39m
+}
+
+[90mstdout[2m | tools/releaser/src/utils/generateReleaseNotes.spec.ts[2m > [22m[2mgenerateReleaseNotes[2m > [22m[2mshould return a prefilled releases/new URL for the version
+[22m[39mFetching contributors...
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/utils/generateReleaseNotes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/runner.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/lib/bumpVersion.spec.ts
+[22m[39mPackage Versions                    Latest          Beta            Canary
+
+
+
+[90mstdout[2m | tools/releaser/src/lib/bumpVersion.spec.ts[2m > [22m[2mbumpVersion[2m > [22m[2mshould accept a prerelease type and apply the beta preid, returning the new version
+[22m[39m
+  Version: 4.0.0-canary.9 => 4.0.0-beta.0
+
+  Bump: prerelease
+  Changes (0 packages):
+
+
+
+
+[90mstdout[2m | tools/releaser/src/lib/bumpVersion.spec.ts[2m > [22m[2mbumpVersion[2m > [22m[2mshould accept a prerelease type and apply the canary preid, returning the new version
+[22m[39m
+  Version: 4.0.0-canary.9 => 4.0.0-canary.10
+
+  Bump: prerelease
+  Changes (0 packages):
+
+
+
+
+[90mstdout[2m | tools/releaser/src/lib/bumpVersion.spec.ts[2m > [22m[2mbumpVersion[2m > [22m[2mshould increment the canary iteration from the registry dist-tag
+[22m[39mLatest canary version: 4.0.0-canary.9
+Incrementing canary version from 4.0.0-canary.9
+
+  Version: 4.0.0-canary.9 => 4.0.0-canary.10
+
+  Bump: canary
+  Changes (0 packages):
+
+
+
+
+[90mstdout[2m | tools/releaser/src/lib/bumpVersion.spec.ts[2m > [22m[2mbumpVersion[2m > [22m[2mshould reset the canary iteration to 0 when the registry canary is on a different minor base
+[22m[39mLatest canary version: 3.99.0-canary.5
+Latest canary does not match minor candidate, incrementing minor
+
+  Version: 4.0.0-canary.9 => 4.0.0-canary.0
+
+  Bump: canary
+  Changes (0 packages):
+
+
+
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/bumpVersion.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/mergeLocalizedData.spec.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/CommandPalette/highlightLabel.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/ClipboardAction/mergeFormStateFromClipboard.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/flattenObject.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/utilities/sanitizePluginConfig.spec.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/ast/package-json.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/lib/pushWithRebaseRetry.spec.ts[2m > [22m[2mpushWithRebaseRetry[2m > [22m[2mshould rebase, recreate the tag, and re-push on a non-fast-forward rejection
+[22m[39mNon-fast-forward push rejected (attempt 1/3); rebasing...
+
+[90mstdout[2m | tools/releaser/src/lib/pushWithRebaseRetry.spec.ts[2m > [22m[2mpushWithRebaseRetry[2m > [22m[2mshould give up after maxRetries and throw
+[22m[39mNon-fast-forward push rejected (attempt 1/3); rebasing...
+Non-fast-forward push rejected (attempt 2/3); rebasing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould skip-as-success when the version is already published
+[22m[39m⏭️  payload@4.0.0-canary.10 already published, skipping
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/pushWithRebaseRetry.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/traverseFields.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould publish when the version is not yet published
+[22m[39m🚀 payload publishing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould publish when the version is not yet published
+[22m[39m✅ payload published
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould retry once on failure, then succeed
+[22m[39m🚀 payload publishing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould retry once on failure, then succeed
+[22m[39m
+
+❌ payload ERROR: pnpm publish failed (exit code 1)
+
+Retrying publish for payload...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould retry once on failure, then succeed
+[22m[39m✅ payload published (on retry)
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould treat an "already published" publish conflict as success without retrying
+[22m[39m🚀 payload publishing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould treat an "already published" publish conflict as success without retrying
+[22m[39m⏭️  payload@4.0.0-canary.10 already published, skipping
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould treat a landed-despite-error version as success after a failed retry
+[22m[39m🚀 payload publishing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould treat a landed-despite-error version as success after a failed retry
+[22m[39m
+
+❌ payload ERROR: pnpm publish failed (exit code 1)
+
+Retrying publish for payload...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould treat a landed-despite-error version as success after a failed retry
+[22m[39m✅ payload@4.0.0-canary.10 landed despite publish error
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould return a failure result when the retry fails and the version has not landed
+[22m[39m🚀 payload publishing...
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould return a failure result when the retry fails and the version has not landed
+[22m[39m
+
+❌ payload ERROR: pnpm publish failed (exit code 1)
+
+Retrying publish for payload...
+
+npm error code EPUBLISHCONFLICT
+You cannot publish over the previously published versions: 4.0.0-canary.10[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould proceed to publish (not abort) when the registry pre-check throws
+[22m[39m🚀 payload publishing...
+
+[90mstderr[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould proceed to publish (not abort) when the registry pre-check throws
+[22m[39m⚠️  Could not verify whether payload@4.0.0-canary.10 is published; proceeding to publish. (registry down)
+
+[90mstdout[2m | tools/releaser/src/lib/publishSinglePackage.spec.ts[2m > [22m[2mpublishSinglePackage idempotency + retry[2m > [22m[2mshould proceed to publish (not abort) when the registry pre-check throws
+[22m[39m✅ payload published
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/publishSinglePackage.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/next/src/withPayload/withPayload.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/formatLabels.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/sanitizeUserDataForEmail.spec.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/uploads/checkFileAccess.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/lexical/utils/url.spec.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/filterDataToSelectedLocales.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/utilities/defaultProductsValidation.spec.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/lib/runPublishSequence.spec.ts[2m > [22m[2mrunPublishSequence[2m > [22m[2mshould invoke publishOne for every package on the success path
+[22m[39m
+
+Results:
+
+  ✅ a
+  ✅ b
+  ✅ c
+  ✅ d
+  ✅ e
+
+
+[90mstdout[2m | tools/releaser/src/lib/runPublishSequence.spec.ts[2m > [22m[2mrunPublishSequence[2m > [22m[2mshould stop at the first failure and never invoke later packages
+[22m[39m
+
+Results:
+
+  ✅ a
+  ✅ b
+  ❌ c
+
+
+[90mstderr[2m | tools/releaser/src/lib/runPublishSequence.spec.ts[2m > [22m[2mrunPublishSequence[2m > [22m[2mshould stop at the first failure and never invoke later packages
+[22m[39m[90mundefined[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/runPublishSequence.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/formatErrors.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/utilities/accessComposition.spec.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/storage-azure/src/client/handleAzureUpload.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/locked-documents/config.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/components/FieldsToExport/reduceFields.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/CommandPalette/buildActions.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/normalizeRelationshipValue.spec.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/bin/generateImportMap/generateImportMap.spec.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-cloud-storage/src/utilities/getFileKey.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/ast/payload-config.spec.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 3118[2mms[22m[39m
+     [33m[2m✓[22m[39m applies all transformations in one call (db + storage) [33m 1120[2mms[22m[39m
+     [33m[2m✓[22m[39m applies db transformation only [33m 644[2mms[22m[39m
+     [33m[2m✓[22m[39m applies removeSharp transformation [33m 622[2mms[22m[39m
+     [33m[2m✓[22m[39m replaces adapter in config file [33m 596[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/fieldToRegex.spec.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/filterToSelectedFields.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/processRichTextField.spec.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/isPathMatchingRoute.spec.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/sanitizePermissions.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/views/Version/RenderFieldsToDiff/utilities/countChangedFields.spec.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/cli.parseFlags.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/utils/createDraftGitHubRelease.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/graphql/src/utilities/formatUtcOffset.spec.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/views/Root/getCustomCollectionViewByRoute.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/getImportFieldFunctions.spec.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/widgets/CollectionQuery/getCollectionFieldPaths.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/codemod/src/utils/packageJson.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/utils/resolvePackageVersion.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/getSchemaColumns.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/ColumnSelection/matchesColumnSearch.spec.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/graphql/src/utilities/formatName.spec.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/findChangelogBaseTag.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/recentlyViewed.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/optionsAreEqual.spec.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/utilities/getCollectionSlugMap.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/hierarchy/utils/getLocalizedValue.spec.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/drizzle/src/utilities/isValidStringID.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/formatAdminURL.spec.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/getFieldPermissions.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-ecommerce/src/collections/carts/operations/defaultCartItemMatcher.spec.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/collections/config/sanitize.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/fields/config/reservedFieldNames.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/collections/config/useAsTitle.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/configToJSONSchema.spec.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload-cloud/src/email.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/email-resend/src/email-resend.spec.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/ClipboardAction/isClipboardDataValid.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-sentry/src/plugin.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/buildDisabledFieldRegex.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/fields/isFieldDisabled.spec.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/applyFieldHooks.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/db-mongodb/src/queries/getLocalizedSortProperty.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/db-mongodb/src/queries/buildSortParam.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/WhereBuilder/Condition/Relationship/optionsReducer.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-mcp/src/mcp/builtin/collections/fileInput.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/getSafeRedirect.spec.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/combineWhereConstraints.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/isURLAllowed.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/fuzzyMatch.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-mcp/src/utils/schemaConversion/sanitizeEntitySchema.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/translations/src/utilities/deepMergeSimple.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/db-mongodb/src/utilities/transform.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+[90mstdout[2m | packages/payload-cloud/src/plugin.spec.ts[2m > [22m[2mplugin[2m > [22m[2min Payload Cloud[2m > [22m[2memail[2m > [22m[2mshould not modify existing email transport
+[22m[39mPayload Cloud Email is enabled but email configuration is already provided in Payload config. If this is intentional, set `email: false` in the Payload Cloud plugin options.
+
+[90mstdout[2m | packages/payload-cloud/src/plugin.spec.ts[2m > [22m[2mplugin[2m > [22m[2min Payload Cloud[2m > [22m[2memail[2m > [22m[2mshould allow setting fromName and fromAddress
+[22m[39mE-mail configured with ethereal.email test account. 
+Log into mock email provider at https://webmail.test.com
+Mock email account username: testuser
+Mock email account password: testpass
+
+[90mstdout[2m | packages/payload-cloud/src/plugin.spec.ts[2m > [22m[2mplugin[2m > [22m[2min Payload Cloud[2m > [22m[2memail[2m > [22m[2mshould allow setting fromName and fromAddress
+[22m[39mPayload Cloud Email is enabled but email configuration is already provided in Payload config. If this is intentional, set `email: false` in the Payload Cloud plugin options.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload-cloud/src/plugin.spec.ts [2m([22m[2m11 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/ClipboardAction/clipboardUtilities.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/views/Version/RenderFieldsToDiff/utilities/fieldHasChanges.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/formatMetadata.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/elements/Toasts/fieldErrors.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/features/converters/lexicalToPlaintext/convertLexicalToPlaintext.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/uploads/mimeTypeValidator.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/translations/src/utilities/languages.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/isCustomAdminView.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/email-nodemailer/src/plugin.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/uploads/matchMimeType.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/layouts/Root/index.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/collections/config/defaults.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/getFieldByPath.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/utilities/appendCacheTag.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/auth/cookies.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/addSelectGenericsToGeneratedTypes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/utilities/telemetry/index.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/plugin-import-export/src/utilities/getExportFieldFunctions.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/views/Version/RenderFieldsToDiff/utilities/getFieldsForRowComparison.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/payload/src/globals/config/sanitize.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/drizzle/src/upsertRow/handleUpsertError.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/ui/src/providers/TableColumns/buildColumnState/index.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstdout[2m | tools/releaser/src/lib/getPackageRegistryVersions.spec.ts
+[22m[39mPackage Versions                    Latest          Beta            Canary
+
+@payloadcms/admin-bar               3.88.0          0.0.1           4.0.0-canary.28
+@payloadcms/db-d1-sqlite            3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/db-mongodb              3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/db-postgres             3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/db-sqlite               3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/db-vercel-postgres      3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/drizzle                 3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/email-nodemailer        3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/email-resend            3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/graphql                 3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/kv-redis                3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/live-preview            3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/live-preview-react      3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/live-preview-vue        3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/next                    3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/payload-cloud           3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-cloud-storage    3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-ecommerce        3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/plugin-form-builder     3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-import-export    3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/plugin-mcp              3.88.0          0.0.1-alpha.0   4.0.0-canary.28
+@payloadcms/plugin-multi-tenant     3.88.0          0.0.1           4.0.0-canary.28
+@payloadcms/plugin-nested-docs      3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-redirects        3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-search           3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-sentry           3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-seo              3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/plugin-stripe           3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/richtext-lexical        3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/sdk                     3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/storage-azure           3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/storage-gcs             3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/storage-r2              3.88.0          0.0.1-beta.0    4.0.0-canary.28
+@payloadcms/storage-s3              3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/storage-vercel-blob     3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/tanstack-start          4.0.0-internal.183b315N/A             4.0.0-canary.28
+@payloadcms/translations            3.88.0          3.0.0-beta.135  4.0.0-canary.28
+@payloadcms/typescript-plugin       3.88.0          N/A             4.0.0-canary.28
+@payloadcms/ui                      3.88.0          3.0.0-beta.135  4.0.0-canary.28
+create-payload-app                  3.88.0          3.0.0-beta.135  4.0.0-canary.28
+payload                             3.88.0          3.0.0-beta.135  4.0.0-canary.28
+
+ [32m✓[39m [30m[42m unit [49m[39m tools/releaser/src/lib/getPackageRegistryVersions.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/richtext-lexical/src/dependencyChecker.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/ast-integration.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 6475[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 1953[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 800[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 996[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 934[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 1013[2mms[22m[39m
+       [33m[2m✓[22m[39m successfully applies AST transformations [33m 779[2mms[22m[39m
+[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◑  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h[?25l│
+[999D[J◒  Resolving Payload version (canary)[999D[J◐  Resolving Payload version (canary)[999D[J◓  Resolving Payload version (canary)[999D[J◑  Resolving Payload version (canary)[999D[J◒  Resolving Payload version (canary)[999D[J◇  Using Payload version 4.0.0-canary.28
+[?25h[999D[J◇  Dependency installation skipped
+[?25h [32m✓[39m [30m[42m unit [49m[39m packages/create-payload-app/src/lib/create-project.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 14161[2mms[22m[39m
+       [33m[2m✓[22m[39m creates plugin template [33m 896[2mms[22m[39m
+       [33m[2m✓[22m[39m updates project name in plugin template importMap file [33m 647[2mms[22m[39m
+       [33m[2m✓[22m[39m creates example [33m 10163[2mms[22m[39m
+         [33m[2m✓[22m[39m update config and deps: blank, mongodb [33m 1173[2mms[22m[39m
+         [33m[2m✓[22m[39m update config and deps: blank, postgres [33m 1278[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m157 passed[39m[22m[90m (157)[39m
+[2m      Tests [22m [1m[32m1728 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (1730)[39m
+[2m   Start at [22m 22:44:05
+[2m   Duration [22m 15.41s[2m (transform 25.42s, setup 0ms, import 62.21s, tests 30.68s, environment 11ms)[22m
+
